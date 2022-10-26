@@ -1,5 +1,12 @@
 
 import React from "react"
+import {
+    BrowserRouter,
+    Routes,
+    Route,
+    Link
+  } from "react-router-dom";
+import SignUp from './SignUp';
 
 function SignIn(){
     return (
@@ -20,8 +27,8 @@ function SignIn(){
                     <a href="http://google.com">Forgot password</a>
 
                     </div>
-                    <button>Log in</button>
-                    <button>Sign up</button>
+                    <button><Link to="home">Login</Link></button>
+                    <button><Link to="signup">Sign Up</Link></button>
 
 
 
