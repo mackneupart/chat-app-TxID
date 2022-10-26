@@ -9,7 +9,7 @@ import Home from './Pages/Home';
 import SignIn from './Pages/SignIn';
 import SignUp from './Pages/SignUp';
 
-function App() {
+function App(props) {
   return (
     <BrowserRouter>
       <div className="App">
@@ -23,11 +23,11 @@ function App() {
       </div>
 
       <Routes>
-        <Route path= "/" element = {<SignIn/>}/>
-        <Route path="signup" element = {<SignUp/>}/>
-        <Route path="home" element = {<Home/>}/>
+        <Route path= "/" element = {<SignIn page = "SignIn"/>}/>
+        <Route path="signup" element = {<SignUp page = "SignUp"/>}/>
+        <Route path="home" element = {<Home page = "Home"/>}/>
       </Routes>
-      
+
   </BrowserRouter>
   );
 }
