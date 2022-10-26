@@ -1,31 +1,35 @@
 
-function SignUp(){
+import LanguageDropdown from "../Components/language/LangugageDropdown";
+import TextInput from "../Components/text/TextInput";
 
+//Save this input somewhere
+export default function SignUp(){
+
+    //const alert = useAlert()
+    //TODO: Handle commit
     function handleSubmit(){
-        
+        console.log("Submitted!")
     }
-    //name+ 
-    //email + 
-    //password
-    //native
-    //learning 
-    //interests
+
+    
     return(
     
         <form onSubmit={handleSubmit}>
+            <h1 className="page">Sign UP Page</h1>
             <div>
-                <label>Username:</label> <input type = "text"></input>
-                <label>E-mail :</label> <input type = "text"></input>
-                <label>Password: </label><input type="password"></input>
+                <label>Username:</label> <TextInput/> <br/>
+                <label>E-mail :</label> <TextInput/><br/>
+                {/** TODO passwort control*/}
+                <label>Password: </label><input type="password"></input><br/>
             </div>
             <div>
+                {/**TODO: show different Languages /intersts after selection */}
                 <label>What is your native Language</label>
-                <select name = "languages"> 
-                    <option>Spanish</option>
-                    <option>Danish</option>
-                </select>
+                <LanguageDropdown/> <br/>
+                <label>What languages do you want to learn?</label>
+                <LanguageDropdown/> <br/>
                 <label>What are your interests:</label> <input type="text"></input>
-            </div>
+            </div><br/>
             <input type="submit"></input>
         </form>
     )
