@@ -11,6 +11,7 @@ import SignUp from './Pages/SignUp';
 
 function App(props) {
   return (
+
     <BrowserRouter>
       <div className="App">
         <nav>
@@ -29,6 +30,8 @@ function App(props) {
       </Routes>
 
   </BrowserRouter>
+
+
   );
 }
 
