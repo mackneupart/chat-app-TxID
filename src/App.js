@@ -14,13 +14,13 @@ function App(props) {
 
     <BrowserRouter>
       <div className="App">
-        <nav>
+        {/* <nav>
           <ul>
             <li><Link to="/">Sign in</Link></li>
             <li><Link to="signup">Sign Up</Link></li>
             <li><Link to="home">Home</Link></li>
           </ul>
-        </nav>
+        </nav> */}
       </div>
 
       <Routes>
