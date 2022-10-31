@@ -6,7 +6,7 @@ import TextInput from "../Components/text/TextInput";
 export default function SignUp(){
 
     //const alert = useAlert()
-    //TODO: Handle commit
+    //TODO: Handle Submit
     function handleSubmit(){
         console.log("Submitted!")
     }
