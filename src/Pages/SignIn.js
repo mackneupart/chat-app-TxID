@@ -12,6 +12,17 @@ function SignIn(){
 
     const[username,setUserName] = useState("");
 
+    function isUser(){
+        return true; //TODO: later it should actually check if username + pswrd is correct.
+    }
+
+    function handleLogin() {
+        if (isUser()) {
+            console.log("navigating to homepage")
+            return <Link to="home"></Link>
+            
+        }
+    }
 
     return (
         <div>
@@ -34,10 +45,8 @@ function SignIn(){
                         </div>
                     </form>
                     <a href="http://google.com">Forgot password?</a>
-                    <button className="button-default button-logIn"><Link className="button-text" to="home">Login</Link></button>
+                    <button className="button-default button-logIn" onClick={handleLogin}>Login</button>
                     <button className="button-default button-singUp"><Link className="button-text" to="signUp">Sign Up</Link></button>
-
-
 
                 </div>
             </div>
