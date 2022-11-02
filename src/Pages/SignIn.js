@@ -7,7 +7,7 @@ import {
     Link,
     useNavigate
   } from "react-router-dom";
-import SignUp from './SignUp';
+import SignUp from './SignUp/SignUp';
 
 function SignIn(){
     const navigate = useNavigate();
