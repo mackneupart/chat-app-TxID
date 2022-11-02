@@ -4,23 +4,26 @@ import {
     BrowserRouter,
     Routes,
     Route,
-    Link
+    Link,
+    useNavigate
   } from "react-router-dom";
 import SignUp from './SignUp';
 
 function SignIn(){
+    const navigate = useNavigate();
 
     const[username,setUserName] = useState("");
 
     function isUser(){
         return true; //TODO: later it should actually check if username + pswrd is correct.
-    }
+    };
 
     function handleLogin() {
+        
+        
         if (isUser()) {
-            console.log("navigating to homepage")
-            return <Link to="home"></Link>
-            
+            console.log("navigating to homepage");
+            navigate("home");
         }
     }
 
@@ -54,5 +57,6 @@ function SignIn(){
         </div>
     )
 }
+
 
 export default SignIn

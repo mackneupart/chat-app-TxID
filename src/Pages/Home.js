@@ -1,5 +1,9 @@
-export default () => {
+export default (props) => {
     return (
-        <h1 className="page">Home page</h1>
+        <div>
+            <h1 className="page">Home page</h1>
+            <h1>{props.username}</h1>
+        </div>
+        
     )
 }
