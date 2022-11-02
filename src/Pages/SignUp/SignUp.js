@@ -28,11 +28,6 @@ export default function SignUp(){
                             <div Classname = "profilePic">
 
                             </div>
-                            <label>Select a profile picture:</label>
-                            <div ClassName = "pictureSelection">
-
-                            </div>
-                            <input type="button" value = "Select" onClick = {() => handleSelect(/**picture */)}></input>
 
                         </div>
                     </div>
@@ -46,7 +41,7 @@ export default function SignUp(){
                     </form>
 
         <form onSubmit={handleSubmit}>
-            <h1 className="page">Sign UP Page</h1>
+
 
                 {/**left side, picture */}
                 <div ClassName = "lila_box">
