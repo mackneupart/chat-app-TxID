@@ -37,7 +37,6 @@ export default function SignUp(){
 
                         </div>
                     </div>
-                    <div>
                         {/**right side user information */}
                         {/**User name control */}
                         <label>Username:</label> <TextInput/> <br/>
@@ -45,10 +44,11 @@ export default function SignUp(){
                         {/** TODO password control*/}
                         <label>Password: </label><input type="password"></input><br/>
                         {/**repeat passwotd */}
+                    </form>
 
         <form onSubmit={handleSubmit}>
             <h1 className="page">Sign UP Page</h1>
-            <div>
+
                 {/**left side, picture */}
                 <div ClassName = "lila_box">
                     <div Classname = "profilePic">
@@ -81,6 +81,7 @@ export default function SignUp(){
                         <label>What are your interests:</label> <input type="text"></input>
                     </div><br/>
                     <input type="submit" value = "Sign Up"></input>
+                </div>
                 </form>
             </div>
         </div>
