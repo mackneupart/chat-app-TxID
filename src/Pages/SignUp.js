@@ -23,12 +23,12 @@ export default function SignUp(){
             <h1 className="page">Sign UP Page</h1>
             <div>
                 {/**left side, picture */}
-                <div name = "lila_box">
-                    <div name = "profilePic">
+                <div ClassName = "lila_box">
+                    <div Classname = "profilePic">
 
                     </div>
                     <label>Select a profile picture:</label>
-                    <div name = "pictureSelection">
+                    <div ClassName = "pictureSelection">
 
                     </div>
                     <input type="button" value = "Select" onClick = {() => handleSelect(/**picture */)}></input>
@@ -40,8 +40,9 @@ export default function SignUp(){
                 {/**User name control */}
                 <label>Username:</label> <TextInput/> <br/>
                 <label>E-mail :</label> <TextInput/><br/>
-                {/** TODO passwort control*/}
+                {/** TODO password control*/}
                 <label>Password: </label><input type="password"></input><br/>
+                {/**repeat passwotd */}
             </div>
             <div>
                 {/**TODO: show different Languages /intersts after selection */}
