@@ -2,17 +2,13 @@
 import React, { useState } from "react"
 import './signIn.css';
 import {
-    BrowserRouter,
-    Routes,
-    Route,
     Link,
     useNavigate
   } from "react-router-dom";
-import SignUp from '../SignUp';
 
 function SignIn(){
-    const navigate = useNavigate();
 
+    const navigate = useNavigate();
     const [errorMessages, setErrorMessages] = useState("");
     const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -80,7 +76,7 @@ function SignIn(){
                         </div>
                         {renderErrorMessage("pass")}
                     </form>
-                    <a href="http://google.com">Forgot password?</a>
+                    <a className="forgot-pass" href="http://google.com">Forgot password?</a>
                     <button className="button-default button-logIn" onClick={handleSubmit}>Login</button>
                     <button className="button-default button-singUp"><Link className="button-default" to="signUp">Sign Up</Link></button>
                 </div>

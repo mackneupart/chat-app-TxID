@@ -16,7 +16,6 @@
 }
 .input-container{
     display: flex;
-    padding-bottom: 20px;
 }
 .input-field{
     border-radius:10%;
@@ -47,4 +46,10 @@
     color: red;
 }
 
+.forgot-pass{
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 10px;
+    max-width: max-content;
+}
 
