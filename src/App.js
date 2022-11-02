@@ -11,15 +11,16 @@ import SignUp from './Pages/SignUp';
 
 function App(props) {
   return (
+
     <BrowserRouter>
       <div className="App">
-        <nav>
+        {/* <nav>
           <ul>
             <li><Link to="/">Sign in</Link></li>
             <li><Link to="signup">Sign Up</Link></li>
             <li><Link to="home">Home</Link></li>
           </ul>
-        </nav>
+        </nav> */}
       </div>
 
       <Routes>
@@ -29,6 +30,8 @@ function App(props) {
       </Routes>
 
   </BrowserRouter>
+
+
   );
 }
 
