@@ -1,4 +1,3 @@
-
 import LanguageDropdown from "../../Components/language/LangugageDropdown";
 import TextInput from "../../Components/text/TextInput";
 import "./SignUp.css";
