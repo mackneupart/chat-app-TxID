@@ -1,6 +1,6 @@
 
-import LanguageDropdown from "../Components/language/LangugageDropdown";
-import TextInput from "../Components/text/TextInput";
+import LanguageDropdown from "../../Components/language/LangugageDropdown";
+import TextInput from "../../Components/text/TextInput";
 
 //TODO: Save this input somewhere
 export default function SignUp(){
@@ -15,7 +15,6 @@ export default function SignUp(){
         //change profile picture to selected picture
 
     }
-
     
     return(
     
