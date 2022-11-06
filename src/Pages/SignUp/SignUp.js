@@ -1,3 +1,4 @@
+//import { useState } from 'react';
 import LanguageDropdown from "../../Components/language/LangugageDropdown";
 import TextInput from "../../Components/text/TextInput";
 import "./SignUp.css";
@@ -8,16 +9,35 @@ export default function SignUp(){
 
     //const alert = useAlert()
     //TODO: Handle Submit
+    const src = [
+        "./CatIcons/cat1.png", 
+        "./CatIcons/cat2.png" ,
+        "./CatIcons/cat3.png", 
+        "./CatIcons/cat4.png", 
+        "./CatIcons/cat5.png", 
+        "./CatIcons/cat6.png", 
+        "./CatIcons/cat7.png", 
+        "./CatIcons/cat8.png", 
+        "./CatIcons/cat9.png" ,
+        "./CatIcons/cat10.png",
+        "./CatIcons/cat11.png",
+        "./CatIcons/cat12.png",
+        "./CatIcons/cat13.png",
+        "./CatIcons/cat14.png",
+        "./CatIcons/cat15.png"
+        ]
     function handleSubmit(){
         console.log("Submitted!")
+        //check for unique user name
+        //check mail => is mail
+        //check password and repeated password
+        //send everything to databank
     }
-    //const profilePicture = [picture, setPicture]
-    function handleSelect(picture){
+    
+    function handleSelect(source){
         //change profile picture to selected picture
-        //get element by ID
-        const profPic = document.getElementById("profilePicture")
-        profPic.scr = picture
-        //<ProfilePic scr = new scr)
+        const profPic = document.getElementById("ProfilePicture");
+        profPic.src = source;       
 
     }
     
@@ -29,32 +49,33 @@ export default function SignUp(){
 
 
                 {/**left side, picture */}
-                <div ClassName = "lila_box">
-                    <div Classname = "profilePic">
+                <div className = "lila_box">
+                    <div className = "profilePic">
                         <img className="profilePicture" id="ProfilePicture" alt = "Profile Picture" src = "./CatIcons/cat1.png" />
                     </div>
                     <label>Select a profile picture:</label>
-                    <div ClassName = "pictureSelection">
-                        <img alt="Cat1" src="./CatIcons/cat1.png" />
-                        <img alt="Cat2" src="./CatIcons/cat2.png" />
-                        <img alt="Cat3" src="./CatIcons/cat3.png" />
-                        <img alt="Cat4" src="./CatIcons/cat4.png" />
-                        <img alt="Cat5" src="./CatIcons/cat5.png" />
-                        <img alt="Cat6" src="./CatIcons/cat6.png" />
-                        <img alt="Cat7" src="./CatIcons/cat7.png" />
-                        <img alt="Cat8" src="./CatIcons/cat8.png" />
-                        <img alt="Cat9" src="./CatIcons/cat9.png" />
-                        <img alt="Cat10" src="./CatIcons/cat10.png" />
-                        <img alt="Cat11" src="./CatIcons/cat11.png" />
-                        <img alt="Cat12" src="./CatIcons/cat12.png" />
-                        <img alt="Cat13" src="./CatIcons/cat13.png" />
-                        <img alt="Cat14" src="./CatIcons/cat14.png" />
-                        <img alt="Cat15" src="./CatIcons/cat15.png" />
+                    <div className = "pictureSelection">
+                        <img alt="Cat1" src={src[0]} onClick={() => handleSelect(src[0])} />
+                        <img alt="Cat2" src={src[1]} onClick={() => handleSelect(src[1])}/>
+                        <img alt="Cat3" src={src[2]} onClick={() => handleSelect(src[2])}/>
+                        <img alt="Cat4" src={src[3]} onClick={() => handleSelect(src[3])}/>
+                        <img alt="Cat5" src={src[4]} onClick={() => handleSelect(src[4])}/>
+                        <img alt="Cat6" src={src[5]} onClick={() => handleSelect(src[5])}/>
+                        <img alt="Cat7" src={src[6]} onClick={() => handleSelect(src[6])}/>
+                        <img alt="Cat8" src={src[7]} onClick={() => handleSelect(src[7])}/>
+                        <img alt="Cat9" src={src[8]} onClick={() => handleSelect(src[8])}/>
+                        <img alt="Cat10" src={src[9]} onClick={() => handleSelect(src[9])} />
+                        <img alt="Cat11" src={src[10]} onClick={() => handleSelect(src[10])} />
+                        <img alt="Cat12" src={src[11]} onClick={() => handleSelect(src[11])} />
+                        <img alt="Cat13" src={src[12]} onClick={() => handleSelect(src[12])} />
+                        <img alt="Cat14" src={src[13]} onClick={() => handleSelect(src[13])} />
+                        <img alt="Cat15" src={src[14]} onClick={() => handleSelect(src[14])} />
                     </div>
-
+                    {/** we accidentally deleted the Select button but it might work better without */}
                     <div>
                         {/**right side user information */}
                         {/**User name control */}
+                        {/**TODO make Text input types */}
                         <label>Username:</label> <TextInput/> <br/>
                         <label>E-mail :</label> <TextInput/><br/>
                         {/** TODO password control*/}
