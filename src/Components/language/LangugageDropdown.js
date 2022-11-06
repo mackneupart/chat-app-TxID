@@ -1,7 +1,19 @@
+import { useState } from 'react';
+import SelectedField from "../SelectedField/SelectedField";
 
 export default function LanguageDropdown() {
+    const [selected, setSelected] = useState();
+
+    const selectDropdown = (e) => {
+        const val = e.target.value;
+        setSelected(val);
+        return(
+            <SelectedField  value = {selected}/>
+        )
+    };
+
     return(
-        <select id="languages" name="languages">
+        <select id="languages" name="languages" onChange={selectDropdown}>
             <option>Select Language</option>
             <option value="af">Afrikaans</option>
             <option value="sq">Albanian - shqip</option>

@@ -51,7 +51,7 @@ export default function SignUp(){
                 {/**left side, picture */}
                 <div className = "lila_box">
                     <div className = "profilePic">
-                        <img className="profilePicture" id="ProfilePicture" alt = "Profile Picture" src = "./CatIcons/cat1.png" />
+                        <img className="profilePicture" id="ProfilePicture" alt = "Profile" src = "./CatIcons/cat1.png" />
                     </div>
                     <label>Select a profile picture:</label>
                     <div className = "pictureSelection">
@@ -81,6 +81,7 @@ export default function SignUp(){
                         {/** TODO password control*/}
                         <label>Password: </label><input type="password"></input><br/>
                         {/**repeat passwotd */}
+                        <label>Repeat password: </label><input type="password"></input><br/>
                     </div> 
                     <div>
                         {/**TODO: show different Languages /intersts after selection */}
