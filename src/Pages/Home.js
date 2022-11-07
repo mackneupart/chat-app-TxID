@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Home.css";
 import UserData from "../Components/UserData";
 import ChatList from "../Components/home/ChatList";
+import ChatAdd from "../Components/home/ChatAdd";
 
 export default function Home() {
   const [ chatList, setChatList ] = useState(UserData);
@@ -11,6 +12,15 @@ export default function Home() {
   };
 
   const mainUser = getMainUser("01");
+
+  function addChat() {
+    console.log(chatList)
+    setChatList([
+      ...chatList,
+      {id: Math.random().toString(), username: "Kitty What Up", TL:"French", NL:"English", image:"https://media.npr.org/assets/img/2021/08/11/gettyimages-1279899488_wide-f3860ceb0ef19643c335cb34df3fa1de166e2761-s1100-c50.jpg"}
+    ]);
+    console.log(chatList)
+  };
 
   return (
     <div> 
@@ -41,8 +51,10 @@ export default function Home() {
             <ChatList chatList={chatList} />
             </div>
             <div className="newChats">
-              <div className="newChat">this is new chat</div>
-              <div className="newGroupChat">this is new group chat</div>
+              <div className="newChat">
+                <button onClick={addChat}>New Chat</button>
+              </div>
+              <div className="newGroupChat">New Group Chat</div>
             </div>
           </div>
         </div>
