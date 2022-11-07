@@ -3,9 +3,10 @@ import "./Home.css";
 import UserData from "../Components/UserData";
 import ChatList from "../Components/home/ChatList";
 import ChatAdd from "../Components/home/ChatAdd";
+import Button from "../Components/Button";
 
 export default function Home() {
-  const [ chatList, setChatList ] = useState(UserData);
+  const [chatList, setChatList] = useState(UserData);
 
   const getMainUser = (user) => {
     return UserData.find((u) => u.id === user);
@@ -14,16 +15,37 @@ export default function Home() {
   const mainUser = getMainUser("01");
 
   function addChat() {
-    console.log(chatList)
     setChatList([
       ...chatList,
-      {id: Math.random().toString(), username: "Kitty What Up", TL:"French", NL:"English", image:"https://media.npr.org/assets/img/2021/08/11/gettyimages-1279899488_wide-f3860ceb0ef19643c335cb34df3fa1de166e2761-s1100-c50.jpg"}
+      {
+        id: Math.random().toString(),
+        username: "Kitty What Up",
+        TL: "French",
+        NL: "English",
+        image:
+          "https://media.npr.org/assets/img/2021/08/11/gettyimages-1279899488_wide-f3860ceb0ef19643c335cb34df3fa1de166e2761-s1100-c50.jpg",
+        chatType: "single",
+      },
     ]);
-    console.log(chatList)
-  };
+  }
+
+  function addGroupChat() {
+    setChatList([
+      ...chatList,
+      {
+        id: Math.random().toString(),
+        username: "Kitty What Up",
+        TL: "French",
+        NL: "English",
+        image:
+          "https://media.npr.org/assets/img/2021/08/11/gettyimages-1279899488_wide-f3860ceb0ef19643c335cb34df3fa1de166e2761-s1100-c50.jpg",
+        chatType: "group",
+      },
+    ]);
+  }
 
   return (
-    <div> 
+    <div>
       <div className="home-page background">
         <div className="box">
           <div className="userBox">
@@ -43,24 +65,22 @@ export default function Home() {
               <div className="userInfoPlaceholder">{mainUser.NL}</div>
             </div>
             <div className="settingsButton">
-              <button>Settings</button>
+              <Button text="Settings" />
             </div>
           </div>
           <div className="chatOverview">
             <div className="chat">
-            <ChatList chatList={chatList} />
+              <ChatList chatList={chatList} />
             </div>
             <div className="newChats">
               <div className="newChat">
-                <button onClick={addChat}>New Chat</button>
+                <Button click={addChat} text="New Chat" />
               </div>
               <div className="newGroupChat">New Group Chat</div>
             </div>
           </div>
         </div>
       </div>
-      
-      
     </div>
   );
-};
+}
