@@ -60,7 +60,7 @@ function SignIn(){
                 <div className="purple-box">
 
                     <div className="header">
-                        <img src="./Icons/welcome-cat.png"/>
+                        <img clasName="cat-logo"src="./Icons/welcome-cat.png"/>
                         <h1 className="header-welcome">WELCOME</h1>
                     </div>
                     <form>
