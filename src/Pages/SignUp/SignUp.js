@@ -1,6 +1,7 @@
 //import { useState } from 'react';
 import LanguageDropdown from "../../Components/language/LangugageDropdown";
 import TextInput from "../../Components/text/TextInput";
+import InterestList from "../../Components/InterestList/InterestList"
 import "./SignUp.css";
 
 
@@ -89,8 +90,7 @@ export default function SignUp(){
                         <LanguageDropdown/> <br/>
                         <label>What languages do you want to learn?</label>
                         <LanguageDropdown/> <br/>
-                        <label>What are your interests:</label> <input type="text"></input>
-                    </div><br/>
+                        <label>What are your interests:</label> <InterestList/> </div><br/>
                     <input type="submit" value = "Sign Up"></input>
                 </div>
                 </form>
