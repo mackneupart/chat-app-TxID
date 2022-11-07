@@ -1,19 +1,22 @@
 import { useState } from 'react';
-import SelectedField from "../SelectedField/SelectedField";
+import ListItem from '../ListItem/ListItem';
+
 
 export default function LanguageDropdown() {
-    const [selected, setSelected] = useState();
+    const [selected, setSelected] = useState("");
+    const [langList, setLangList] = useState([])
 
-    const selectDropdown = (e) => {
-        const val = e.target.value;
-        setSelected(val);
-        return(
-            <SelectedField  value = {selected}/>
-        )
-    };
+    function selectDropdown(value){
+        setLangList(prevState => [...prevState, value])
+        //setSelected("")
+    }
+    function deleteItem(index){
+        setLangList(prevState => [...prevState.filter((item, i ) => i != index)])
+    }
 
     return(
-        <select id="languages" name="languages" onChange={selectDropdown}>
+        <div className='languageDropdown'>
+        <select id="languages" name="languages" value = {selected} onChange={(e) => selectDropdown(e.target.selectedOptions[0].text)}>
             <option>Select Language</option>
             <option value="af">Afrikaans</option>
             <option value="sq">Albanian - shqip</option>
@@ -158,5 +161,11 @@ export default function LanguageDropdown() {
             <option value="yo">Yoruba - Èdè Yorùbá</option>
             <option value="zu">Zulu - isiZulu</option>
         </select>
+        <ul>{langList.map((item, index) => 
+                <ListItem key = {index} item ={item} index = {index} deleteItem = {deleteItem} />
+            )}
+            
+        </ul>
+        </div>
     );
 }
