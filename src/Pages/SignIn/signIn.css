@@ -22,18 +22,15 @@
     flex-direction: column;
     margin-right: auto;
     margin-left: auto;
-    border: solid red 4px;
 }
 .header-welcome{
     font-size: 48pt;
     color: aliceblue;
     text-shadow: 2px 2px black;
-    border: solid red 4px;
 }
 .header > img{
     width: 81px;
     height: 79px;
-    border: solid aqua 4px;
 }
 .input-container{
     display: flex;
