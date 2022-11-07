@@ -1,0 +1,4 @@
+.chat-list {
+    display: grid;
+    row-gap: 10px;
+}
