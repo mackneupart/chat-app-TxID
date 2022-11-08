@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Parse from 'parse/dist/parse.min.js';
-import { PersonComponent } from './PersonComponent';
+
 
 
 // this whole class is copied from https://www.back4app.com/docs/react/quickstart

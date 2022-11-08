@@ -5,6 +5,7 @@ import {
     Link,
     useNavigate
   } from "react-router-dom";
+import { PersonComponent } from "../../PersonComponent";
 
 function SignIn(){
 
@@ -58,7 +59,7 @@ function SignIn(){
         <div>
             <div className="background">
                 <div className="purple-box">
-
+                    <PersonComponent />
                     <div className="header">
                         <img clasName="cat-logo"src="./Icons/welcome-cat.png"/>
                         <h1 className="header-welcome">WELCOME</h1>
