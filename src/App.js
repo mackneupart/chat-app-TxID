@@ -21,21 +21,12 @@ function App(props) {
 
     <BrowserRouter>
       <div className="App">
-        {/* <nav>
-          <ul>
-            <li><Link to="/">Sign in</Link></li>
-            <li><Link to="signup">Sign Up</Link></li>
-            <li><Link to="home">Home</Link></li>
-          </ul>
-        </nav> */}
       </div>
-
       <Routes>
         <Route path= "/" element = {<SignIn page = "SignIn"/>}/>
         <Route path="signup" element = {<SignUp page = "SignUp"/>}/>
         <Route path="home" element = {<Home page = "Home"/>}/>
       </Routes>
-
   </BrowserRouter>
 
 

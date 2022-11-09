@@ -1,4 +1,3 @@
-//import { useState } from 'react';
 import LanguageDropdown from "../../Components/language/LangugageDropdown";
 import TextInput from "../../Components/text/TextInput";
 import InterestList from "../../Components/InterestList/InterestList"
@@ -6,8 +5,6 @@ import "./SignUp.css";
 import Parse from 'parse/dist/parse.min.js';
 import {useState} from "react";
 
-
-//TODO: Save this input somewhere
 export default function SignUp(){
 
     const [username, setUsername] = useState('');
@@ -31,8 +28,6 @@ export default function SignUp(){
         }
       };
 
-    //const alert = useAlert()
-    //TODO: Handle Submit
     const src = [
         "./CatIcons/cat1.png", 
         "./CatIcons/cat2.png" ,
@@ -50,13 +45,6 @@ export default function SignUp(){
         "./CatIcons/cat14.png",
         "./CatIcons/cat15.png"
         ]
-    function handleSubmit(){
-        console.log("Submitted!")
-        //check for unique user name
-        //check mail => is mail
-        //check password and repeated password
-        //send everything to databank
-    }
     
     function handleSelect(source){
         //change profile picture to selected picture
