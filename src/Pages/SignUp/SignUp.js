@@ -3,10 +3,33 @@ import LanguageDropdown from "../../Components/language/LangugageDropdown";
 import TextInput from "../../Components/text/TextInput";
 import InterestList from "../../Components/InterestList/InterestList"
 import "./SignUp.css";
+import Parse from 'parse/dist/parse.min.js';
+import {useState} from "react";
 
 
 //TODO: Save this input somewhere
 export default function SignUp(){
+
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const doUserRegistration = async function () {
+        // Note that these values come from state variables that we've declared before
+        const usernameValue = username;
+        const passwordValue = password;
+        try {
+          // Since the signUp method returns a Promise, we need to call it using await
+          const createdUser = await Parse.User.signUp(usernameValue, passwordValue);
+          alert(
+            `Success! User ${createdUser.getUsername()} was successfully created!`
+          );
+          return true;
+        } catch (error) {
+          // signUp can fail if any parameter is blank or failed an uniqueness check on the server
+          alert(`Error! ${error}`);
+          return false;
+        }
+      };
 
     //const alert = useAlert()
     //TODO: Handle Submit
@@ -46,9 +69,6 @@ export default function SignUp(){
         <div>
         <div className="background">
 
-        <form onSubmit={handleSubmit}>
-
-
                 {/**left side, picture */}
                 <div className = "lila_box">
                     <div className = "profilePic">
@@ -77,12 +97,27 @@ export default function SignUp(){
                         {/**right side user information */}
                         {/**User name control */}
                         {/**TODO make Text input types */}
-                        <label>Username:</label> <TextInput/> <br/>
+                        <label>Username:</label>
+                            <input
+                            value={username}
+                            onChange={(event) => setUsername(event.target.value)}
+                            placeholder="Username"
+                            size="large"
+                            className="form_input"
+                            /> <br/>
                         <label>E-mail :</label> <TextInput/><br/>
                         {/** TODO password control*/}
                         <label>Password: </label><input type="password"></input><br/>
                         {/**repeat passwotd */}
-                        <label>Repeat password: </label><input type="password"></input><br/>
+                        <label>Repeat password: </label>
+                            <input
+                                value={password}
+                                onChange={(event) => setPassword(event.target.value)}
+                                placeholder="Password"
+                                size="large"
+                                type="password"
+                                className="form_input"
+                            /><br/>
                     </div> 
                     <div>
                         {/**TODO: show different Languages /intersts after selection */}
@@ -91,9 +126,9 @@ export default function SignUp(){
                         <label>What languages do you want to learn?</label>
                         <LanguageDropdown/> <br/>
                         <label>What are your interests:</label> <InterestList/> </div><br/>
-                    <input type="submit" value = "Sign Up"></input>
+                    <button onClick={() => doUserRegistration()}>Sign up</button>
                 </div>
-                </form>
+                
             </div>
         </div>
     )
