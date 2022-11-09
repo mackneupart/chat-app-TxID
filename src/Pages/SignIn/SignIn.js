@@ -3,81 +3,100 @@ import React, { useState } from "react"
 import './signIn.css';
 import {
     Link,
+    Navigate,
     useNavigate
   } from "react-router-dom";
+import Parse from 'parse/dist/parse.min.js';
+
 
 function SignIn(){
 
-    const navigate = useNavigate();
-    const [errorMessages, setErrorMessages] = useState("");
-    const [isSubmitted, setIsSubmitted] = useState(false);
+  const navigate = useNavigate();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [currentUser, setCurrentUser] = useState(null);
 
-    const database = [
-        {
-          username: "user1",
-          password: "pass1"
-        },
-        {
-          username: "user2",
-          password: "pass2"
-        }
-      ];
+  // Function that will return current user and also update current username
+  const getCurrentUser = async function () {
+    const currentUser = await Parse.User.current();
+    // Update state variable holding current user
+    setCurrentUser(currentUser);
+    return currentUser;
+  };
 
-      const errors = {
-        uname: "invalid username",
-        pass: "invalid password"
-      };
+  const doUserLogIn = async function () {
+    // Note that these values come from state variables that we've declared before
+    const usernameValue = username;
+    const passwordValue = password;
+    try {
+      const loggedInUser = await Parse.User.logIn(usernameValue, passwordValue);
+      // logIn returns the corresponding ParseUser object
+      alert(
+        `Success! User ${loggedInUser.get(
+          'username'
+        )} has successfully signed in!`
+      );
+      // To verify that this is in fact the current user, `current` can be used
+      const currentUser = await Parse.User.current();
+      console.log(loggedInUser === currentUser);
+      // Clear input fields
+      setUsername('');
+      setPassword('');
+      // Update state variable holding current user
+      getCurrentUser();
+      navigate("home")
 
-      const handleSubmit = (event) => {
-        
-        var { uname, pass } = document.forms[0];
-
-        const userData = database.find((user) => user.username === uname.value);
-
-        if (userData) {
-            if (userData.password !== pass.value) {
-              // Invalid password
-              setErrorMessages({ name: "pass", message: errors.pass });
-            } else {
-               navigate("home");
-            }
-          } else {
-            // Username not found
-            setErrorMessages({ name: "uname", message: errors.uname });
-          }
-        };
-      
-        // Generate JSX code for error message
-        const renderErrorMessage = (name) =>
-          name === errorMessages.name && (
-            <div className="error">{errorMessages.message}</div>
-          );
-      
+      return true;
+    } catch (error) {
+      // Error can be caused by wrong parameters or lack of Internet connection
+      alert(`Error! ${error.message}`);
+      return false;
+    }
+  };  
 
     return (
         <div>
             <div className="background">
                 <div className="purple-box">
-
                     <div className="header">
                         <img clasName="cat-logo"src="./Icons/welcome-cat.png"/>
                         <h1 className="header-welcome">WELCOME</h1>
                     </div>
                     <form>
                         <div className="input-container">
-                        <input className="input-field" type="text" name="uname" placeholder="username" required/>
+                        <input 
+                        className="input-field" 
+                        type="text" name="uname" 
+                        value={username}
+                        onChange={(event) => setUsername(event.target.value)}
+                        placeholder="Username"
+                        required
+                        />
+
+                        
                         <img src="./Icons/welcome-user-90.png" width="30px" className="input-logo"/>
                         </div>
-                        {renderErrorMessage("uname")}
-
                         <div className="input-container">
-                        <input className="input-field" type="password" name="pass" placeholder="password" required/>
+                        <input 
+                          className="input-field" 
+                          type="password" 
+                          value={password}
+                          onChange={(event) => setPassword(event.target.value)}
+                          name="pass" 
+                          placeholder="password" 
+                          required
+                          />
                         <img src="./Icons/welcome-lock.png" width="30px" className="input-logo"/>
                         </div>
-                        {renderErrorMessage("pass")}
                     </form>
                     <a className="forgot-pass" href="http://google.com">Forgot password?</a>
-                    <button className="button-default button-logIn" onClick={handleSubmit}>Login</button>
+                    <button 
+                      className="button-default button-logIn"
+                      onClick={() => doUserLogIn()}
+                      type="primary"
+                      block 
+                      >Login
+                    </button>
                     <button className="button-default button-singUp"><Link className="button-default" to="signUp">Sign Up</Link></button>
                 </div>
 
@@ -86,6 +105,5 @@ function SignIn(){
         </div>
     )
 }
-
 
 export default SignIn

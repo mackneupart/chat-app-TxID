@@ -2,18 +2,44 @@ import React, { useState } from "react";
 import "./Home.css";
 import UserData from "../Components/UserData";
 import ChatList from "../Components/home/ChatList";
-import ChatAdd from "../Components/home/ChatAdd";
 import Button from "../Components/Button";
+import Parse from 'parse/dist/parse.min.js';
 
 export default function Home() {
   const [chatList, setChatList] = useState(UserData);
-
   const getMainUser = (user) => {
     return UserData.find((u) => u.id === user);
   };
-
   const mainUser = getMainUser("01");
+  
+  const [currentUser, setCurrentUser] = useState(null);
+  
+  const getCurrentUser = async function () {
+    const currentUser = await Parse.User.current();
+    // Update state variable holding current user
+    setCurrentUser(currentUser);
+    return currentUser;
+  };
 
+  getCurrentUser();
+
+  const logOutUser = async function () {
+    try {
+      await Parse.User.logOut();
+      // To verify that current user is now empty, currentAsync can be used
+      const currentUser = await Parse.User.current();
+      if (currentUser === null) {
+        alert('Success! No user is logged in anymore!');
+      }
+      // Update state variable holding current user
+      getCurrentUser();
+      return true;
+    } catch (error) {
+      alert(`Error! ${error.message}`);
+      return false;
+    }
+  };
+  
   function addChat() {
     setChatList([
       ...chatList,
@@ -74,8 +100,9 @@ export default function Home() {
               />
             </div>
             <div className="userInfo">
+
               <div className="userInfoDetail">Username</div>
-              <div className="userInfoPlaceholder">{mainUser.username}</div>
+              <div className="userInfoPlaceholder">{currentUser !== null  ? currentUser.get('username'): "not working"}</div>
               <div className="userInfoDetail">Target Language</div>
               <div className="userInfoPlaceholder">{mainUser.TL}</div>
               <div className="userInfoDetail">Native Language</div>
@@ -83,6 +110,7 @@ export default function Home() {
             </div>
             <div className="settingsButton">
               <Button text="Settings" />
+              <Button text="Log out" click={logOutUser} />
             </div>
           </div>
           <div className="chatOverview">
