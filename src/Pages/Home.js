@@ -4,16 +4,28 @@ import UserData from "../Components/UserData";
 import ChatList from "../Components/home/ChatList";
 import ChatAdd from "../Components/home/ChatAdd";
 import Button from "../Components/Button";
+import Parse from 'parse/dist/parse.min.js';
 
 export default function Home() {
   const [chatList, setChatList] = useState(UserData);
-
   const getMainUser = (user) => {
     return UserData.find((u) => u.id === user);
   };
-
   const mainUser = getMainUser("01");
+  
+  const [currentUser, setCurrentUser] = useState(null);
 
+  // Function that will return current user and also update current username
+  const getCurrentUser = async function () {
+    const currentUser = await Parse.User.current();
+    // Update state variable holding current user
+    setCurrentUser(currentUser);
+    return currentUser;
+  };
+
+  getCurrentUser();
+
+  
   function addChat() {
     setChatList([
       ...chatList,
@@ -74,8 +86,9 @@ export default function Home() {
               />
             </div>
             <div className="userInfo">
+
               <div className="userInfoDetail">Username</div>
-              <div className="userInfoPlaceholder">{mainUser.username}</div>
+              <div className="userInfoPlaceholder">{currentUser !== null  ? currentUser.get('username'): "not working"}</div>
               <div className="userInfoDetail">Target Language</div>
               <div className="userInfoPlaceholder">{mainUser.TL}</div>
               <div className="userInfoDetail">Native Language</div>
