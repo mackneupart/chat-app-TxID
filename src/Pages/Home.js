@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./Home.css";
 import UserData from "../Components/UserData";
 import ChatList from "../Components/home/ChatList";
-import ChatAdd from "../Components/home/ChatAdd";
 import Button from "../Components/Button";
 import Parse from 'parse/dist/parse.min.js';
 
@@ -14,8 +13,7 @@ export default function Home() {
   const mainUser = getMainUser("01");
   
   const [currentUser, setCurrentUser] = useState(null);
-
-  // Function that will return current user and also update current username
+  
   const getCurrentUser = async function () {
     const currentUser = await Parse.User.current();
     // Update state variable holding current user
@@ -24,6 +22,7 @@ export default function Home() {
   };
 
   getCurrentUser();
+
   const logOutUser = async function () {
     try {
       await Parse.User.logOut();
