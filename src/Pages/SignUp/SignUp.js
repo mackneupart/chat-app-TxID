@@ -4,6 +4,7 @@ import InterestList from "../../Components/InterestList/InterestList"
 import "./SignUp.css";
 import Parse from 'parse/dist/parse.min.js';
 import {useState} from "react";
+import { Navigate,useNavigate } from "react-router-dom";
 
 export default function SignUp(){
 
@@ -12,6 +13,8 @@ export default function SignUp(){
     const [email, setEmail] = useState('');
     const [nativeLanguage, setNativeLanguage] = useState([]);
     const [targetLanguage, setTargetLanguage] = useState([]); 
+    const navigate = useNavigate();
+
 
     const doUserRegistration = async function () {
         const user = new Parse.User();
@@ -23,6 +26,7 @@ export default function SignUp(){
         try{
             await user.signUp();
             alert(`User ${user.getUsername()} created`)
+            navigate("/")
         }catch(error){
             alert(`Error! ${error}`);
         }
