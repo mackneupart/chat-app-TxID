@@ -24,7 +24,7 @@ function SignIn(){
     return currentUser;
   };
 
-  const doUserLogIn = async function () {
+  const handleUserLogIn = async function () {
     // Note that these values come from state variables that we've declared before
     const usernameValue = username;
     const passwordValue = password;
@@ -92,7 +92,7 @@ function SignIn(){
                     <a className="forgot-pass" href="http://google.com">Forgot password?</a>
                     <button 
                       className="button-default button-logIn"
-                      onClick={() => doUserLogIn()}
+                      onClick={() => handleUserLogIn()}
                       type="primary"
                       block 
                       >Login
