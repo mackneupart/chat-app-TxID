@@ -9,23 +9,40 @@ export default function SignUp(){
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [nativeLanguage, setNativeLanguage] = useState([]);
+    const [targetLanguage, setTargetLanguage] = useState([]); 
 
     const doUserRegistration = async function () {
-        // Note that these values come from state variables that we've declared before
-        const usernameValue = username;
-        const passwordValue = password;
-        try {
-          // Since the signUp method returns a Promise, we need to call it using await
-          const createdUser = await Parse.User.signUp(usernameValue, passwordValue);
-          alert(
-            `Success! User ${createdUser.getUsername()} was successfully created!`
-          );
-          return true;
-        } catch (error) {
-          // signUp can fail if any parameter is blank or failed an uniqueness check on the server
-          alert(`Error! ${error}`);
-          return false;
+        const user = new Parse.User();
+        user.set("username", username);
+        user.set("password",password);
+        user.set("email", email);
+        user.set("nativeLanguage", nativeLanguage)
+        user.set("targ")
+
+        try{
+            await user.signUp();
+            alert(`User ${user.getUsername()} created`)
+        }catch(error){
+            alert(`Error! ${error}`);
         }
+        // // Note that these values come from state variables that we've declared before
+        // const usernameValue = username;
+        // const passwordValue = password;
+        // const emailValue = email;
+        // try {
+        //   // Since the signUp method returns a Promise, we need to call it using await
+        //   const createdUser = await Parse.User.signUp(usernameValue, passwordValue, emailValue);
+        //   alert(
+            // `Success! User ${createdUser.getUsername()} was successfully created!`
+        //   );
+        //   return true;
+        // } catch (error) {
+        //   // signUp can fail if any parameter is blank or failed an uniqueness check on the server
+        //   alert(`Error! ${error}`);
+        //   return false;
+        // }
       };
 
     const src = [
@@ -93,7 +110,15 @@ export default function SignUp(){
                             size="large"
                             className="form_input"
                             /> <br/>
-                        <label>E-mail :</label> <TextInput/><br/>
+                        <label>E-mail :</label>
+                        <input
+                            value={email}
+                            onChange={(event) => setEmail(event.target.value)}
+                            placeholder="email"
+                            size="large"
+                            className="form_input"
+                        />
+                        <br/>
                         {/** TODO password control*/}
                         <label>Password: </label><input type="password"></input><br/>
                         {/**repeat passwotd */}
@@ -112,7 +137,7 @@ export default function SignUp(){
                         <label>What is your native Language</label>
                         <LanguageDropdown/> <br/>
                         <label>What languages do you want to learn?</label>
-                        <LanguageDropdown/> <br/>
+                        <LanguageDropdown onChange={(event => setTargetLanguage(event.target.value))}/> <br/>
                         <label>What are your interests:</label> <InterestList/> </div><br/>
                     <button onClick={() => doUserRegistration()}>Sign up</button>
                 </div>
