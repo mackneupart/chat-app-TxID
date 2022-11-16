@@ -18,9 +18,8 @@ export default function SignUp(){
         user.set("username", username);
         user.set("password",password);
         user.set("email", email);
-        user.set("nativeLanguage", nativeLanguage)
-        user.set("targ")
-
+        user.set("nativeLanguage", nativeLanguage);
+        user.set("targetLanguage", targetLanguage);
         try{
             await user.signUp();
             alert(`User ${user.getUsername()} created`)
@@ -129,15 +128,14 @@ export default function SignUp(){
                                 placeholder="Password"
                                 size="large"
                                 type="password"
-                                className="form_input"
                             /><br/>
                     </div> 
                     <div>
                         {/**TODO: show different Languages /intersts after selection */}
                         <label>What is your native Language</label>
-                        <LanguageDropdown/> <br/>
+                        <LanguageDropdown setLanguage = {setNativeLanguage}/> <br/>
                         <label>What languages do you want to learn?</label>
-                        <LanguageDropdown onChange={(event => setTargetLanguage(event.target.value))}/> <br/>
+                        <LanguageDropdown setLanguage = {setTargetLanguage}/> <br/>
                         <label>What are your interests:</label> <InterestList/> </div><br/>
                     <button onClick={() => doUserRegistration()}>Sign up</button>
                 </div>
