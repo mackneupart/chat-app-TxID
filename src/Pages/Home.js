@@ -107,6 +107,8 @@ export default function Home() {
 
               <div className="userInfoDetail">Username</div>
               <div className="userInfoPlaceholder">{currentUser !== null  ? currentUser.get('username'): "not working"}</div>
+              <div className="userInfoDetail">Email</div>
+              <div className="userInfoPlaceholder">{currentUser !== null  ? currentUser.get('email'): "not working"}</div>
               <div className="userInfoDetail">Target Language</div>
               <div className="userInfoPlaceholder">{mainUser.TL}</div>
               <div className="userInfoDetail">Native Language</div>
