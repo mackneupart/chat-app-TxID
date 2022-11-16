@@ -26,24 +26,10 @@ export default function SignUp(){
         }catch(error){
             alert(`Error! ${error}`);
         }
-        // // Note that these values come from state variables that we've declared before
-        // const usernameValue = username;
-        // const passwordValue = password;
-        // const emailValue = email;
-        // try {
-        //   // Since the signUp method returns a Promise, we need to call it using await
-        //   const createdUser = await Parse.User.signUp(usernameValue, passwordValue, emailValue);
-        //   alert(
-            // `Success! User ${createdUser.getUsername()} was successfully created!`
-        //   );
-        //   return true;
-        // } catch (error) {
-        //   // signUp can fail if any parameter is blank or failed an uniqueness check on the server
-        //   alert(`Error! ${error}`);
-        //   return false;
-        // }
       };
 
+    // const cat = new Parse.catIcons();
+    // console.log(cat.getCatPNG());
     const src = [
         "./CatIcons/cat1.png", 
         "./CatIcons/cat2.png" ,

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import ListItem from '../ListItem/ListItem';
 
 
-export default function LanguageDropdown() {
+export default function LanguageDropdown({setLanguage}) {
     const [selected, setSelected] = useState("");
     const [langList, setLangList] = useState([])
 
@@ -164,6 +164,7 @@ export default function LanguageDropdown() {
         <ul>{langList.map((item, index) => 
                 <ListItem key = {index} item ={item} index = {index} deleteItem = {deleteItem} />
             )}
+            {setLanguage(langList)}
             
         </ul>
         </div>
