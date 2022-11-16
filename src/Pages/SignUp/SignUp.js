@@ -4,30 +4,36 @@ import InterestList from "../../Components/InterestList/InterestList"
 import "./SignUp.css";
 import Parse from 'parse/dist/parse.min.js';
 import {useState} from "react";
+import { Navigate,useNavigate } from "react-router-dom";
 
 export default function SignUp(){
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+    const [nativeLanguage, setNativeLanguage] = useState([]);
+    const [targetLanguage, setTargetLanguage] = useState([]); 
+    const navigate = useNavigate();
 
-    const handleSignup = async function () {
-        // Note that these values come from state variables that we've declared before
-        const usernameValue = username;
-        const passwordValue = password;
-        try {
-          // Since the signUp method returns a Promise, we need to call it using await
-          const createdUser = await Parse.User.signUp(usernameValue, passwordValue);
-          alert(
-            `Success! User ${createdUser.getUsername()} was successfully created!`
-          );
-          return true;
-        } catch (error) {
-          // signUp can fail if any parameter is blank or failed an uniqueness check on the server
-          alert(`Error! ${error}`);
-          return false;
+
+    const doUserRegistration = async function () {
+        const user = new Parse.User();
+        user.set("username", username);
+        user.set("password",password);
+        user.set("email", email);
+        user.set("nativeLanguage", nativeLanguage);
+        user.set("targetLanguage", targetLanguage);
+        try{
+            await user.signUp();
+            alert(`User ${user.getUsername()} created`)
+            navigate("/")
+        }catch(error){
+            alert(`Error! ${error}`);
         }
       };
 
+    // const cat = new Parse.catIcons();
+    // console.log(cat.getCatPNG());
     const src = [
         "./CatIcons/cat1.png", 
         "./CatIcons/cat2.png" ,
@@ -93,7 +99,15 @@ export default function SignUp(){
                             size="large"
                             className="form_input"
                             /> <br/>
-                        <label>E-mail :</label> <TextInput/><br/>
+                        <label>E-mail :</label>
+                        <input
+                            value={email}
+                            onChange={(event) => setEmail(event.target.value)}
+                            placeholder="email"
+                            size="large"
+                            className="form_input"
+                        />
+                        <br/>
                         {/** TODO password control*/}
                         <label>Password: </label><input type="password"></input><br/>
                         {/**repeat passwotd */}
@@ -104,15 +118,14 @@ export default function SignUp(){
                                 placeholder="Password"
                                 size="large"
                                 type="password"
-                                className="form_input"
                             /><br/>
                     </div> 
                     <div>
                         {/**TODO: show different Languages /intersts after selection */}
                         <label>What is your native Language</label>
-                        <LanguageDropdown/> <br/>
+                        <LanguageDropdown setLanguage = {setNativeLanguage}/> <br/>
                         <label>What languages do you want to learn?</label>
-                        <LanguageDropdown/> <br/>
+                        <LanguageDropdown setLanguage = {setTargetLanguage}/> <br/>
                         <label>What are your interests:</label> <InterestList/> </div><br/>
                     <button onClick={() => handleSignup()}>Sign up</button>
                 </div>

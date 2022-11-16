@@ -4,8 +4,11 @@ import UserData from "../../Components/UserData";
 import ChatList from "../../Components/home/ChatList";
 import Button from "../../Components/Button/Button";
 import Parse from 'parse/dist/parse.min.js';
+import { Navigate, useNavigate} from "react-router-dom";
+
 
 export default function Home() {
+  const navigate = useNavigate();
   const [chatList, setChatList] = useState(UserData);
   const getMainUser = (user) => {
     return UserData.find((u) => u.id === user);
@@ -33,6 +36,7 @@ export default function Home() {
       }
       // Update state variable holding current user
       getCurrentUser();
+      navigate("/")
       return true;
     } catch (error) {
       alert(`Error! ${error.message}`);
@@ -103,10 +107,12 @@ export default function Home() {
 
               <div className="userInfoDetail">Username</div>
               <div className="userInfoPlaceholder">{currentUser !== null  ? currentUser.get('username'): "not working"}</div>
+              <div className="userInfoDetail">Email</div>
+              <div className="userInfoPlaceholder">{currentUser !== null  ? currentUser.get('email'): "not working"}</div>
               <div className="userInfoDetail">Target Language</div>
-              <div className="userInfoPlaceholder">{mainUser.TL}</div>
+              <div className="userInfoPlaceholder">{currentUser !== null  ? currentUser.get('targetLanguage'): "not working"}</div>
               <div className="userInfoDetail">Native Language</div>
-              <div className="userInfoPlaceholder">{mainUser.NL}</div>
+              <div className="userInfoPlaceholder">{currentUser !== null  ? currentUser.get('nativeLanguage'): "not working"}</div>
             </div>
             <div className="settingsButton">
               <Button text="Settings" />
