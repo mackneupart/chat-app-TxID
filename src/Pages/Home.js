@@ -110,9 +110,9 @@ export default function Home() {
               <div className="userInfoDetail">Email</div>
               <div className="userInfoPlaceholder">{currentUser !== null  ? currentUser.get('email'): "not working"}</div>
               <div className="userInfoDetail">Target Language</div>
-              <div className="userInfoPlaceholder">{mainUser.TL}</div>
+              <div className="userInfoPlaceholder">{currentUser !== null  ? currentUser.get('targetLanguage'): "not working"}</div>
               <div className="userInfoDetail">Native Language</div>
-              <div className="userInfoPlaceholder">{mainUser.NL}</div>
+              <div className="userInfoPlaceholder">{currentUser !== null  ? currentUser.get('nativeLanguage'): "not working"}</div>
             </div>
             <div className="settingsButton">
               <Button text="Settings" />
