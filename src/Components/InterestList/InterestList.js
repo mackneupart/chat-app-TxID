@@ -15,18 +15,18 @@ const InterestList = () => {
   function handleNewItem(input) {
     setInterestList((prevState) => [...prevState, input]);
     console.log(input);
-    //event.preventDefault()
     setInput("");
   }
+
   function deleteItem(index) {
     setInterestList((prevState) => [
       ...prevState.filter((item, i) => i != index),
     ]);
   }
+  
   return (
     <div>
       <TextInput handleNewItem={handleNewItem} />
-
       <ul>
         {interestList.map((item, index) => (
           <ListItem
