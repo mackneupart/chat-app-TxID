@@ -10,7 +10,7 @@ export default function SignUp(){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const doUserRegistration = async function () {
+    const handleSignup = async function () {
         // Note that these values come from state variables that we've declared before
         const usernameValue = username;
         const passwordValue = password;
@@ -114,7 +114,7 @@ export default function SignUp(){
                         <label>What languages do you want to learn?</label>
                         <LanguageDropdown/> <br/>
                         <label>What are your interests:</label> <InterestList/> </div><br/>
-                    <button onClick={() => doUserRegistration()}>Sign up</button>
+                    <button onClick={() => handleSignup()}>Sign up</button>
                 </div>
                 
             </div>

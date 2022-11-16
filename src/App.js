@@ -1,11 +1,12 @@
 import './App.css';
+import './Design System/colours.css';
 import {
   BrowserRouter,
   Routes,
   Route,
   Link
 } from "react-router-dom";
-import Home from './Pages/Home';
+import Home from './Pages/Home/Home';
 import SignIn from './Pages/SignIn/SignIn.js';
 import SignUp from './Pages/SignUp/SignUp';
 import Parse from 'parse/dist/parse.min.js';

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./Home.css";
-import UserData from "../Components/UserData";
-import ChatList from "../Components/home/ChatList";
-import Button from "../Components/Button";
+import UserData from "../../Components/UserData";
+import ChatList from "../../Components/home/ChatList";
+import Button from "../../Components/Button/Button";
 import Parse from 'parse/dist/parse.min.js';
 
 export default function Home() {
