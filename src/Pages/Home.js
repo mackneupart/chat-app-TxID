@@ -4,8 +4,11 @@ import UserData from "../Components/UserData";
 import ChatList from "../Components/home/ChatList";
 import Button from "../Components/Button";
 import Parse from 'parse/dist/parse.min.js';
+import { Navigate, useNavigate} from "react-router-dom";
+
 
 export default function Home() {
+  const navigate = useNavigate();
   const [chatList, setChatList] = useState(UserData);
   const getMainUser = (user) => {
     return UserData.find((u) => u.id === user);
@@ -33,6 +36,7 @@ export default function Home() {
       }
       // Update state variable holding current user
       getCurrentUser();
+      navigate("/")
       return true;
     } catch (error) {
       alert(`Error! ${error.message}`);

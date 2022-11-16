@@ -44,7 +44,7 @@ function SignIn(){
       setPassword('');
       // Update state variable holding current user
       getCurrentUser();
-      navigate("home")
+      navigate("home");
 
       return true;
     } catch (error) {
