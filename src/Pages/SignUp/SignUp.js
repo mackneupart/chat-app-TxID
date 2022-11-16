@@ -127,7 +127,7 @@ export default function SignUp(){
                         <label>What languages do you want to learn?</label>
                         <LanguageDropdown setLanguage = {setTargetLanguage}/> <br/>
                         <label>What are your interests:</label> <InterestList/> </div><br/>
-                    <button onClick={() => doUserRegistration()}>Sign up</button>
+                    <button onClick={() => handleSignup()}>Sign up</button>
                 </div>
                 
             </div>
