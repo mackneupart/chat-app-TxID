@@ -12,12 +12,11 @@ export default function Home() {
   const [chatList, setChatList] = useState(UserData);
   const [currentUser, setCurrentUser] = useState(null);
 
-  const getMainUser = (user) => {
+  /* const getMainUser = (user) => {
     return UserData.find((u) => u.id === user);
   };
   const mainUser = getMainUser("01");
-
-  
+ */
 
   useEffect(() => {
     /**
@@ -33,12 +32,14 @@ export default function Home() {
         setCurrentUser(currentUser);
         console.log("this is current user");
         console.log(currentUser);
+        console.log("this is profile pic uri");
+        console.log(currentUser.get("profilePicture").url());
       }
     };
 
     fetchCurrentUser().catch(console.error);
 
-    return () => isUpdated = false;
+    return () => (isUpdated = false);
   }, []); //right now it will only render once. When settings have been implementet, change this
 
   const logOutUser = async function () {
@@ -50,7 +51,8 @@ export default function Home() {
         alert("Success! No user is logged in anymore!");
       }
       // Update state variable holding current user
-      getCurrentUser();
+      //getCurrentUser();
+      setCurrentUser(null);
       navigate("/");
       return true;
     } catch (error) {
@@ -61,7 +63,7 @@ export default function Home() {
 
   function addChat() {
     console.log("addchat clicked and entered");
-    setChatList3([
+    setChatList([
       ...chatList,
       {
         chat: [
@@ -118,7 +120,11 @@ export default function Home() {
           <div className="userImage">
             <img
               className="circle"
-              src={mainUser.image}
+              src={
+                currentUser !== null
+                  ? currentUser.get("profilePicture").url()
+                  : "../../../public/CatIcons/errorKitten"
+              }
               alt="the users profile pic"
             />
           </div>
