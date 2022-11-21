@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css";
-import "../../Design System/grid.css";
+import "../../DesignSystem/grid.css";
 import UserData from "../../Components/UserData";
 import ChatList from "../../Components/home/ChatList";
 import Button from "../../Components/Button/Button";
 import Parse from "parse/dist/parse.min.js";
 import { Navigate, useNavigate } from "react-router-dom";
+import errorKitten from "../../DesignSystem/errorKitten.jpg";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -113,6 +114,16 @@ export default function Home() {
     alert("Settings Button was pressed!");
   }
 
+  function getProfilePic() {
+    if (currentUser !== null) {
+      const url = currentUser.get("profilePicture").url();
+      if (url !== null || url !== undefined) {
+        return errorKitten;
+      }
+    }
+    return errorKitten;
+  }
+
   return (
     <div className="home-page background">
       <div className="box purple-box">
@@ -120,11 +131,7 @@ export default function Home() {
           <div className="userImage">
             <img
               className="circle"
-              src={
-                currentUser !== null
-                  ? currentUser.get("profilePicture").url()
-                  : "../../../public/CatIcons/errorKitten"
-              }
+              src={getProfilePic()}
               alt="the users profile pic"
             />
           </div>
