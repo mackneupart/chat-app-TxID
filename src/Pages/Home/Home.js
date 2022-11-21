@@ -13,12 +13,6 @@ export default function Home() {
   const [chatList, setChatList] = useState(UserData);
   const [currentUser, setCurrentUser] = useState(null);
 
-  /* const getMainUser = (user) => {
-    return UserData.find((u) => u.id === user);
-  };
-  const mainUser = getMainUser("01");
- */
-
   useEffect(() => {
     /**
      * create a variable to manage when the userdata should be changed
