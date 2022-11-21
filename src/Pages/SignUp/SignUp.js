@@ -13,7 +13,9 @@ export default function SignUp(){
     const [email, setEmail] = useState('');
     const [nativeLanguage, setNativeLanguage] = useState([]);
     const [targetLanguage, setTargetLanguage] = useState([]); 
+    const [catIcons, setCatIcons] = useState(null);
     const navigate = useNavigate();
+    
 
 
     const doUserRegistration = async function () {
@@ -31,9 +33,36 @@ export default function SignUp(){
             alert(`Error! ${error}`);
         }
       };
+    
+    const getCatPNG = async function(){
+        const query = new Parse.Query("catIcons");
+        try{
+            const icons = await query.find();
+            //console.log(icons[0].get('name'))
+            setCatIcons(icons)
+            //return catIcons;
+        }catch (error) {
+            // Error can be caused by wrong parameters or lack of Internet connection
+            //alert(`Error! ${error.message}`);
+            return false;
+          }
+        
+    }
+    function makeProfileSelection(){
+        
+        return (
+            <div>
+                {catIcons.map((catIcon, index) => (
+                <img alt={catIcon !== null  ? catIcon.get("name") : "not working :("} src={catIcon !== null  ? catIcon.get("catPNG") : null} onClick={() => handleSelect(catIcon.get("catPNG"))}/>
+              ))}
+            </div>
+            
+        );
+        
+    }
 
-    // const cat = new Parse.catIcons();
-    // console.log(cat.getCatPNG());
+    getCatPNG();
+
     const src = [
         "./CatIcons/cat1.png", 
         "./CatIcons/cat2.png" ,
@@ -54,6 +83,7 @@ export default function SignUp(){
     
     function handleSelect(source){
         //change profile picture to selected picture
+        //getCatPNG()
         const profPic = document.getElementById("ProfilePicture");
         profPic.src = source;       
 
@@ -70,6 +100,7 @@ export default function SignUp(){
                     </div>
                     <label>Select a profile picture:</label>
                     <div className = "pictureSelection">
+                        {makeProfileSelection()}
                         <img alt="Cat1" src={src[0]} onClick={() => handleSelect(src[0])} />
                         <img alt="Cat2" src={src[1]} onClick={() => handleSelect(src[1])}/>
                         <img alt="Cat3" src={src[2]} onClick={() => handleSelect(src[2])}/>
