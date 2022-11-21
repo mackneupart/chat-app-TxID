@@ -39,6 +39,7 @@ export default function SignUp(){
         try{
             const icons = await query.find();
             //console.log(icons[0].get('name'))
+            console.log(icons.get("catPNG"))
             setCatIcons(icons)
             //return catIcons;
         }catch (error) {
@@ -49,15 +50,27 @@ export default function SignUp(){
         
     }
     function makeProfileSelection(){
+        //to avoid many reloads
+        if (catIcons !== null){
+            try{
+                return ( 
+                    <div>
+                        {catIcons.map((catIcon) => (
+                        <img alt={catIcon !== null  ? catIcon.get("name") : "not working :("} src={catIcon !== null  ? catIcon.get("catPNG") : "altText"} onClick={() => handleSelect(catIcon.get("catPNG"))}/>
+                      ))}
+                    </div>
+                    
+                );
+            } catch (error){
+                return false;
+            }
+        }else {
+            /**getCatPNG()*/
+            /**makeProfileSelection()*/
+            return
+        }
+       
         
-        return (
-            <div>
-                {catIcons.map((catIcon, index) => (
-                <img alt={catIcon !== null  ? catIcon.get("name") : "not working :("} src={catIcon !== null  ? catIcon.get("catPNG") : null} onClick={() => handleSelect(catIcon.get("catPNG"))}/>
-              ))}
-            </div>
-            
-        );
         
     }
 
