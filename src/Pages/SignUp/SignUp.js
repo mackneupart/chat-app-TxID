@@ -38,13 +38,10 @@ export default function SignUp(){
         const query = new Parse.Query("catIcons");
         try{
             const icons = await query.find();
-            //console.log(icons[0].get('name'))
-            console.log(icons.get("catPNG"))
             setCatIcons(icons)
-            //return catIcons;
+            
         }catch (error) {
             // Error can be caused by wrong parameters or lack of Internet connection
-            //alert(`Error! ${error.message}`);
             return false;
           }
         
@@ -56,7 +53,7 @@ export default function SignUp(){
                 return ( 
                     <div>
                         {catIcons.map((catIcon) => (
-                        <img alt={catIcon !== null  ? catIcon.get("name") : "not working :("} src={catIcon !== null  ? catIcon.get("catPNG") : "altText"} onClick={() => handleSelect(catIcon.get("catPNG"))}/>
+                        <img alt={catIcon !== null  ? catIcon.get("name") : "not working :("} src={catIcon !== null  ? catIcon.get("catPNG")._url : "altText"} onClick={() => handleSelect(catIcon.get("catPNG")._url)}/>
                       ))}
                     </div>
                     
@@ -64,10 +61,6 @@ export default function SignUp(){
             } catch (error){
                 return false;
             }
-        }else {
-            /**getCatPNG()*/
-            /**makeProfileSelection()*/
-            return
         }
        
         
@@ -75,7 +68,7 @@ export default function SignUp(){
     }
 
     getCatPNG();
-
+    /**
     const src = [
         "./CatIcons/cat1.png", 
         "./CatIcons/cat2.png" ,
@@ -93,10 +86,9 @@ export default function SignUp(){
         "./CatIcons/cat14.png",
         "./CatIcons/cat15.png"
         ]
-    
+        */
     function handleSelect(source){
         //change profile picture to selected picture
-        //getCatPNG()
         const profPic = document.getElementById("ProfilePicture");
         profPic.src = source;       
 
@@ -114,7 +106,8 @@ export default function SignUp(){
                     <label>Select a profile picture:</label>
                     <div className = "pictureSelection">
                         {makeProfileSelection()}
-                        <img alt="Cat1" src={src[0]} onClick={() => handleSelect(src[0])} />
+                        {/**
+                          <img alt="Cat1" src={src[0]} onClick={() => handleSelect(src[0])} />
                         <img alt="Cat2" src={src[1]} onClick={() => handleSelect(src[1])}/>
                         <img alt="Cat3" src={src[2]} onClick={() => handleSelect(src[2])}/>
                         <img alt="Cat4" src={src[3]} onClick={() => handleSelect(src[3])}/>
@@ -129,6 +122,8 @@ export default function SignUp(){
                         <img alt="Cat13" src={src[12]} onClick={() => handleSelect(src[12])} />
                         <img alt="Cat14" src={src[13]} onClick={() => handleSelect(src[13])} />
                         <img alt="Cat15" src={src[14]} onClick={() => handleSelect(src[14])} />
+                         */}
+                       
                     </div>
                     {/** we accidentally deleted the Select button but it might work better without */}
                     <div>
