@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Home.css";
 import "../../Design System/grid.css";
 import UserData from "../../Components/UserData";
@@ -10,23 +10,36 @@ import { Navigate, useNavigate } from "react-router-dom";
 export default function Home() {
   const navigate = useNavigate();
   const [chatList, setChatList] = useState(UserData);
+  const [currentUser, setCurrentUser] = useState(null);
+
   const getMainUser = (user) => {
     return UserData.find((u) => u.id === user);
   };
   const mainUser = getMainUser("01");
 
-  const [currentUser, setCurrentUser] = useState(null);
+  
 
-  const getCurrentUser = async function () {
-    const currentUser = await Parse.User.current();
-    // Update state variable holding current user
-    setCurrentUser(currentUser);
-    console.log("this is current user");
-    console.log(currentUser);
-    return currentUser;
-  };
+  useEffect(() => {
+    /**
+     * create a variable to manage when the userdata should be changed
+     * should be made when the settings page/button has been created
+     */
+    let isUpdated = true;
 
-  getCurrentUser();
+    const fetchCurrentUser = async () => {
+      const currentUser = await Parse.User.current();
+      // Update state variable holding current user
+      if (isUpdated) {
+        setCurrentUser(currentUser);
+        console.log("this is current user");
+        console.log(currentUser);
+      }
+    };
+
+    fetchCurrentUser().catch(console.error);
+
+    return () => isUpdated = false;
+  }, []); //right now it will only render once. When settings have been implementet, change this
 
   const logOutUser = async function () {
     try {
@@ -47,8 +60,8 @@ export default function Home() {
   };
 
   function addChat() {
-    console.log("addchat clicked and entered")
-    setChatList([
+    console.log("addchat clicked and entered");
+    setChatList3([
       ...chatList,
       {
         chat: [
