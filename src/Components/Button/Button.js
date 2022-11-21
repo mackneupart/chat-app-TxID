@@ -1,4 +1,5 @@
 import React from "react";
+import "./Button.css"
 
 const Button = (props) => {
     const handleClick = props.click;
@@ -6,8 +7,8 @@ const Button = (props) => {
 
     return (
         
-        <button className="button" onClick={handleClick}>{text}</button>
+        <button className="button-default button-text" onClick={handleClick}>{text}</button>
     )
 }
 
-export default Button;
+export default Button; 

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./Home.css";
+import "../../Design System/grid.css";
 import UserData from "../../Components/UserData";
 import ChatList from "../../Components/home/ChatList";
 import Button from "../../Components/Button/Button";
-import Parse from 'parse/dist/parse.min.js';
-import { Navigate, useNavigate} from "react-router-dom";
-
+import Parse from "parse/dist/parse.min.js";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -14,13 +14,15 @@ export default function Home() {
     return UserData.find((u) => u.id === user);
   };
   const mainUser = getMainUser("01");
-  
+
   const [currentUser, setCurrentUser] = useState(null);
-  
+
   const getCurrentUser = async function () {
     const currentUser = await Parse.User.current();
     // Update state variable holding current user
     setCurrentUser(currentUser);
+    console.log("this is current user");
+    console.log(currentUser);
     return currentUser;
   };
 
@@ -32,19 +34,20 @@ export default function Home() {
       // To verify that current user is now empty, currentAsync can be used
       const currentUser = await Parse.User.current();
       if (currentUser === null) {
-        alert('Success! No user is logged in anymore!');
+        alert("Success! No user is logged in anymore!");
       }
       // Update state variable holding current user
       getCurrentUser();
-      navigate("/")
+      navigate("/");
       return true;
     } catch (error) {
       alert(`Error! ${error.message}`);
       return false;
     }
   };
-  
+
   function addChat() {
+    console.log("addchat clicked and entered")
     setChatList([
       ...chatList,
       {
@@ -91,45 +94,60 @@ export default function Home() {
     ]);
   }
 
-  return (
-    <div>
-      <div className="home-page background">
-        <div className="box">
-          <div className="userBox">
-            <div className="userImage">
-              <img
-                className="circle"
-                src={mainUser.image}
-                alt="the users profile pic"
-              />
-            </div>
-            <div className="userInfo">
+  function settingAlert() {
+    alert("Settings Button was pressed!");
+  }
 
-              <div className="userInfoDetail">Username</div>
-              <div className="userInfoPlaceholder">{currentUser !== null  ? currentUser.get('username'): "not working"}</div>
-              <div className="userInfoDetail">Email</div>
-              <div className="userInfoPlaceholder">{currentUser !== null  ? currentUser.get('email'): "not working"}</div>
-              <div className="userInfoDetail">Target Language</div>
-              <div className="userInfoPlaceholder">{currentUser !== null  ? currentUser.get('targetLanguage'): "not working"}</div>
-              <div className="userInfoDetail">Native Language</div>
-              <div className="userInfoPlaceholder">{currentUser !== null  ? currentUser.get('nativeLanguage'): "not working"}</div>
+  return (
+    <div className="home-page background">
+      <div className="box purple-box">
+        <div className="userBox white-box">
+          <div className="userImage">
+            <img
+              className="circle"
+              src={mainUser.image}
+              alt="the users profile pic"
+            />
+          </div>
+          <div className="userInfo">
+            <div className="userInfoDetail">Username</div>
+            <div className="userInfoPlaceholder">
+              {currentUser !== null
+                ? currentUser.get("username")
+                : "not working"}
             </div>
-            <div className="settingsButton">
-              <Button text="Settings" />
-              <Button text="Log out" click={logOutUser} />
+            <div className="userInfoDetail">Email</div>
+            <div className="userInfoPlaceholder">
+              {currentUser !== null ? currentUser.get("email") : "not working"}
+            </div>
+            <div className="userInfoDetail">Target Language</div>
+            <div className="userInfoPlaceholder">
+              {currentUser !== null
+                ? currentUser.get("targetLanguage")
+                : "not working"}
+            </div>
+            <div className="userInfoDetail">Native Language</div>
+            <div className="userInfoPlaceholder">
+              {currentUser !== null
+                ? currentUser.get("nativeLanguage")
+                : "not working"}
             </div>
           </div>
-          <div className="chatOverview">
-            <div className="chat">
-              <ChatList chatList={chatList} />
+          <div className="user-buttons">
+            <Button text="Settings" click={settingAlert} />
+            <Button text="Log out" click={logOutUser} />
+          </div>
+        </div>
+        <div className="chatOverview">
+          <div className="chat">
+            <ChatList chatList={chatList} />
+          </div>
+          <div className="newChats">
+            <div className="newChat">
+              <Button text="New Chat" click={addChat} />
             </div>
-            <div className="newChats">
-              <div className="newChat">
-                <Button click={addChat} text="New Chat" />
-              </div>
-              <div className="newGroupChat">
-                <Button click={addGroupChat} text="New Group Chat" />
-              </div>
+            <div className="newGroupChat">
+              <Button text="New Group Chat" click={addGroupChat} />
             </div>
           </div>
         </div>
