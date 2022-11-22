@@ -1,0 +1,16 @@
+.button-default {
+    margin-right: auto;
+    margin-left: auto;
+    background-color: var(--blue-500);
+    height: 42px;
+    width: 122px;
+    border-radius: 10%;
+  }
+  .button-text {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    size: 160px;
+  }
+  
+  
