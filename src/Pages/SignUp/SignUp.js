@@ -80,18 +80,17 @@ export default function SignUp(){
                 {/**left side, picture */}
                 <div className = "lila_box">
                     <div className = "profilePic">
-                        <img className="profilePicture" id="ProfilePicture" alt = "Profile" src = "./CatIcons/cat1.png" />
+                        <img className="profilePicture" id="ProfilePicture" alt = "Profile" src = {catIcons !== null  ? catIcons[0].get("catPNG")._url : "altText"} />
                     </div>
                     <label>Select a profile picture:</label>
                     <div className = "pictureSelection">
                         {makeProfileSelection()}
                        
                     </div>
-                    {/** we accidentally deleted the Select button but it might work better without */}
+                    
                     <div>
                         {/**right side user information */}
                         {/**User name control */}
-                        {/**TODO make Text input types */}
                         <label>Username:</label>
                             <input
                             value={username}
