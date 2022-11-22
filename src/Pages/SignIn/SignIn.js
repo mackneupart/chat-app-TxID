@@ -74,10 +74,13 @@ function SignIn() {
     <div>
       <div className="sign-in-page">
         <div className="sign-in-box purple-box">
-          <div className="header">
-            <img className="cat-logo" src="./Icons/welcome-cat.png" alt="cat mascot"/>
-            <h1 className="header-welcome">WELCOME</h1>
-          </div>
+          <img
+            className="header-logo"
+            src="./Icons/welcome-cat.png"
+            alt="cat mascot"
+          />
+          <h1 className="header-welcome">WELCOME</h1>
+
           <form className="inputs">
             <div className="input-container">
               <input
@@ -118,12 +121,12 @@ function SignIn() {
           <a className="forgot-pass" href="http://google.com">
             Forgot password?
           </a>
-          <div className="sign-in-buttons">
+          <div className="login-button">
             <Button text="Login" click={login} />
-            <Link to="signUp">
-              <Button text="Sign Up" />
-            </Link>
           </div>
+          <Link className="signup-button" to="signUp">
+            <Button text="Sign Up" />
+          </Link>
         </div>
       </div>
     </div>

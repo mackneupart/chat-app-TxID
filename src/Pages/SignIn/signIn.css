@@ -2,58 +2,63 @@
   height: 100vh;
   /*styling concerning its children*/
   display: grid;
-  grid-template-columns: 10% 80% 10%;
+  grid-template-columns: 30% 40% 30%;
   grid-template-rows: 10% 80% 10%;
 }
 
 .sign-in-box {
   /*styling concerning its children*/
-  /* display: flex;
-    flex-direction: column; 
+  /*
 
     figuring out grid
-        top             25%
-        header          25%
-            logo
-            headerText
+        top             20%
+        logo            10%
+        headerText      15%
         Inputs          10%
             username
             password
         Forgot           5%
-        buttons         10%
-            logIn
-            signUp
-        bottom          25%
+        logIn           10%
+        signUp          10%
+        bottom          20%
     
     */
-  grid-template-rows: 25% 25% 10% 5% 10% 25%;
+  grid-template-rows: 20% 10% 15% 10% 5% 10% 10% 20%;
   align-items: center;
-  justify-content: center;
+  justify-items: center;
 }
 
 .header {
-  /* margin-top: 20%; */
-  /* margin-right: auto;
-  margin-left: auto; */
   grid-row-start: 2;
   /*styling concerning its children*/
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .header-welcome {
-  font-size: 10vw;
+  grid-row-start: 2;
+  font-size: calc(0.4 * 15vw);
   color: aliceblue; /*************need to change this color**********/
   text-shadow: 2px 2px black;
+  margin-block: 0;
+  padding:0;
 }
-.header > img {
-  width: 81px;
-  height: 79px;
+.header-logo {
+  grid-row-start: 3;
+  /* logo is taking up 10% of the vh and 40% of the vw */
+  width: calc(0.1 * 20vw);
+  height: calc(0.4 * 20vh);
+  align-self: baseline;
 }
 
 .inputs {
-  grid-row-start: 3;
+  grid-row-start: 4;
   /*styling concerning its children*/
+  display: grid;
+  grid-template-rows: 45% 45%;
+  grid-row-gap: 10%;
   align-items: center;
   justify-content: center;
 }
@@ -64,7 +69,7 @@
 
 .input-field {
   border-radius: 10%;
-  max-width: 213px;
+  width: calc(0.4 * 50vw);
   margin-left: auto;
 }
 
@@ -77,28 +82,24 @@
     margin-left: auto;
     margin-bottom: 10px;
     max-width: max-content; */
-  grid-row-start: 4;
+  grid-row-start: 5;
+  align-self: center;
+  justify-self: center;
 }
 
-.sign-in-buttons {
-  grid-row-start: 5;
+.login-button {
+  grid-row-start: 6;
   /*styling concerning its children*/
   align-items: center;
   justify-content: center;
 }
 
-/*
-.button-default{
-    margin-right: auto;
-    margin-left: auto;
-    background-color: var(--blue-500);
-    height: 42px;
-    width: 122px;
-    border-radius: 10%;
-    color: white; 
-    font-weight: bold;
-    text-decoration: none;
-}*/
+.signup-button {
+  grid-row-start: 7;
+  /*styling concerning its children*/
+  align-items: center;
+  justify-content: center;
+}
 
 .error {
   margin-right: auto;

@@ -114,10 +114,15 @@ export default function Home() {
 
   function getProfilePic() {
     if (currentUser !== null) {
-      const url = currentUser.get("profilePicture").url();
+      try {
+        const url = currentUser.get("profilePicture").url();
       if (url !== null || url !== undefined) {
         return url;
       }
+      } catch(error) {
+        console.log("Error getting profile picture: "+ error);
+      }
+      
     }
     return errorKitten;
   }
