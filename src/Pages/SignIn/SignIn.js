@@ -75,7 +75,7 @@ function SignIn() {
       <div className="sign-in-page">
         <div className="sign-in-box purple-box">
           <div className="header">
-            <img clasName="cat-logo" src="./Icons/welcome-cat.png" />
+            <img clasName="cat-logo" src="./Icons/welcome-cat.png" alt="cat mascot"/>
             <h1 className="header-welcome">WELCOME</h1>
           </div>
           <form className="inputs">
@@ -94,6 +94,7 @@ function SignIn() {
                 src="./Icons/welcome-user-90.png"
                 width="30px"
                 className="input-logo"
+                alt="user icon"
               />
             </div>
             <div className="input-container">
@@ -110,6 +111,7 @@ function SignIn() {
                 src="./Icons/welcome-lock.png"
                 width="30px"
                 className="input-logo"
+                alt="icon of a lock to symbolise password field"
               />
             </div>
           </form>
