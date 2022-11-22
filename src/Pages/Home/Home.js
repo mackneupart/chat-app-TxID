@@ -120,7 +120,7 @@ export default function Home() {
 
   return (
     <div className="home-page background">
-      <div className="box purple-box">
+      <div className="home-box purple-box">
         <div className="userBox white-box">
           <div className="userImage">
             <img

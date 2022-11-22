@@ -1,50 +1,93 @@
-.purple-box{
-    margin-left:auto;
-    margin-right: auto;
-    background-color: var(--purple-900);
-    max-width: 555px;
-    display: flex;
-    height: auto;
-    flex-direction: column;
-    padding-bottom: 15vh;
-    box-shadow: 6px 4px var(--light-grey-900);
+.sign-in-page {
+  height: 100vh;
+  /*styling concerning its children*/
+  display: grid;
+  grid-template-columns: 10% 80% 10%;
+  grid-template-rows: 10% 80% 10%;
+}
+
+.sign-in-box {
+  /*styling concerning its children*/
+  /* display: flex;
+    flex-direction: column; 
+
+    figuring out grid
+        top             25%
+        header          25%
+            logo
+            headerText
+        Inputs          10%
+            username
+            password
+        Forgot           5%
+        buttons         10%
+            logIn
+            signUp
+        bottom          25%
     
-}
-.background{
-    padding-top: 15vh;
-    background-color: var(--purple-400);
-    height: 100vh;
+    */
+  grid-template-rows: 25% 25% 10% 5% 10% 25%;
+  align-items: center;
+  justify-content: center;
 }
 
-.header{
-    margin-top: 20%;
-    display: flex;
-    flex-direction: column;
-    margin-right: auto;
+.header {
+  /* margin-top: 20%; */
+  /* margin-right: auto;
+  margin-left: auto; */
+  grid-row-start: 2;
+  /*styling concerning its children*/
+  display: flex;
+  flex-direction: column;
+}
+
+.header-welcome {
+  font-size: 10vw;
+  color: aliceblue; /*************need to change this color**********/
+  text-shadow: 2px 2px black;
+}
+.header > img {
+  width: 81px;
+  height: 79px;
+}
+
+.inputs {
+  grid-row-start: 3;
+  /*styling concerning its children*/
+  align-items: center;
+  justify-content: center;
+}
+
+.input-container {
+  display: flex;
+}
+
+.input-field {
+  border-radius: 10%;
+  max-width: 213px;
+  margin-left: auto;
+}
+
+.input-logo {
+  margin-right: auto;
+}
+
+.forgot-pass {
+  /* margin-right: auto;
     margin-left: auto;
-}
-.header-welcome{
-    font-size: 48pt;
-    color: aliceblue;
-    text-shadow: 2px 2px black;
-}
-.header > img{
-    width: 81px;
-    height: 79px;
-}
-.input-container{
-    display: flex;
-}
-.input-field{
-    border-radius:10%;
-    max-width: 213px;
-    margin-left: auto;
-
-}
-.input-logo{
-    margin-right: auto;
+    margin-bottom: 10px;
+    max-width: max-content; */
+  grid-row-start: 4;
 }
 
+.sign-in-buttons {
+  grid-row-start: 5;
+  /*styling concerning its children*/
+  align-items: center;
+  justify-content: center;
+}
+
+/*
 .button-default{
     margin-right: auto;
     margin-left: auto;
@@ -55,19 +98,11 @@
     color: white; 
     font-weight: bold;
     text-decoration: none;
-}
+}*/
 
-.error{
-    margin-right: auto;
-    margin-left: auto;
-    max-width: max-content;
-    color: red;
+.error {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: max-content;
+  color: red;
 }
-
-.forgot-pass{
-    margin-right: auto;
-    margin-left: auto;
-    margin-bottom: 10px;
-    max-width: max-content;
-}
-

@@ -33,6 +33,7 @@ body {
   background-color: var(--purple-900);
   grid-row-start: 2;
   grid-column-start: 2;
+  box-shadow: 6px 4px var(--light-grey-900);
   /*styling concerning its children*/
   display: grid;
 }
@@ -44,7 +45,7 @@ body {
   grid-row-start: 2;
   /*styling concerning its children*/
   display: grid;
-}
+} 
 
 /**** css to decide start of the parent element ****/ /*
 .start-c-2-r-2 {
