@@ -5,7 +5,7 @@ import UserData from "../../Components/UserData";
 import ChatList from "../../Components/home/ChatList";
 import Button from "../../Components/Button/Button";
 import Parse from "parse/dist/parse.min.js";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import errorKitten from "../../DesignSystem/errorKitten.jpg";
 
 export default function Home() {
