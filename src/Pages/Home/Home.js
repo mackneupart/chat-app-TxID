@@ -4,7 +4,7 @@ import "../../DesignSystem/grid.css";
 import UserData from "../../Components/UserData";
 import ChatList from "../../Components/home/ChatList";
 import Button from "../../Components/Button/Button";
-import Parse from "parse/dist/parse.min.js";
+import Parse from "parse";
 import { useNavigate } from "react-router-dom";
 import errorKitten from "../../DesignSystem/errorKitten.jpg";
 
