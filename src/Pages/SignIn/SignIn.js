@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./signIn.css";
 import "../../DesignSystem/grid.css";
 import { Link, Navigate, useNavigate } from "react-router-dom";
@@ -10,45 +10,65 @@ function SignIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(false);
 
-  // Function that will return current user and also update current username
+  useEffect(() => {
+    var check = false;
+
+    if (loggedIn) {
+      check = true;
+    }
+
+    const handleUserLogIn = async () => {
+      console.log("sign up clicked");
+      // Note that these values come from state variables that we've declared before
+      const usernameValue = username;
+      const passwordValue = password;
+      try {
+        const loggedInUser = await Parse.User.logIn(username, password);
+
+        if (check) {
+          // logIn returns the corresponding ParseUser object
+          alert(
+            `Success! User ${loggedInUser.get(
+              "username"
+            )} has successfully signed in!`
+          );
+          // To verify that this is in fact the current user, `current` can be used
+          setCurrentUser(await Parse.User.current());
+          console.log(loggedInUser === currentUser);
+          // Clear input fields
+          setUsername("");
+          setPassword("");
+          // Update state variable holding current user
+          //getCurrentUser();
+          navigate("home");
+        }
+
+        // return true;
+      } catch (error) {
+        // Error can be caused by wrong parameters or lack of Internet connection
+        alert(`Error! ${error.message}`);
+        // return false;
+      }
+    };
+
+    handleUserLogIn().catch(console.error);
+
+    return () => (check = false);
+  }, [loggedIn]);
+
+  const login = () => {
+    setLoggedIn(true);
+  };
+
+  /*   // Function that will return current user and also update current username
   const getCurrentUser = async function () {
     const currentUser = await Parse.User.current();
     // Update state variable holding current user
     setCurrentUser(currentUser);
     return currentUser;
-  };
-
-  const handleUserLogIn = async function () {
-    console.log("sign up clicked")
-    // Note that these values come from state variables that we've declared before
-    const usernameValue = username;
-    const passwordValue = password;
-    try {
-      const loggedInUser = await Parse.User.logIn(usernameValue, passwordValue);
-      // logIn returns the corresponding ParseUser object
-      alert(
-        `Success! User ${loggedInUser.get(
-          "username"
-        )} has successfully signed in!`
-      );
-      // To verify that this is in fact the current user, `current` can be used
-      const currentUser = await Parse.User.current();
-      console.log(loggedInUser === currentUser);
-      // Clear input fields
-      setUsername("");
-      setPassword("");
-      // Update state variable holding current user
-      getCurrentUser();
-      navigate("home");
-
-      return true;
-    } catch (error) {
-      // Error can be caused by wrong parameters or lack of Internet connection
-      alert(`Error! ${error.message}`);
-      return false;
-    }
-  };
+  }; */
 
   return (
     <div>
@@ -99,7 +119,7 @@ function SignIn() {
             Forgot password?
           </a>
           <div className="sign-in-buttons">
-            <Button text="Login" click={handleUserLogIn} />
+            <Button text="Login" click={login} />
             <Button text="Sign Up">
               <Link to="signUp" />
             </Button>
