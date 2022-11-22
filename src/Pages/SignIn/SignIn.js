@@ -20,6 +20,7 @@ function SignIn() {
   };
 
   const handleUserLogIn = async function () {
+    console.log("sign up clicked")
     // Note that these values come from state variables that we've declared before
     const usernameValue = username;
     const passwordValue = password;
@@ -98,18 +99,9 @@ function SignIn() {
             Forgot password?
           </a>
           <div className="sign-in-buttons">
-            <Button
-              className="button-default button-logIn"
-              onClick={() => handleUserLogIn()}
-              type="primary"
-              block
-            >
-              Login
-            </Button>
-            <Button className="button-default button-singUp">
-              <Link className="button-default" to="signUp">
-                Sign Up
-              </Link>
+            <Button text="Login" click={handleUserLogIn} />
+            <Button text="Sign Up">
+              <Link to="signUp" />
             </Button>
           </div>
         </div>
