@@ -1,14 +1,13 @@
 import React from "react";
-import "./Button.css"
+import "./Button.css";
 
 const Button = (props) => {
-    const handleClick = props.click;
-    const text = props.text;
 
-    return (
-        
-        <button className="button-default button-text" onClick={handleClick}>{text}</button>
-    )
-}
+  return (
+    <button className="button-default button-text" onClick={props.click}>
+        {props.text}
+    </button>
+  );
+};
 
-export default Button; 
+export default Button;

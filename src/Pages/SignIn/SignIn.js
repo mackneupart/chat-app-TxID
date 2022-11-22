@@ -75,7 +75,7 @@ function SignIn() {
       <div className="sign-in-page">
         <div className="sign-in-box purple-box">
           <div className="header">
-            <img clasName="cat-logo" src="./Icons/welcome-cat.png" alt="cat mascot"/>
+            <img className="cat-logo" src="./Icons/welcome-cat.png" alt="cat mascot"/>
             <h1 className="header-welcome">WELCOME</h1>
           </div>
           <form className="inputs">
@@ -120,9 +120,9 @@ function SignIn() {
           </a>
           <div className="sign-in-buttons">
             <Button text="Login" click={login} />
-            <Button text="Sign Up">
-              <Link to="signUp" />
-            </Button>
+            <Link to="signUp">
+              <Button text="Sign Up" />
+            </Link>
           </div>
         </div>
       </div>
