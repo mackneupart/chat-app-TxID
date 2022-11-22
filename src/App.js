@@ -1,5 +1,5 @@
 import "./App.css";
-import "./Design System/colours.css";
+import "./DesignSystem/colours.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home/Home";
 import SignIn from "./Pages/SignIn/SignIn.js";
