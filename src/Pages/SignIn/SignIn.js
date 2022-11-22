@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./signIn.css";
 import "../../DesignSystem/grid.css";
 import { Link, useNavigate } from "react-router-dom";
-import Parse from "parse/dist/parse.min.js";
+import Parse from "parse";
 import Button from "../../Components/Button/Button";
 
 function SignIn() {
