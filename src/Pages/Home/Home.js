@@ -21,14 +21,18 @@ export default function Home() {
     let isUpdated = true;
 
     const fetchCurrentUser = async () => {
-      const currentUser = await Parse.User.current();
-      // Update state variable holding current user
-      if (isUpdated) {
-        setCurrentUser(currentUser);
-        console.log("this is current user");
-        console.log(currentUser);
-        console.log("this is profile pic uri");
-        console.log(currentUser.get("profilePicture").url());
+      try {
+        const currentUser = await Parse.User.current();
+        // Update state variable holding current user
+        if (isUpdated) {
+          setCurrentUser(currentUser);
+          /* console.log("this is current user");
+          console.log(currentUser);
+          console.log("this is profile pic uri");
+          console.log(currentUser.get("profilePicture").url()); */
+        }
+      } catch (error) {
+        alert(`Error trying to fetch current user! ${error.message}`);
       }
     };
 
@@ -112,7 +116,7 @@ export default function Home() {
     if (currentUser !== null) {
       const url = currentUser.get("profilePicture").url();
       if (url !== null || url !== undefined) {
-        return errorKitten;
+        return url;
       }
     }
     return errorKitten;
