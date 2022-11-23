@@ -127,6 +127,9 @@ function SignIn() {
           <Link className="signup-button" to="signUp">
             <Button text="Sign Up" />
           </Link>
+          <Link className="to-chat" to= "chatTest">
+            <Button text="To Chat" />
+          </Link>
         </div>
       </div>
     </div>

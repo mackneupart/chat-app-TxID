@@ -1,0 +1,24 @@
+.message{
+    
+    margin:10px;
+    max-width: 300px;
+}
+div[type = received]{ 
+    background-color: var(--purple-100);
+    border-radius: 600px 600px 600px 50px;
+}
+div[type = send]{
+    background-color: white;
+    border-radius: 600px 600px 50px 600px;
+}
+.content{
+    padding: 20px;
+    
+}
+.author{
+    color: white;
+}
+.timestamp{
+    color:white;
+    text-align: right;
+}
