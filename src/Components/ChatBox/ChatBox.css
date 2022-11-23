@@ -1,0 +1,7 @@
+
+.chat-box{
+    background-color: var(--purple-900);
+    width: 600px;
+    justify-content: right;
+}
+

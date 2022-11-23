@@ -1,23 +1,36 @@
 .message{
-    
     margin:10px;
     max-width: 300px;
 }
-div[type = received]{ 
+
+/*TODO align messages dependent on send/ received*/
+.message[type = received]{
+    justify-items: left;
+}
+.message[type = send]{
+    justify-items: right;
+}
+.content[type = received]{ 
     background-color: var(--purple-100);
     border-radius: 600px 600px 600px 50px;
+    
 }
-div[type = send]{
+
+.content[type = send]{
     background-color: white;
+    text-align: right;
     border-radius: 600px 600px 50px 600px;
 }
+
 .content{
     padding: 20px;
     
 }
+
 .author{
     color: white;
 }
+
 .timestamp{
     color:white;
     text-align: right;
