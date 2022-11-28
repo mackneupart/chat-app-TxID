@@ -2,9 +2,11 @@ import LanguageDropdown from "../../Components/language/LangugageDropdown";
 import TextInput from "../../Components/text/TextInput";
 import InterestList from "../../Components/InterestList/InterestList";
 import "./SignUp.css";
+import "../../DesignSystem/grid.css";
 import Parse from "parse";
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import Button from "../../Components/Button/Button";
 
 export default function SignUp() {
   const [username, setUsername] = useState("");
@@ -41,7 +43,7 @@ export default function SignUp() {
         const query = new Parse.Query("CatIcons");
         const icons = await query.find();
         setCatIcons(icons);
-        console.log(catIcons)
+        console.log(catIcons);
       } catch (error) {
         console.log("Error in getting Cat Png: " + error);
       }
@@ -51,7 +53,6 @@ export default function SignUp() {
 
   function makeProfileSelection() {
     //to avoid many reloads
-
     try {
       return (
         <div>
@@ -76,36 +77,57 @@ export default function SignUp() {
   }
 
   return (
-    <div>
-      <div className="background">
-        {/**left side, picture */}
-        <div className="lila_box">
-          <div className="profilePic">
-            <img
-              className="profilePicture"
-              id="ProfilePicture"
-              alt="Profile"
-              src={
-                catIcons !== null ? catIcons[0].get("catPNG")._url : "altText"
-              }
-            />
-          </div>
-          <label>Select a profile picture:</label>
-          <div className="pictureSelection">{makeProfileSelection()}</div>
+    <div className="sign-up-page">
+      {/**left side, picture */}
+      <div className="purple-box profile-box">
+        <img
+          className="selected-pic"
+          id="ProfilePicture"
+          alt="Profile"
+          src={catIcons !== null ? catIcons[0].get("catPNG")._url : "altText"}
+        />
 
-          <div>
-            {/**right side user information */}
-            {/**User name control */}
-            <label>Username:</label>
+        <h3>Select a profile picture:</h3>
+        <div className="picture-box">
+          <div className="picture-selection">{makeProfileSelection()}</div>
+        </div>
+      </div>
+
+      <div className="profile-info-box">
+        {/**right side user information */}
+        {/**User name control */}
+        <div className="user-inputs">
+          <div className="profile-info-labels">
+            <div>
+              <label>Username:</label>
+            </div>
+            <div>
+              <label>E-mail :</label>
+            </div>
+            <div>
+              <label>Password: </label>
+            </div>
+            <div>
+              <label>Repeat password: </label>
+            </div>
+            <div>
+              <label>What is your native Language</label>
+            </div>
+            <div>
+              <label>What languages do you want to learn?</label>
+            </div>
+            <div>
+              <label>What are your interests:</label>
+            </div>
+          </div>
+          <div className="profile-info-inputs">
             <input
               value={username}
               onChange={(event) => setUsername(event.target.value)}
               placeholder="Username"
               size="large"
               className="form_input"
-            />{" "}
-            <br />
-            <label>E-mail :</label>
+            />
             <input
               value={email}
               onChange={(event) => setEmail(event.target.value)}
@@ -113,13 +135,7 @@ export default function SignUp() {
               size="large"
               className="form_input"
             />
-            <br />
-            {/** TODO password control*/}
-            <label>Password: </label>
             <input type="password"></input>
-            <br />
-            {/**repeat passwotd */}
-            <label>Repeat password: </label>
             <input
               value={password}
               onChange={(event) => setPassword(event.target.value)}
@@ -127,19 +143,21 @@ export default function SignUp() {
               size="large"
               type="password"
             />
-            <br />
+            <LanguageDropdown className="dropdown" setLanguage={setNativeLanguage} />
+            <LanguageDropdown className="dropdown" setLanguage={setTargetLanguage} />
+            <InterestList />
           </div>
-          <div>
-            {/**TODO: show different Languages /intersts after selection */}
-            <label>What is your native Language</label>
-            <LanguageDropdown setLanguage={setNativeLanguage} /> <br />
-            <label>What languages do you want to learn?</label>
-            <LanguageDropdown setLanguage={setTargetLanguage} /> <br />
-            <label>What are your interests:</label> <InterestList />{" "}
-          </div>
-          <br />
-          <button onClick={() => doUserRegistration()}>Sign up</button>
         </div>
+
+        {/** TODO password control*/}
+
+        {/**repeat passwotd */}
+
+        {/**TODO: show different Languages /intersts after selection */}
+        <div className="submit-button">
+          <Button text="Sign Up" click={doUserRegistration} />
+        </div>
+        {/* <button onClick={() => doUserRegistration()}>Sign up</button> */}
       </div>
     </div>
   );
