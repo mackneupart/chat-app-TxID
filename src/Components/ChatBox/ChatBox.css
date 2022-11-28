@@ -1,7 +1,10 @@
 
 .chat-box{
     background-color: var(--purple-900);
-    width: 600px;
-    justify-content: right;
+    width: 600px; 
 }
 
+/*.message-list > [type="send"]{
+    // right align
+    
+}*/

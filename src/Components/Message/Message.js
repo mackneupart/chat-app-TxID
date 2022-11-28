@@ -1,9 +1,9 @@
 import "./Message.css"
 
-export default function Message({author, currentUser, content,  timestamp}){
+export default function Message({author, currentUser, content,  timestamp, index}){
     let received = true;
     //const currentUser = "User1"
-    if (author == currentUser){
+    if (author === currentUser){
         received = false
         author = "you"
     }

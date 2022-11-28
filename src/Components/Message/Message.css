@@ -1,14 +1,15 @@
 .message{
     margin:10px;
+    width: fit-content;
     max-width: 300px;
 }
 
 /*TODO align messages dependent on send/ received*/
 .message[type = received]{
-    justify-items: left;
+    justify-content : flex-start;
 }
 .message[type = send]{
-    justify-items: right;
+    justify-content : flex-end;
 }
 .content[type = received]{ 
     background-color: var(--purple-100);
@@ -34,4 +35,5 @@
 .timestamp{
     color:white;
     text-align: right;
+    font-size: small;
 }

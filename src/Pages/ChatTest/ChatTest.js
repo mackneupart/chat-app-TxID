@@ -7,10 +7,11 @@ import ChatBox from "../../Components/ChatBox/ChatBox";
 export default function ChatTest() {
   //get real current User
   const currentUser = "User1"
+  const currentChat = "ThisChat"
 
   return (
     <div className="chat-page">
-        <ChatBox currentUser={currentUser}/>
+        <ChatBox currentUser={currentUser} currentChat = {currentChat}/>
     </div>
   );
 }
