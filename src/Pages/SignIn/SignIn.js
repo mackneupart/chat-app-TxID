@@ -30,7 +30,7 @@ function SignIn() {
             )} has successfully signed in!`
           );
           // To verify that this is in fact the current user, `current` can be used
-          setCurrentUser(await Parse.User.current());
+          setCurrentUser(Parse.User.current());
           console.log(loggedInUser === currentUser);
           // Clear input fields
           setUsername("");
