@@ -1,12 +1,13 @@
 import LanguageDropdown from "../../Components/language/LangugageDropdown";
-import TextInput from "../../Components/text/TextInput";
+//import TextInput from "../../Components/text/TextInput";
 import InterestList from "../../Components/InterestList/InterestList";
 import "./SignUp.css";
 import "../../DesignSystem/grid.css";
 import Parse from "parse";
 import { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+//import { createHashRouter, Navigate, useNavigate } from "react-router-dom";
 import Button from "../../Components/Button/Button";
+import { CreateUser } from "../../Service/UserService";
 
 export default function SignUp() {
   const [username, setUsername] = useState("");
@@ -15,9 +16,21 @@ export default function SignUp() {
   const [nativeLanguage, setNativeLanguage] = useState([]);
   const [targetLanguage, setTargetLanguage] = useState([]);
   const [catIcons, setCatIcons] = useState(null);
-  const navigate = useNavigate();
+  const [userPic, setUserPic] = useState(null);
+  //const navigate = useNavigate();
 
-  const doUserRegistration = async function () {
+  function doUserRegistration() {
+    CreateUser(
+      username,
+      password,
+      email,
+      nativeLanguage,
+      targetLanguage,
+      userPic
+    );
+  }
+
+  /* const doUserRegistration = async function () {
     console.log("this is doUserRegistration");
     const user = new Parse.User();
     user.set("username", username);
@@ -32,7 +45,7 @@ export default function SignUp() {
     } catch (error) {
       alert(`Error! ${error}`);
     }
-  };
+  }; */
 
   useEffect(() => {
     console.log("openeing useeffect");
@@ -72,6 +85,7 @@ export default function SignUp() {
 
   function handleSelect(source) {
     //change profile picture to selected picture
+    setUserPic(source);
     const profPic = document.getElementById("ProfilePicture");
     profPic.src = source;
   }
@@ -143,8 +157,14 @@ export default function SignUp() {
               size="large"
               type="password"
             />
-            <LanguageDropdown className="dropdown" setLanguage={setNativeLanguage} />
-            <LanguageDropdown className="dropdown" setLanguage={setTargetLanguage} />
+            <LanguageDropdown
+              className="dropdown"
+              setLanguage={setNativeLanguage}
+            />
+            <LanguageDropdown
+              className="dropdown"
+              setLanguage={setTargetLanguage}
+            />
             <InterestList />
           </div>
         </div>
