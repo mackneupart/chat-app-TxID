@@ -7,7 +7,7 @@ import Parse from "parse";
 import { useEffect, useState } from "react";
 //import { createHashRouter, Navigate, useNavigate } from "react-router-dom";
 import Button from "../../Components/Button/Button";
-import { CreateUser } from "../../API/API";
+import { CreateUser, ReadCurrentUser } from "../../API/API";
 
 export default function SignUp() {
   const [username, setUsername] = useState("");
@@ -20,32 +20,8 @@ export default function SignUp() {
   //const navigate = useNavigate();
 
   function doUserRegistration() {
-    CreateUser(
-      username,
-      password,
-      email,
-      nativeLanguage,
-      targetLanguage,
-      userPic
-    );
+    //navigate("/");
   }
-
-  /* const doUserRegistration = async function () {
-    console.log("this is doUserRegistration");
-    const user = new Parse.User();
-    user.set("username", username);
-    user.set("password", password);
-    user.set("email", email);
-    user.set("nativeLanguage", nativeLanguage);
-    user.set("targetLanguage", targetLanguage);
-    try {
-      await user.signUp();
-      alert(`User ${user.getUsername()} created`);
-      navigate("/");
-    } catch (error) {
-      alert(`Error! ${error}`);
-    }
-  }; */
 
   useEffect(() => {
     console.log("openeing useeffect");
@@ -92,7 +68,6 @@ export default function SignUp() {
 
   return (
     <div className="sign-up-page">
-      {/**left side, picture */}
       <div className="purple-box profile-box">
         <img
           className="selected-pic"
@@ -108,8 +83,6 @@ export default function SignUp() {
       </div>
 
       <div className="profile-info-box">
-        {/**right side user information */}
-        {/**User name control */}
         <div className="user-inputs">
           <div className="profile-info-labels">
             <div>
@@ -175,9 +148,18 @@ export default function SignUp() {
 
         {/**TODO: show different Languages /intersts after selection */}
         <div className="submit-button">
-          <Button text="Sign Up" click={doUserRegistration} />
+          <Button
+            text="Sign Up"
+            click={CreateUser(
+              username,
+              password,
+              email,
+              nativeLanguage,
+              targetLanguage,
+              userPic
+            )}
+          />
         </div>
-        {/* <button onClick={() => doUserRegistration()}>Sign up</button> */}
       </div>
     </div>
   );
