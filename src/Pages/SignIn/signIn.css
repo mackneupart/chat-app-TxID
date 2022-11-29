@@ -1,3 +1,10 @@
+/*
+TO DO
+  tablet size: don't change anything
+  smartphone size: Remove the background, so the purple box fills out the whole screen
+*/
+
+
 .sign-in-page {
   height: 100vh;
   /*styling concerning its children*/
@@ -28,30 +35,31 @@
   justify-items: center;
 }
 
-.header {
+/* .header {
   grid-row-start: 2;
-  /*styling concerning its children*/
+  /*styling concerning its children*//*
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
+} */
 
-.header-welcome {
+.header-logo {
   grid-row-start: 2;
+  /* logo is taking up 10% of the vh and 40% of the vw */
+  width: calc(0.3 * 20vw);
+  height:auto;
+  /*height: calc(0.4 * 20vh);*/
+}
+.header-welcome {
+  grid-row-start: 3;
   font-size: calc(0.4 * 15vw);
   color: aliceblue; /*************need to change this color**********/
   text-shadow: 2px 2px black;
   margin-block: 0;
   padding:0;
 }
-.header-logo {
-  grid-row-start: 3;
-  /* logo is taking up 10% of the vh and 40% of the vw */
-  width: calc(0.1 * 20vw);
-  height: calc(0.4 * 20vh);
-  align-self: baseline;
-}
+
 
 .inputs {
   grid-row-start: 4;

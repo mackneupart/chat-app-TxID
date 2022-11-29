@@ -1,9 +1,8 @@
 /*
-html,
-body {
-  height: 100%;
-  width: 100%;
-} */
+TO DO
+  tablet size: make the chat go under the user info, and make the user info fold up under the user image
+  smartphone size: same as with tablet, but also remove the background, so the purple box fills out the whole screen
+*/
 
  .home-page {
   height: 100vh;
