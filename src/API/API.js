@@ -1,6 +1,6 @@
 import Parse from "parse";
 
-const CreateUser = async function (
+export const CreateUser = async function (
   username,
   password,
   email,
@@ -9,68 +9,64 @@ const CreateUser = async function (
   profilePicture
 ) {
   console.log("Creating new user");
-  // const navigate = useNavigate();
-
-  
   try {
-    const user = new Parse.User();
-    console.log("Creating new user");
-    user.set("username", username);
-    user.set("password", password);
-    user.set("email", email);
-    user.set("nativeLanguage", nativeLanguage);
-    user.set("targetLanguage", targetLanguage);
-    user.set("profilePicture", new Parse.File("catIcon.img", { base64: profilePicture }));
-    await user.signUp();
-    //alert(`User ${user.getUsername()} created`);
-    //navigate("/");
+    const User = new Parse.User();
+    User.set("username", username);
+    User.set("password", password);
+    User.set("email", email);
+    User.set("nativeLanguage", nativeLanguage);
+    User.set("targetLanguage", targetLanguage);
+    /* User.set(
+      "profilePicture",
+      new Parse.File("catIcon.img", { base64: profilePicture })
+    ); */
+    await User.signUp();
+    return true;
   } catch (error) {
     alert(`Error when trying to create a new user! ${error}`);
   }
 };
 
-/* const creaeUser = async function (
-  username,
-  password,
-  email,
-  nativeLanguage,
-  targetLanguage
-) {
-  let userData = {
-    username: username,
-    password: password,
-    email: email,
-    nativeLanguage: nativeLanguage,
-    targetLanguage: targetLanguage,
-  };
-
-  fetch("https://parseapi.back4app.com/classes/User", {
-    method: "POST",
-    headers: {
-      "X-Parse-Application-Id": "oyvNGU2jDF7KZjkNpZCyXZh9xpBaIh0Mrzg6fwpg",
-      "X-Parse-REST-API-Id": "7UoEqMNtD3gvlWIumvtqBujB5gBcDn9Ej17su4I0",
-    },
-    body: JSON.stringify(userData),
-  })
-    .then((response) => response.json())
-    .then((responseJson) => {
-      console.log(responseJson);
-    })
-    .catch((error) =>
-      console.log(`Error when trying to create a new user: ${error}`)
-    );
+export const ReadCurrentUser = async function () {
+  try {
+    const currentUser = Parse.User.current();
+    console.log(`Current logged in user: ${currentUser}`);
+    return currentUser;
+  } catch (error) {
+    console.log(`Error when trying to get current user! ${error}`);
+  }
 };
 
- */
+const ReadAllUsers = async function () {
+  const parseQuery = new Parse.Query("User");
+  try {
+    let users = await parseQuery.find();
+    console.log(users);
+    return true;
+  } catch (error) {
+    alert(`Error when trying to read all users: ${error.message}`);
+    return false;
+  }
+};
 
-/* curl -X POST \
--H "X-Parse-Application-Id: BCrUQVkk80pCdeImSXoKXL5ZCtyyEZwbN7mAb11f" \
--H "X-Parse-REST-API-Key: swrFFIXJlFudtF3HkZPtfybDFRTmS7sPwvGUzQ9w" \
--H "Content-Type: application/json" \
--d '{"myCustomKey1Name":"myCustomKey1Value","myCustomKey2Name":"myCustomKey2Value"}' \
-https://parseapi.back4app.com/classes/MyCustomClassName */
+const getRandomNumber = (array) => {
+  const arrayLength = array.length;
+  const ranNum = Math.floor(Math.random() * arrayLength);
+  return ranNum;
+};
 
-export { CreateUser };
+export const getRandomUser = () => {
+  const allUsers = ReadAllUsers();
+  const ranNum = getRandomNumber(allUsers);
+  const result = allUsers[ranNum];
+  const currentUser = ReadCurrentUser();
+  if (result.get("username") == currentUser.get("username")) {
+    const allOtherUsers = allUsers.splice(ranNum, 1);
+    const newRanNum = getRandomNumber(allOtherUsers);
+    return allOtherUsers[newRanNum];
+  }
+  return result;
+};
 
 /* export default {user: {create: CreateUser, delete: DeleteUserInfo}, chat: {create: CreateChat}}
 
