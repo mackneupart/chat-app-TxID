@@ -7,7 +7,7 @@ import Parse from "parse";
 import { useEffect, useState } from "react";
 //import { createHashRouter, Navigate, useNavigate } from "react-router-dom";
 import Button from "../../Components/Button/Button";
-import { CreateUser } from "../../Service/UserService";
+import { CreateUser } from "../../API/API";
 
 export default function SignUp() {
   const [username, setUsername] = useState("");
