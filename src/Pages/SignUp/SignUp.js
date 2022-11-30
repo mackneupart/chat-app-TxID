@@ -1,19 +1,17 @@
 import LanguageDropdown from "../../Components/language/LangugageDropdown";
-//import TextInput from "../../Components/text/TextInput";
 import InterestList from "../../Components/InterestList/InterestList";
 import "./SignUp.css";
 import "../../DesignSystem/grid.css";
 import { useEffect, useState } from "react";
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "../../Components/Button/Button";
 import {
   createUser,
   readCatIcons,
-  getRandomUser,
-  readCurrentUser,
 } from "../../API/API";
 
 export default function SignUp() {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -21,8 +19,6 @@ export default function SignUp() {
   const [targetLanguage, setTargetLanguage] = useState([]);
   const [catIcons, setCatIcons] = useState(null);
   const [userPic, setUserPic] = useState(null);
-
-  //const navigate = useNavigate();
 
   useEffect(() => {
     const getCatIcons = async () => {
@@ -80,9 +76,8 @@ export default function SignUp() {
         userPic
       )
     ) {
-      console.log("this is random user");
-      console.log(getRandomUser());
-      //navigate("/");
+      console.log("user created. navigating to home");
+      navigate("/home");
     }
   }
 

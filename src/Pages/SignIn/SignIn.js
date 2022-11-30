@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import "./signIn.css";
-import "../../DesignSystem/grid.css";
 import { Link, useNavigate } from "react-router-dom";
 import Parse from "parse";
 import Button from "../../Components/Button/Button";
+import "./signIn.css";
+import "../../DesignSystem/grid.css";
 
 function SignIn() {
   const navigate = useNavigate();
@@ -17,14 +17,11 @@ function SignIn() {
       console.log("click is " + click);
       const handleUserLogIn = async () => {
         console.log("sign up clicked");
-        // Note that these values come from state variables that we've declared before
-        //const usernameValue = username;
-        //const passwordValue = password;
         try {
           // logIn returns the corresponding ParseUser object
           const loggedInUser = await Parse.User.logIn(username, password);
 
-          alert(
+          console.log(
             `Success! User ${loggedInUser.get(
               "username"
             )} has successfully signed in!`
@@ -36,10 +33,9 @@ function SignIn() {
           setUsername("");
           setPassword("");
           setClick(false);
-          // Update state variable holding current user
-          //getCurrentUser();
-          navigate("home");
-          // return true;
+
+          navigate("/home");
+
         } catch (error) {
           setClick(false);
           // Error can be caused by wrong parameters or lack of Internet connection
