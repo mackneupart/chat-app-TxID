@@ -34,6 +34,17 @@ export const readCurrentUser = async function () {
   }
 };
 
+export const logOutUser = async function () {
+  try {
+    await Parse.User.logOut();
+    if (readCurrentUser === null) {
+      return true;
+    }
+  } catch (error) {
+    console.log(`Error when trying to log out user! ${error}`);
+  }
+};
+
 const readAllUsers = async function () {
   const parseQuery = new Parse.Query("User");
   try {

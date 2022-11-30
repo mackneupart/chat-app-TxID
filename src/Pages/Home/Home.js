@@ -4,10 +4,9 @@ import "../../DesignSystem/grid.css";
 import UserData from "../../Components/UserData";
 import ChatList from "../../Components/home/ChatList";
 import Button from "../../Components/Button/Button";
-import Parse from "parse";
 import { useNavigate } from "react-router-dom";
 import errorKitten from "../../DesignSystem/errorKitten.jpg";
-import { readCurrentUser } from "../../API/API";
+import { logOutUser, readCurrentUser } from "../../API/API";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -19,7 +18,7 @@ export default function Home() {
      * create a variable to manage when the userdata should be changed
      * should be made when the settings page/button has been created
      */
-    let isUpdated = true;
+    //let isUpdated = true;
 
     const getCurrentUser = async () => {
       try {
@@ -60,7 +59,7 @@ export default function Home() {
     }
   }, [currentUser]);
 
-  const logOutUser = async function () {
+  /* const logOutUser = async function () {
     try {
       await Parse.User.logOut();
       // To verify that current user is now empty, currentAsync can be used
@@ -76,6 +75,17 @@ export default function Home() {
     } catch (error) {
       alert(`Error! ${error.message}`);
       return false;
+    }
+  }; */
+
+  const logOut = async function () {
+    try {
+      if (logOutUser()) {
+        setCurrentUser(null);
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(`Error when trying to log out user! ${error}`);
     }
   };
 
@@ -182,7 +192,7 @@ export default function Home() {
           </div>
           <div className="user-buttons">
             <Button text="Settings" click={settingAlert} />
-            <Button text="Log out" click={logOutUser} />
+            <Button text="Log out" click={logOut} />
           </div>
         </div>
         <div className="chatOverview">
