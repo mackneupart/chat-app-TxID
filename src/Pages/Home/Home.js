@@ -178,7 +178,11 @@ export default function Home() {
       <div className="home-box purple-box">
         <div className="userBox white-box">
           <div className="userImage">
-            <img className="circle" src={userPic} alt="the users profile pic" />
+            <img
+              className="circle"
+              src={userPic ? userPic : errorKitten}
+              alt="the users profile pic"
+            />
           </div>
           <div className="userInfo">
             <div className="userInfoDetail">Username</div>
