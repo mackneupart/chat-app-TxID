@@ -1,6 +1,6 @@
 import Parse from "parse";
 
-export const CreateUser = async function (
+export const createUser = async function (
   username,
   password,
   email,
@@ -16,10 +16,7 @@ export const CreateUser = async function (
     User.set("email", email);
     User.set("nativeLanguage", nativeLanguage);
     User.set("targetLanguage", targetLanguage);
-    /* User.set(
-      "profilePicture",
-      new Parse.File("catIcon.img", { base64: profilePicture })
-    ); */
+    User.set("profilePicture", profilePicture);
     await User.signUp();
     return true;
   } catch (error) {
@@ -27,7 +24,7 @@ export const CreateUser = async function (
   }
 };
 
-export const ReadCurrentUser = async function () {
+export const readCurrentUser = async function () {
   try {
     const currentUser = Parse.User.current();
     console.log(`Current logged in user: ${currentUser}`);
@@ -37,7 +34,7 @@ export const ReadCurrentUser = async function () {
   }
 };
 
-const ReadAllUsers = async function () {
+const readAllUsers = async function () {
   const parseQuery = new Parse.Query("User");
   try {
     let users = await parseQuery.find();
@@ -56,10 +53,10 @@ const getRandomNumber = (array) => {
 };
 
 export const getRandomUser = () => {
-  const allUsers = ReadAllUsers();
+  const allUsers = readAllUsers();
   const ranNum = getRandomNumber(allUsers);
   const result = allUsers[ranNum];
-  const currentUser = ReadCurrentUser();
+  const currentUser = readCurrentUser();
   if (result.get("username") === currentUser.get("username")) {
     const allOtherUsers = allUsers.splice(ranNum, 1);
     const newRanNum = getRandomNumber(allOtherUsers);
@@ -68,7 +65,11 @@ export const getRandomUser = () => {
   return result;
 };
 
-/* const ReadCatIcons = async function () {
+/* 
+
+objected dot pointer eller sende hele parseobjected
+
+const ReadCatIcons = async function () {
   try {
     const query = new Parse.Query("CatIcons");
     const icons = await query.find();
@@ -78,18 +79,33 @@ export const getRandomUser = () => {
   }
 }; */
 
-export const ReadCatIcons = async () => {
-  let Icons = []
+/* export const readCatIcons = async () => {
+  console.log("this is readcations");
+  let icons = []
   const queryIcons = new Parse.Query("CatIcons");
   const results = await queryIcons.find();
-  Icons = results.map((icon) => {
+  console.log("this is results");
+  console.log(results);
+  icons = results.map((icon) => {
     return {
       name: icon.get('name'),
       source: icon.get("catPNG")._url
     };
   });
-  return Icons;
-}
+  console.log("this is icons");
+  console.log(icons);
+  return icons;
+} */
+
+export const readCatIcons = async () => {
+  try {
+    const queryIcons = new Parse.Query("CatIcons");
+    const result = await queryIcons.find();
+    return result;
+  } catch (error) {
+    console.log(`Error when trying to get cat icons! ${error}`);
+  }
+};
 
 /*  const GetIcons = async function () {
   try {
