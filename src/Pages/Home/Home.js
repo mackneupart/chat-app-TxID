@@ -6,13 +6,19 @@ import ChatList from "../../Components/home/ChatList";
 import Button from "../../Components/Button/Button";
 import { useNavigate } from "react-router-dom";
 import errorKitten from "../../DesignSystem/errorKitten.jpg";
-import { getProfilePicture, logOutUser, readCurrentUser } from "../../API/API";
+import {
+  getProfilePicture,
+  getRandomUser,
+  logOutUser,
+  readCurrentUser,
+} from "../../API/API";
 
 export default function Home() {
   const navigate = useNavigate();
   const [chatList, setChatList] = useState(UserData);
   const [currentUser, setCurrentUser] = useState(null);
   const [userPic, setUserPic] = useState(null);
+  const [randomUser, setRandomUser] = useState();
 
   useEffect(() => {
     /**
@@ -24,8 +30,10 @@ export default function Home() {
       try {
         const resultU = await readCurrentUser();
         const resultP = await getProfilePicture();
+        const resultR = await getRandomUser();
         setCurrentUser(resultU);
-        setUserPic(resultP[0].get("catPNG")._url);
+        setUserPic(resultP[0]);
+        //setRandomUser(resultR);
       } catch (error) {
         console.log(`Error when trying to read current user: ${error}`);
       }
@@ -53,17 +61,15 @@ export default function Home() {
     return () => (isUpdated = false); */
   }, []); //right now it will only render once. When settings have been implementet, change this
 
-  useEffect(() => {
-    console.log("this is currentUser");
-    console.log(currentUser);
+/*   useEffect(() => {
+    console.log("this is current user");
     if (currentUser) {
-      console.log("this is current user");
       console.log(currentUser);
       /* const icon = currentUser.get("profilePicture");
       console.log("this is icon ---- profilePicture");
       console.log(icon);
       setUserPic(icon);
-      console.log(icon.id) */
+      console.log(icon.id) */ /*
     }
   }, [currentUser]);
 
@@ -74,6 +80,13 @@ export default function Home() {
     }
   }, [userPic]);
 
+  useEffect(() => {
+    console.log("this is random user");
+    if (randomUser) {
+      console.log(randomUser);
+    }
+  },[randomUser]);
+ */
   /* const logOutUser = async function () {
     try {
       await Parse.User.logOut();
@@ -179,7 +192,7 @@ export default function Home() {
           <div className="userImage">
             <img
               className="circle"
-              src={userPic ? userPic : errorKitten}
+              src={userPic ? userPic.get("catPNG")._url : errorKitten}
               alt="the users profile pic"
             />
           </div>
