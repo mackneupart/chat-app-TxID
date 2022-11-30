@@ -12,6 +12,8 @@ export default function Home() {
   const navigate = useNavigate();
   const [chatList, setChatList] = useState(UserData);
   const [currentUser, setCurrentUser] = useState(null);
+  const [senderID, setSenderID] = useState(Parse.User.current().id);
+  const [receiverID, setReceiverID] = useState("PovaKwMIdJ"); // hardcoded, should use API for random user
 
   useEffect(() => {
     /**
@@ -58,6 +60,37 @@ export default function Home() {
       alert(`Error! ${error.message}`);
       return false;
     }
+  };
+
+  function handleNewChat() {
+    createChat();
+    navigate("/Chat");
+  }
+
+  const createChat = async () => {
+    let sender = null;
+    try {
+      const senderQuery = new Parse.Query("User");
+      senderQuery.equalTo("objectId", senderID);
+      sender = await senderQuery.first();
+      console.log("sender: ", sender, "sender.id: ", sender.id)
+    } catch (error) {
+      alert("Parse error: Sender." + error)
+      return false;
+    }
+    let receiver = null;
+    try {
+      const receiverQuery = new Parse.Query("User");
+      receiverQuery.equalTo("objectId", receiverID);
+      receiver = await receiverQuery.first();
+      console.log("receiver: ", receiver, "receiver name: ", receiver.get("username"))
+    } catch (error) {
+      alert("Parse error: Receiver." + error)
+      return false;
+    }
+    setSenderID(sender.id)
+    setReceiverID(receiver.id);
+    return true;
   };
 
   function addChat() {
@@ -173,7 +206,7 @@ export default function Home() {
           </div>
           <div className="newChats">
             <div className="newChat">
-              <Button text="New Chat" click={addChat} />
+              <Button text="New Chat" click={handleNewChat} />
             </div>
             <div className="newGroupChat">
               <Button text="New Group Chat" click={addGroupChat} />
