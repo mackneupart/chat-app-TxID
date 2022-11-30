@@ -5,13 +5,12 @@ import { getRandomUser } from "../../API/API";
 import { useParseQuery } from "@parse/react";
 import Parse from "parse";
 
-
 export default function Chat() {
   const navigate = useNavigate();
   
   const [messageInput, setMessageInput] = useState("");
-  const sender = Parse.User.current().id;
-  const receiver = "PovaKwMIdJ";
+  const sender = Parse.User.current().id; // should fetch from API function, but does not work atm
+  const receiver = "1cUWOIKpQq"; // should fetch from API function, but does not work atm
 
   const parseQuery = new Parse.Query("Message");
   parseQuery.containedIn("sender", [
@@ -26,11 +25,6 @@ export default function Chat() {
   parseQuery.ascending("createdAt");
   parseQuery.includeAll();
 
-
-  function goBack() {
-    navigate("/Home");
-  }
-
    // Declare hook and variables to hold hook responses
    const { isLive, isLoading, isSyncing, results, count, error, reload } =
    useParseQuery(parseQuery, {
@@ -43,7 +37,7 @@ export default function Chat() {
     try {
       const messageText = messageInput;
 
-      // Get sender and receiver nickname Parse objects
+    // Get sender and receiver nickname Parse objects
     const senderQuery = new Parse.Query("User");
     senderQuery.equalTo("objectId", sender);
     let senderObject = await senderQuery.first();
@@ -61,7 +55,6 @@ export default function Chat() {
       Message.save();
       console.log("is live: " + isLive);
       console.log("results: ", results);
-      // Clear input
       setMessageInput("");
     } catch (error) {
       alert(error);
@@ -74,7 +67,7 @@ export default function Chat() {
   };
 
 
-  const senderName = Parse.User.current().get("username");
+  const senderName = Parse.User.current().get("username"); // should be deleted when fetching names from API in lines below :-)
   return (
     <div>
       <div className="flex_between">
@@ -98,7 +91,7 @@ export default function Chat() {
                   {formatDateToTime(result.get("createdAt"))}
                 </p>
                 <p className="message_name">
-                  {result.get("sender").get("name")}
+                  {result.get("sender").get("username")}
                 </p>
               </div>
             ))}
