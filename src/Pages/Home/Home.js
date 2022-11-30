@@ -20,7 +20,6 @@ export default function Home() {
      * should be made when the settings page/button has been created
      */
     //let isUpdated = true;
-
     const getCurrentUser = async () => {
       try {
         const resultU = await readCurrentUser();
@@ -73,7 +72,7 @@ export default function Home() {
     if (userPic) {
       console.log(userPic);
     }
-  });
+  }, [userPic]);
 
   /* const logOutUser = async function () {
     try {
