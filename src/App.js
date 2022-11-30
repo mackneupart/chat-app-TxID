@@ -1,10 +1,11 @@
 import "./App.css";
-import "./Design System/colours.css";
+import "./DesignSystem/colours.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home/Home";
 import SignIn from "./Pages/SignIn/SignIn.js";
 import SignUp from "./Pages/SignUp/SignUp";
-import Parse from "parse/dist/parse.min.js";
+import ChatTest from "./Pages/ChatTest/ChatTest"
+import Parse from "parse";
 
 const ParseAppID = process.env.REACT_APP_PARSE_APPLICATION_ID;
 const ParseHostURL = process.env.REACT_APP_PARSE_HOST_URL;
@@ -20,6 +21,7 @@ function App(props) {
         <Route path="/" element={<SignIn page="SignIn" />} />
         <Route path="signup" element={<SignUp page="SignUp" />} />
         <Route path="home" element={<Home page="Home" />} />
+        <Route path="chatTest" element={<ChatTest page="ChatTest" />} />
       </Routes>
     </BrowserRouter>
   );

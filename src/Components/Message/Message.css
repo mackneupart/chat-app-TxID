@@ -1,0 +1,39 @@
+.message{
+    margin:10px;
+    width: fit-content;
+    max-width: 300px;
+}
+
+/*TODO align messages dependent on send/ received*/
+.message[type = received]{
+    justify-content : flex-start;
+}
+.message[type = send]{
+    justify-content : flex-end;
+}
+.content[type = received]{ 
+    background-color: var(--purple-100);
+    border-radius: 600px 600px 600px 50px;
+    
+}
+
+.content[type = send]{
+    background-color: white;
+    text-align: right;
+    border-radius: 600px 600px 50px 600px;
+}
+
+.content{
+    padding: 20px;
+    
+}
+
+.author{
+    color: white;
+}
+
+.timestamp{
+    color:white;
+    text-align: right;
+    font-size: small;
+}
