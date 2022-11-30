@@ -6,12 +6,13 @@ import ChatList from "../../Components/home/ChatList";
 import Button from "../../Components/Button/Button";
 import { useNavigate } from "react-router-dom";
 import errorKitten from "../../DesignSystem/errorKitten.jpg";
-import { logOutUser, readCurrentUser } from "../../API/API";
+import { getProfilePicture, logOutUser, readCurrentUser } from "../../API/API";
 
 export default function Home() {
   const navigate = useNavigate();
   const [chatList, setChatList] = useState(UserData);
   const [currentUser, setCurrentUser] = useState(null);
+  const [userPic, setUserPic] = useState(null);
 
   useEffect(() => {
     /**
@@ -22,8 +23,10 @@ export default function Home() {
 
     const getCurrentUser = async () => {
       try {
-        const result = await readCurrentUser();
-        setCurrentUser(result);
+        const resultU = await readCurrentUser();
+        const resultP = await getProfilePicture();
+        setCurrentUser(resultU);
+        setUserPic(resultP[0].get("catPNG")._url);
       } catch (error) {
         console.log(`Error when trying to read current user: ${error}`);
       }
@@ -55,9 +58,22 @@ export default function Home() {
     console.log("this is currentUser");
     console.log(currentUser);
     if (currentUser) {
+      console.log("this is current user");
       console.log(currentUser);
+      /* const icon = currentUser.get("profilePicture");
+      console.log("this is icon ---- profilePicture");
+      console.log(icon);
+      setUserPic(icon);
+      console.log(icon.id) */
     }
   }, [currentUser]);
+
+  useEffect(() => {
+    console.log("this is getting profile pic");
+    if (userPic) {
+      console.log(userPic);
+    }
+  });
 
   /* const logOutUser = async function () {
     try {
@@ -141,10 +157,12 @@ export default function Home() {
     alert("Settings Button was pressed!");
   }
 
-  function getProfilePic() {
+  /*   function getProfilePic() {
     if (currentUser !== null) {
       try {
-        const url = currentUser.get("profilePicture").url();
+        console.log("this is getting profile pic");
+        console.log(currentUser.get("profilePicture")._url);
+        const url = currentUser.get("profilePicture")._url;
         if (url !== null || url !== undefined) {
           return url;
         }
@@ -153,18 +171,14 @@ export default function Home() {
       }
     }
     return errorKitten;
-  }
+  } */
 
   return (
     <div className="home-page background">
       <div className="home-box purple-box">
         <div className="userBox white-box">
           <div className="userImage">
-            <img
-              className="circle"
-              src={getProfilePic()}
-              alt="the users profile pic"
-            />
+            <img className="circle" src={userPic} alt="the users profile pic" />
           </div>
           <div className="userInfo">
             <div className="userInfoDetail">Username</div>

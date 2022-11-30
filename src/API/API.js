@@ -26,11 +26,45 @@ export const createUser = async function (
 
 export const readCurrentUser = async function () {
   try {
+    console.log("testtestest");
+    /* 
+    const query = new Parse.Query('User');
+    console.log(query)
+    const test = query.include('profilePicture')
+
+    
+    console.log(test) */
+    console.log(await Parse.User.current());
     const currentUser = Parse.User.current();
-    console.log(`Current logged in user: ${currentUser}`);
-    return currentUser;
+
+    if (currentUser) {
+      console.log(`Current logged in user:`);
+      /* console.log(currentUser.get("profilePicture"));
+      const pic = await currentUser.get("profilePicture").name();
+      console.log(pic); */
+      return currentUser;
+    }
   } catch (error) {
     console.log(`Error when trying to get current user! ${error}`);
+  }
+};
+
+export const getProfilePicture = async function () {
+  try {
+    const user = await readCurrentUser();
+    const icon = user.get("profilePicture");
+    const iconId = icon.id;
+    const query = new Parse.Query("CatIcons");
+    query.equalTo("objectId", iconId);
+    const result = await query.find(); 
+    /* 
+    console.log("this is result--------------")
+    console.log(result)
+    console.log(result[0].get("catPNG")._url) */
+
+    return result;
+  } catch (error) {
+    console.log(`Error when trying to get user profile picture! ${error}`);
   }
 };
 
