@@ -6,7 +6,12 @@ import "../../DesignSystem/grid.css";
 import { useEffect, useState } from "react";
 //import { useNavigate } from "react-router-dom";
 import Button from "../../Components/Button/Button";
-import { CreateUser, ReadCatIcons, getRandomUser } from "../../API/API";
+import {
+  createUser,
+  readCatIcons,
+  getRandomUser,
+  readCurrentUser,
+} from "../../API/API";
 
 export default function SignUp() {
   const [username, setUsername] = useState("");
@@ -14,52 +19,56 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [nativeLanguage, setNativeLanguage] = useState([]);
   const [targetLanguage, setTargetLanguage] = useState([]);
-  const [catIcons, setCatIcons] = useState({});
+  const [catIcons, setCatIcons] = useState(null);
   const [userPic, setUserPic] = useState(null);
-  const [change, setChange] = useState(false);
-  const [count, setCount] = useState(0);
+  const [cu, setCU] = useState();
+
   //const navigate = useNavigate();
 
   useEffect(() => {
     console.log("this is useeffect");
-    console.log(count);
-    setCount(count + 1);
-    console.log(count);
-    console.log(change);
-    const getCatIcons = async function () {
-      const result = ReadCatIcons().then(
-        setCatIcons({ ...catIcons, ...result })
-      );
 
-      console.log("this is result");
-      console.log(result);
-      /* if (change) {
-        setCatIcons({ ...catIcons, ...result });
-        console.log("this is catIcons");
-        console.log(catIcons);
-      } */
+    const getCatIcons = async () => {
+      try {
+        const result = await readCatIcons();
+        const currentUser = await readCurrentUser();
+        setCatIcons(result);
+        setCU(currentUser);
+      } catch (error) {
+        console.log(`Error when trying to read cat icons: ${error}`);
+      }
     };
+
     getCatIcons();
-  }, [change]);
+  }, []);
+
+  useEffect(() => {
+    console.log("this is catIcons");
+    console.log(catIcons);
+    if (cu) {
+      console.log(cu.id);
+    }
+  }, [catIcons]);
 
   function makeProfileSelection() {
-    if (count === 1) {
-      console.log("this is if statement");
-      setCount(2);
-      setChange(true);
-      console.log(change);
-    }
     try {
       return (
-        <div>
-          {catIcons.map((catIcon) => (
+        <>
+          {/* {catIcons.map((catIcon) => (
             <img
-              alt={catIcon !== null ? catIcon.get("name") : "not working :("}
+              alt={catIcon !== null ? catIcon.name : "not working :("}
               src={catIcon !== null ? catIcon.get("source") : "altText"}
               onClick={() => handleSelect(catIcon.get("source"))}
             />
+          ))} */}
+          {catIcons.map((catIcon) => (
+            <img
+              alt={catIcon.name}
+              src={catIcon.source}
+              onClick={() => handleSelect(catIcon)}
+            />
           ))}
-        </div>
+        </>
       );
     } catch (error) {
       return false;
@@ -75,7 +84,7 @@ export default function SignUp() {
 
   function handleSubmit() {
     if (
-      CreateUser(
+      createUser(
         username,
         password,
         email,
@@ -93,11 +102,11 @@ export default function SignUp() {
   return (
     <div className="sign-up-page">
       <div className="purple-box profile-box">
-        {/* <img
+         {/* <img
           className="selected-pic"
           id="ProfilePicture"
           alt="Profile"
-          src={catIcons !== null ? catIcons[0].get("catPNG")._url : "altText"}
+          src={catIcons !== null ? catIcons[0].source : "altText"}
         />  */}
 
         <h3>Select a profile picture:</h3>
