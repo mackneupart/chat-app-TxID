@@ -12,9 +12,7 @@ export default function Home() {
   const navigate = useNavigate();
   const [chatList, setChatList] = useState(UserData);
   const [currentUser, setCurrentUser] = useState(null);
-  const [senderID, setSenderID] = useState(Parse.User.current().id);
-  const [receiverID, setReceiverID] = useState("PovaKwMIdJ"); // hardcoded, should use API for random user
-
+  
   useEffect(() => {
     /**
      * create a variable to manage when the userdata should be changed
@@ -63,34 +61,9 @@ export default function Home() {
   };
 
   function handleNewChat() {
-    createChat();
     navigate("/Chat");
   }
 
-  // move to API later :-)
-  const createChat = async () => {
-    let sender = null;
-    try {
-      const senderQuery = new Parse.Query("User");
-      senderQuery.equalTo("objectId", senderID);
-      sender = await senderQuery.first();
-    } catch (error) {
-      alert("Parse error: Sender." + error)
-      return false;
-    }
-    let receiver = null;
-    try {
-      const receiverQuery = new Parse.Query("User");
-      receiverQuery.equalTo("objectId", receiverID);
-      receiver = await receiverQuery.first();
-    } catch (error) {
-      alert("Parse error: Receiver." + error)
-      return false;
-    }
-    setSenderID(sender.id)
-    setReceiverID(receiver.id);
-    return true;
-  };
 
   function addChat() {
     console.log("addchat clicked and entered");
