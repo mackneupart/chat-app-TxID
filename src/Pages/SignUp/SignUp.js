@@ -5,10 +5,7 @@ import "../../DesignSystem/grid.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../Components/Button/Button";
-import {
-  createUser,
-  readCatIcons,
-} from "../../API/API";
+import { createUser, readCatIcons } from "../../API/API";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -36,7 +33,10 @@ export default function SignUp() {
     console.log("this is catIcons");
     console.log(catIcons);
     if (catIcons) {
-      console.log(catIcons[0].get("name"));
+      console.log("Set profile pic to ", catIcons[0].get("name"));
+      const defaultIcon = catIcons[0];
+      setUserPic(defaultIcon);
+      console.log(defaultIcon);
     }
   }, [catIcons]);
 
