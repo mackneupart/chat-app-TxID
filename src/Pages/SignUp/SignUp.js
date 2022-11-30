@@ -21,32 +21,26 @@ export default function SignUp() {
   const [targetLanguage, setTargetLanguage] = useState([]);
   const [catIcons, setCatIcons] = useState(null);
   const [userPic, setUserPic] = useState(null);
-  const [cu, setCU] = useState();
 
   //const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("this is useeffect");
-
     const getCatIcons = async () => {
       try {
         const result = await readCatIcons();
-        const currentUser = await readCurrentUser();
         setCatIcons(result);
-        setCU(currentUser);
       } catch (error) {
         console.log(`Error when trying to read cat icons: ${error}`);
       }
     };
-
     getCatIcons();
   }, []);
 
   useEffect(() => {
     console.log("this is catIcons");
     console.log(catIcons);
-    if (cu) {
-      console.log(cu.id);
+    if (catIcons) {
+      console.log(catIcons[0].get("name"));
     }
   }, [catIcons]);
 
@@ -54,17 +48,10 @@ export default function SignUp() {
     try {
       return (
         <>
-          {/* {catIcons.map((catIcon) => (
-            <img
-              alt={catIcon !== null ? catIcon.name : "not working :("}
-              src={catIcon !== null ? catIcon.get("source") : "altText"}
-              onClick={() => handleSelect(catIcon.get("source"))}
-            />
-          ))} */}
           {catIcons.map((catIcon) => (
             <img
-              alt={catIcon.name}
-              src={catIcon.source}
+              alt={catIcon.get("name")}
+              src={catIcon.get("catPNG")._url}
               onClick={() => handleSelect(catIcon)}
             />
           ))}
@@ -75,11 +62,11 @@ export default function SignUp() {
     }
   }
 
-  function handleSelect(source) {
+  function handleSelect(catIcon) {
     //change profile picture to selected picture
-    setUserPic(source);
+    setUserPic(catIcon);
     const profPic = document.getElementById("ProfilePicture");
-    profPic.src = source;
+    profPic.src = catIcon.get("catPNG")._url;
   }
 
   function handleSubmit() {
@@ -102,12 +89,12 @@ export default function SignUp() {
   return (
     <div className="sign-up-page">
       <div className="purple-box profile-box">
-         {/* <img
+        <img
           className="selected-pic"
           id="ProfilePicture"
           alt="Profile"
-          src={catIcons !== null ? catIcons[0].source : "altText"}
-        />  */}
+          src={catIcons !== null ? catIcons[0].get("catPNG")._url : "altText"}
+        />
 
         <h3>Select a profile picture:</h3>
         <div className="picture-box">
