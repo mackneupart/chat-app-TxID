@@ -67,6 +67,7 @@ export default function Home() {
     navigate("/Chat");
   }
 
+  // move to API later :-)
   const createChat = async () => {
     let sender = null;
     try {
