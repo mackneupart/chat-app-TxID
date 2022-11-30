@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css";
 import "../../DesignSystem/grid.css";
-import UserData from "../../Components/UserData";
+//import UserData from "../../Components/UserData";
 import ChatList from "../../Components/home/ChatList";
 import Button from "../../Components/Button/Button";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +15,7 @@ import {
 
 export default function Home() {
   const navigate = useNavigate();
-  const [chatList, setChatList] = useState(UserData);
+  const [chatList, setChatList] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
   const [userPic, setUserPic] = useState(null);
   const [randomUser, setRandomUser] = useState();
@@ -33,7 +33,7 @@ export default function Home() {
         const resultR = await getRandomUser();
         setCurrentUser(resultU);
         setUserPic(resultP[0]);
-        //setRandomUser(resultR);
+        setRandomUser(resultR);
       } catch (error) {
         console.log(`Error when trying to read current user: ${error}`);
       }
@@ -61,7 +61,7 @@ export default function Home() {
     return () => (isUpdated = false); */
   }, []); //right now it will only render once. When settings have been implementet, change this
 
-/*   useEffect(() => {
+  /*   useEffect(() => {
     console.log("this is current user");
     if (currentUser) {
       console.log(currentUser);
@@ -79,14 +79,14 @@ export default function Home() {
       console.log(userPic);
     }
   }, [userPic]);
-
+ */ /*
   useEffect(() => {
     console.log("this is random user");
     if (randomUser) {
       console.log(randomUser);
     }
-  },[randomUser]);
- */
+  }, [randomUser]);
+
   /* const logOutUser = async function () {
     try {
       await Parse.User.logOut();
@@ -106,6 +106,14 @@ export default function Home() {
     }
   }; */
 
+  const getRanUser = async () => {
+    try {
+      setRandomUser(await getRandomUser());
+    } catch (error) {
+      console.log(`Error when trying to get random user user: ${error}`);
+    }
+  };
+
   const logOut = async function () {
     try {
       if (logOutUser()) {
@@ -118,18 +126,21 @@ export default function Home() {
   };
 
   function addChat() {
+    getRanUser();
+    console.log("this is random users state: ", randomUser);
+    console.log("this is random users id: ", randomUser.id);
+
     console.log("addchat clicked and entered");
     setChatList([
       ...chatList,
       {
         chat: [
           {
-            id: Math.random().toString(),
-            username: "Kitty What Up",
-            TL: "French",
-            NL: "English",
-            image:
-              "https://media.npr.org/assets/img/2021/08/11/gettyimages-1279899488_wide-f3860ceb0ef19643c335cb34df3fa1de166e2761-s1100-c50.jpg",
+            id: randomUser.id,
+            username: randomUser.get("username"),
+            TL: randomUser.get("targetLanguage"),
+            NL: randomUser.get("nativeLanguage"),
+            image: userPic.get("catPNG")._url,
           },
         ],
       },

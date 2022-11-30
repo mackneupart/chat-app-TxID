@@ -90,18 +90,18 @@ const readAllUsers = async function () {
 };
 
 const getRandomNumber = async function (length) {
-  console.log("this is get random number");
+  //console.log("this is get random number");
   var length = -1;
   try {
     const allUsers = await readAllUsers();
     for (let key in allUsers) {
       length += 1;
     }
-    console.log("length:   ", length);
+   // console.log("length:   ", length);
 
     const ranNum = Math.floor(Math.random() * length);
 
-    console.log("ranNum:   ", ranNum);
+    //console.log("ranNum:   ", ranNum);
     return ranNum;
   } catch (error) {
     console.log(`Error when trying to get a random number: ${error.message}`);
@@ -116,14 +116,14 @@ const getRandomNumber = async function (length) {
 }; */
 
 export const getRandomUser = async function () {
-  console.log("this is getting random user");
+  //console.log("this is getting random user");
   /* var length = -1;
   var ranNum = -1;
   var result = null; */
   try {
     const allUsers = await readAllUsers();
-    console.log("this is allUsers");
-    console.log(allUsers);
+    //console.log("this is allUsers");
+    //console.log(allUsers);
     const ranNum = await getRandomNumber();
     const result = allUsers[ranNum];
     /* if (allUsers) {
@@ -138,13 +138,6 @@ export const getRandomUser = async function () {
     } */
 
     const currentUser = await readCurrentUser();
-
-    if (result) {
-      console.log(result.id);
-    }
-    if (currentUser) {
-      console.log(currentUser.id);
-    }
 
     if (result && currentUser) {
       if (result.id === currentUser.id) {
