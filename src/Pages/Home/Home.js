@@ -62,6 +62,7 @@ export default function Home() {
 
   function handleNewChat() {
     navigate("/Chat");
+    // should also give props about which chat was clicked or if 'new chat' was clicked
   }
 
 
