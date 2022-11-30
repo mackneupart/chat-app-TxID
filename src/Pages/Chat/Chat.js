@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import { ReadCurrentUser } from "../../API/API";
+import { ReadCurrentUser, getCurrentUserId } from "../../API/API";
 import { getRandomUser } from "../../API/API";
 import { useParseQuery } from "@parse/react";
 import Parse from "parse";
@@ -10,8 +10,8 @@ export default function Chat() {
   const navigate = useNavigate();
   
   const [messageInput, setMessageInput] = useState("");
-  const sender = ReadCurrentUser.id;
-  const receiver = getRandomUser.id;
+  const sender = Parse.User.current().id;
+  const receiver = "PovaKwMIdJ";
 
   const parseQuery = new Parse.Query("Message");
   parseQuery.containedIn("sender", [
@@ -44,13 +44,13 @@ export default function Chat() {
       const messageText = messageInput;
 
       // Get sender and receiver nickname Parse objects
-      const senderQuery = new Parse.Query("User");
-      senderQuery.equalTo("objectId", sender);
-      let senderObject = await senderQuery.first();
+    const senderQuery = new Parse.Query("User");
+    senderQuery.equalTo("objectId", sender);
+    let senderObject = await senderQuery.first();
       
-      const receiverQuery = new Parse.Query("User");
-      receiverQuery.equalTo("objectId", receiver);
-      let receiverObject = await receiverQuery.first();
+    const receiverQuery = new Parse.Query("User");
+    receiverQuery.equalTo("objectId", receiver);
+    let receiverObject = await receiverQuery.first();
 
       // Create new Message object and save it
       let Message = new Parse.Object("Message");
@@ -60,6 +60,7 @@ export default function Chat() {
       Message.set("receiver", receiverObject);
       Message.save();
       console.log("is live: " + isLive);
+      console.log("results: ", results);
       // Clear input
       setMessageInput("");
     } catch (error) {
@@ -72,10 +73,12 @@ export default function Chat() {
     return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
   };
 
+
+  const senderName = Parse.User.current().get("username");
   return (
     <div>
       <div className="flex_between">
-        <h2 className="list_heading">{`${sender} sending, ${receiver} receiving!`}</h2>
+        <h2 className="list_heading">{`${senderName} sending, ${receiver} receiving!`}</h2>
       </div>
       {results && (
         <div className="messages">

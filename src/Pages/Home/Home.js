@@ -74,7 +74,6 @@ export default function Home() {
       const senderQuery = new Parse.Query("User");
       senderQuery.equalTo("objectId", senderID);
       sender = await senderQuery.first();
-      console.log("sender: ", sender, "sender.id: ", sender.id)
     } catch (error) {
       alert("Parse error: Sender." + error)
       return false;
@@ -84,7 +83,6 @@ export default function Home() {
       const receiverQuery = new Parse.Query("User");
       receiverQuery.equalTo("objectId", receiverID);
       receiver = await receiverQuery.first();
-      console.log("receiver: ", receiver, "receiver name: ", receiver.get("username"))
     } catch (error) {
       alert("Parse error: Receiver." + error)
       return false;

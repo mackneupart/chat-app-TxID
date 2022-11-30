@@ -37,6 +37,14 @@ export const ReadCurrentUser = async function () {
   }
 };
 
+export const getCurrentUserId = async function () {
+    try{
+        return Parse.User.current().id;
+    } catch (error) {
+        console.log("Error: ", error);
+    }
+};
+
 const ReadAllUsers = async function () {
   const parseQuery = new Parse.Query("User");
   try {
