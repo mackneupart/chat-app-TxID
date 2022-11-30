@@ -5,11 +5,11 @@ import { getRandomUser } from "../../API/API";
 import { useParseQuery } from "@parse/react";
 import Parse from "parse";
 
-export default function Chat() {
+export const Chat = (props) => {
   const navigate = useNavigate();
   
   const [messageInput, setMessageInput] = useState("");
-  const sender = Parse.User.current().id; // should fetch from API function, but does not work atm
+  const sender = Parse.User.current().id; // should fetch from API function getCurrentUser or similar, but does not work atm
   const receiver = "1cUWOIKpQq"; // should fetch from API function, but does not work atm
 
   const parseQuery = new Parse.Query("Message");
