@@ -22,13 +22,14 @@ export default function ChatBox({currentUser, currentChat}){
     //setMessages([message1, message2])
     console.log(messages)
     
-    //also check live chat implementation
+    
     function handleNewMessage(author, content, timestamp){
         const newMessage ={
             author: author,
             content: content,
             timestamp: timestamp
         }
+        //TODO: add message to datebase
         setMessages(prevState => [...prevState, newMessage])
     }
 
