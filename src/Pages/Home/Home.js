@@ -7,6 +7,7 @@ import Button from "../../Components/Button/Button";
 import Parse from "parse";
 import { useNavigate } from "react-router-dom";
 import errorKitten from "../../DesignSystem/errorKitten.jpg";
+import { readCurrentUser } from "../../API/API";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -20,6 +21,16 @@ export default function Home() {
      */
     let isUpdated = true;
 
+    const getCurrentUser = async () => {
+      try {
+        const result = await readCurrentUser();
+        setCurrentUser(result);
+      } catch (error) {
+        console.log(`Error when trying to read current user: ${error}`);
+      }
+    };
+    getCurrentUser();
+    /* 
     const fetchCurrentUser = async () => {
       try {
         const currentUser = await Parse.User.current();
@@ -30,7 +41,7 @@ export default function Home() {
           console.log(currentUser);
           console.log("this is profile pic uri");
           console.log(currentUser.get("profilePicture").url()); */
-        }
+    /*}
       } catch (error) {
         alert(`Error trying to fetch current user! ${error.message}`);
       }
@@ -38,8 +49,16 @@ export default function Home() {
 
     fetchCurrentUser().catch(console.error);
 
-    return () => (isUpdated = false);
+    return () => (isUpdated = false); */
   }, []); //right now it will only render once. When settings have been implementet, change this
+
+  useEffect(() => {
+    console.log("this is currentUser");
+    console.log(currentUser);
+    if (currentUser) {
+      console.log(currentUser);
+    }
+  }, [currentUser]);
 
   const logOutUser = async function () {
     try {
@@ -116,13 +135,12 @@ export default function Home() {
     if (currentUser !== null) {
       try {
         const url = currentUser.get("profilePicture").url();
-      if (url !== null || url !== undefined) {
-        return url;
+        if (url !== null || url !== undefined) {
+          return url;
+        }
+      } catch (error) {
+        console.log("Error getting profile picture: " + error);
       }
-      } catch(error) {
-        console.log("Error getting profile picture: "+ error);
-      }
-      
     }
     return errorKitten;
   }
