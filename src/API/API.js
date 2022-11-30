@@ -60,13 +60,58 @@ export const getRandomUser = () => {
   const ranNum = getRandomNumber(allUsers);
   const result = allUsers[ranNum];
   const currentUser = ReadCurrentUser();
-  if (result.get("username") == currentUser.get("username")) {
+  if (result.get("username") === currentUser.get("username")) {
     const allOtherUsers = allUsers.splice(ranNum, 1);
     const newRanNum = getRandomNumber(allOtherUsers);
     return allOtherUsers[newRanNum];
   }
   return result;
 };
+
+/* const ReadCatIcons = async function () {
+  try {
+    const query = new Parse.Query("CatIcons");
+    const icons = await query.find();
+    return icons;
+  } catch (error) {
+    console.log("Error in getting Cat Png: " + error);
+  }
+}; */
+
+export const ReadCatIcons = async () => {
+  let Icons = []
+  const queryIcons = new Parse.Query("CatIcons");
+  const results = await queryIcons.find();
+  Icons = results.map((icon) => {
+    return {
+      name: icon.get('name'),
+      source: icon.get("catPNG")._url
+    };
+  });
+  return Icons;
+}
+
+/*  const GetIcons = async function () {
+  try {
+    const result = await ReadCatIcons();
+    console.log("this is result");
+    console.log(result);
+    var icons = {};
+    var count = 0;
+    for (let icon in result) {
+      let key = `icon${count}`;
+      let n = icon.get("name");
+      let s = icon.get("catPNG")._url;
+      let obj = { [key]: { name: n, source: s } };
+      icons = { ...icons, obj };
+    }
+    console.log("this is icons");
+    console.log(icons);
+    return icons;
+  } catch (error) {
+    console.log("Error in getting Icons: " + error);
+  }
+}; */
 
 /* export default {user: {create: CreateUser, delete: DeleteUserInfo}, chat: {create: CreateChat}}
 
