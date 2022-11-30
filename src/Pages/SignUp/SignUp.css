@@ -52,9 +52,9 @@ h3 {
   grid-column-start: 2;
   height: 100%;
   background-color: white;
-  align-items: center;
-  justify-items: center;
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .profile-info-box {
