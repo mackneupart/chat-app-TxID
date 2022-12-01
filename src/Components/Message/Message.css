@@ -31,3 +31,10 @@
     text-align: right;
     font-size: small;
 }
+.edit-token{
+    display: inline;
+    
+}
+.message[type = "send"]> .edit-token{
+    display: none;
+}
