@@ -1,0 +1,23 @@
+.side-bar{
+    display: grid;
+    grid-template-rows: 10% 70% 20%;
+    height: 100%;
+    background-image: linear-gradient(to right, var(--purple-900) , var(--purple-100));
+    padding: 5%;
+}
+
+.search{
+    padding: 0;
+    margin: 2%;
+}
+
+.chat-list{
+    grid-row-start: 2;
+    overflow-y: scroll;
+    scrollbar-color: var(--blue-900), var(--purple-900);
+    scrollbar-width: thin;
+}
+.language-radio{
+    /* display: grid; */
+    grid-row-start: 3;
+}
