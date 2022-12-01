@@ -13,11 +13,20 @@
 
 .chat-list{
     grid-row-start: 2;
+    padding: 1%;
     overflow-y: scroll;
-    scrollbar-color: var(--blue-900), var(--purple-900);
+    scrollbar-color: var(--blue-900) var(--purple-100);
     scrollbar-width: thin;
 }
 .language-radio{
     /* display: grid; */
     grid-row-start: 3;
+}
+input[type = "radio"]{
+    width: 15%;
+    height: 15%;
+    border: none;
+    margin: 0;
+    display: inline;
+    
 }

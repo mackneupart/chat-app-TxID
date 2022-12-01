@@ -6,7 +6,8 @@ export default function ChatSidebar({chats, currenChat}){
     const language2 = "Spanish" // currentChat language 2
 
     function searchChat(event){
-        
+        //get all chaste
+        //find right chat
     }
 
     return(
@@ -17,7 +18,7 @@ export default function ChatSidebar({chats, currenChat}){
             <div className="language-radio">
                 <p>Currently you are writing in:</p>
                 <input className="radio-input" type="radio" name="current-language" value= {language1}/>
-                <label for={language1}>{language1}</label>
+                <label for={language1}>{language1}</label><br/>
                 <input className="radio-input" type="radio" name="current-language" value= {language2}/>
                 <label for={language2}>{language2}</label>                    
             </div>

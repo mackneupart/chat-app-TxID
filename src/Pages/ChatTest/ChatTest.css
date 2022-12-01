@@ -3,6 +3,7 @@
     display: grid;
     grid-template-columns: 10% 20% 60% 10%;
     grid-template-rows: 10% 85% 5%;
+    box-shadow: inset;
     
 }
 .chat-sidebar{
