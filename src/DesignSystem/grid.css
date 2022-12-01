@@ -47,6 +47,8 @@ body {
   display: grid;
 } 
 
+
+
 /**** css to decide start of the parent element ****/ /*
 .start-c-2-r-2 {
   grid-column-start: 2;
