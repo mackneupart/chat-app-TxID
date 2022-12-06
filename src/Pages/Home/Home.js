@@ -10,7 +10,8 @@ import {
   getRandomUser,
   logOutUser,
   readCurrentUser,
-  getChats,
+  readChats,
+  createChat,
 } from "../../API/API";
 
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
   const [currentUser, setCurrentUser] = useState(null);
   const [userPic, setUserPic] = useState(null);
   const [randomUser, setRandomUser] = useState();
+  const [chats, setChats] = useState();
 
   useEffect(() => {
     /**
@@ -45,13 +47,24 @@ export default function Home() {
     const getAllChats = async () => {
       try {
         if (currentUser) {
-          const resultC = await getChats();
+          const resultC = await readChats(currentUser);
+          setChats(resultC);
+          setChatList(resultC);
         }
       } catch (error) {
         console.log(`Error when trying to get all chats: ${error}`);
       }
     };
+
+    getAllChats();
   }, [currentUser]);
+
+  useEffect(() => {
+    if (chats) {
+      console.log("this is resultC");
+      console.log(chats);
+    }
+  }, [chats]);
 
   const getRanUser = async () => {
     try {
@@ -97,9 +110,12 @@ export default function Home() {
         ],
       },
     ]);
-    navigate("/Chat", {
+
+    createChat(currentUser, randomUser);
+
+    /* navigate("/Chat", {
       state: { randomUser: randomUser, currentUser: currentUser },
-    });
+    }); */
   }
 
   function addGroupChat() {

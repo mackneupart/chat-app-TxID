@@ -24,6 +24,38 @@ export const createUser = async function (
   }
 };
 
+export const createChat = async function (user1, user2) {
+  console.log("creating a new chat");
+
+  const usersObjects = [user1, user2];
+  try {
+    let Chat = new Parse.Object("Chat");
+    let chatsRelation = Chat.relation("users");
+    chatsRelation.add(usersObjects); //takes an array as parameter
+    await Chat.save();
+    return true;
+  } catch (error) {
+    console.log(`Error when trying to create a new chat! ${error}`);
+  }
+};
+
+export const readChats = async function (currentUser) {
+  console.log("reading chats belonging to user:");
+  console.log(currentUser);
+  try {
+    const parseQuery = new Parse.Query("Chat");
+    parseQuery.equalTo("users", currentUser);
+    let chats = await parseQuery.find();
+    for (let chat of chats) {
+      let chatUsersRelation = chat.relation("users");
+      chat.usersObjects = await chatUsersRelation.query().find();
+    }
+    return chats;
+  } catch (error) {
+    console.log(`Error when trying to read chats! ${error}`);
+  }
+};
+
 export const readCurrentUser = async function () {
   try {
     /* 
@@ -144,7 +176,10 @@ export const getRandomUser = async function () {
         console.log("the random user is the same as the current");
         const allOtherUsers = allUsers.splice(ranNum, 1);
         const newRanNum = getRandomNumber(allOtherUsers);
-        console.log("new random user", allOtherUsers[newRanNum]);
+        if (newRanNum) {
+          console.log("this is the new random number: ", newRanNum);
+          console.log("new random user", allOtherUsers[newRanNum]);
+        }
         return allOtherUsers[newRanNum];
       }
       console.log("the random user is different then the current:", result);
@@ -155,7 +190,7 @@ export const getRandomUser = async function () {
     return false;
   }
 };
-
+/* 
 const readMessages = async function (currentID) {
   const parseQuery = new Parse.Query("Message");
   try {
@@ -175,12 +210,12 @@ export const getChats = async function (currentID) {
       var receiverID = message.get("receiver");
       chats.add(receiverID);
     }
-    console.log("this is chats")
+    console.log("this is chats");
     console.log(chats);
   } catch (error) {
     console.log(`Error when trying to get chats! ${error}`);
   }
-};
+}; */
 
 /* 
 
