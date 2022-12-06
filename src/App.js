@@ -48,8 +48,8 @@ function App(props) {
       <div className="App"></div>
       <Routes>
         <Route path="/" element={<SignIn page="SignIn" />} />
-        {/* <Route path="/signup" element={<SignUp page="SignUp" />} />
-        <Route path="/home" element={<Home page="Home" />} /> */}
+        <Route path="/signup" element={<SignUp page="SignUp" />} />
+        <Route path="/home" element={<Home page="Home" />} />
         <Route path="chat" element={<Chat page="Chat" />} />
       </Routes>
     </BrowserRouter>
