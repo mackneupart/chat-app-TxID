@@ -10,8 +10,8 @@ import {
   getRandomUser,
   logOutUser,
   readCurrentUser,
-  readChats,
-  createChat,
+  readChats2,
+  createChat2,
 } from "../../API/API";
 
 export default function Home() {
@@ -47,7 +47,9 @@ export default function Home() {
     const getAllChats = async () => {
       try {
         if (currentUser) {
-          const resultC = await readChats(currentUser);
+          console.log("this is random user");
+          console.log(randomUser);
+          const resultC = await readChats2(currentUser);
           setChats(resultC);
           setChatList(resultC);
         }
@@ -59,12 +61,14 @@ export default function Home() {
     getAllChats();
   }, [currentUser]);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     if (chats) {
-      console.log("this is resultC");
-      console.log(chats);
+      console.log("this is resultC - users2");
+      console.log(chats[0]);
+      console.log(chats[0].get("users2")[0].get("username"));
+      //console.log(chats[0].relation("usersObjects"));
     }
-  }, [chats]);
+  }, [chats]); */
 
   const getRanUser = async () => {
     try {
@@ -96,7 +100,7 @@ export default function Home() {
     console.log("this is random users id: ", randomUser.id);
 
     console.log("addchat clicked and entered");
-    setChatList([
+    /*  setChatList([
       ...chatList,
       {
         chat: [
@@ -109,9 +113,9 @@ export default function Home() {
           },
         ],
       },
-    ]);
+    ]); */
 
-    createChat(currentUser, randomUser);
+    createChat2(currentUser, randomUser);
 
     /* navigate("/Chat", {
       state: { randomUser: randomUser, currentUser: currentUser },

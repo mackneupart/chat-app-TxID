@@ -56,23 +56,40 @@ export const readChats = async function (currentUser) {
   }
 };
 
+export const createChat2 = async function (user1, user2) {
+  console.log("creating a new chat");
+  const usersObjects = [user1, user2];
+  try {
+    let chat = new Parse.Object("Chat");
+    for (var user of usersObjects) {
+      chat.add("users2", user);
+    }
+    await chat.save();
+    console.log("new chat created");
+    return true;
+  } catch (error) {
+    console.log(`Error when trying to create a new chat! ${error}`);
+  }
+};
+
+export const readChats2 = async function (currentUser) {
+  console.log("reading chats belonging to user:");
+  console.log(currentUser);
+  try {
+    const parseQuery = new Parse.Query("Chat");
+    parseQuery.equalTo("users2", currentUser);
+    parseQuery.include("users2");
+    const chats = await parseQuery.find();
+    return chats;
+  } catch (error) {
+    console.log(`Error when trying to read chats! ${error}`);
+  }
+};
+
 export const readCurrentUser = async function () {
   try {
-    /* 
-    const query = new Parse.Query('User');
-    console.log(query)
-    const test = query.include('profilePicture')
-
-    
-    console.log(test) */
-    //console.log(await Parse.User.current());
     const currentUser = Parse.User.current();
     if (currentUser) {
-      //console.log(`Current logged in user:`);
-      //console.log(currentUser)
-      /* console.log(currentUser.get("profilePicture"));
-      const pic = await currentUser.get("profilePicture").name();
-      console.log(pic); */
       return currentUser;
     }
   } catch (error) {
@@ -88,10 +105,6 @@ export const getProfilePicture = async function () {
     const query = new Parse.Query("CatIcons");
     query.equalTo("objectId", iconId);
     const result = await query.find();
-    /* 
-    console.log("this is result--------------")
-    console.log(result)
-    console.log(result[0].get("catPNG")._url) */
     return result;
   } catch (error) {
     console.log(`Error when trying to get user profile picture! ${error}`);
@@ -110,11 +123,11 @@ export const logOutUser = async function () {
 };
 
 const readAllUsers = async function () {
-  //console.log("reading all users");
+  console.log("reading all users");
   const parseQuery = new Parse.Query("User");
   try {
+    parseQuery.include("profilePicture");
     const users = await parseQuery.find();
-    // console.log(users);
     return users;
   } catch (error) {
     console.log(`Error when trying to read all users: ${error.message}`);
