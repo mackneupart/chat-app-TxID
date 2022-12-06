@@ -1,82 +1,105 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css";
 import "../../DesignSystem/grid.css";
-import UserData from "../../Components/UserData";
 import ChatList from "../../Components/home/ChatList";
 import Button from "../../Components/Button/Button";
-import Parse from "parse";
 import { useNavigate } from "react-router-dom";
 import errorKitten from "../../DesignSystem/errorKitten.jpg";
+import {
+  getProfilePicture,
+  getRandomUser,
+  logOutUser,
+  readCurrentUser,
+  getChats,
+} from "../../API/API";
 
 export default function Home() {
   const navigate = useNavigate();
-  const [chatList, setChatList] = useState(UserData);
+  const [chatList, setChatList] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
+  const [userPic, setUserPic] = useState(null);
+  const [randomUser, setRandomUser] = useState();
 
   useEffect(() => {
     /**
      * create a variable to manage when the userdata should be changed
      * should be made when the settings page/button has been created
      */
-    let isUpdated = true;
-
-    const fetchCurrentUser = async () => {
+    const getCurrentUser = async () => {
       try {
-        const currentUser = await Parse.User.current();
-        // Update state variable holding current user
-        if (isUpdated) {
-          setCurrentUser(currentUser);
-          /* console.log("this is current user");
-          console.log(currentUser);
-          console.log("this is profile pic uri");
-          console.log(currentUser.get("profilePicture").url()); */
-        }
+        const resultU = await readCurrentUser();
+        const resultP = await getProfilePicture();
+        const resultR = await getRandomUser();
+
+        setCurrentUser(resultU);
+        setUserPic(resultP[0]);
+        setRandomUser(resultR);
       } catch (error) {
-        alert(`Error trying to fetch current user! ${error.message}`);
+        console.log(`Error when trying to read current user: ${error}`);
       }
     };
-
-    fetchCurrentUser().catch(console.error);
-
-    return () => (isUpdated = false);
+    getCurrentUser();
   }, []); //right now it will only render once. When settings have been implementet, change this
 
-  const logOutUser = async function () {
-    try {
-      await Parse.User.logOut();
-      // To verify that current user is now empty, currentAsync can be used
-      const currentUser = await Parse.User.current();
-      if (currentUser === null) {
-        alert("Success! No user is logged in anymore!");
+  useEffect(() => {
+    const getAllChats = async () => {
+      try {
+        if (currentUser) {
+          const resultC = await getChats();
+        }
+      } catch (error) {
+        console.log(`Error when trying to get all chats: ${error}`);
       }
-      // Update state variable holding current user
-      //getCurrentUser();
-      setCurrentUser(null);
-      navigate("/");
-      return true;
+    };
+  }, [currentUser]);
+
+  const getRanUser = async () => {
+    try {
+      setRandomUser(await getRandomUser());
     } catch (error) {
-      alert(`Error! ${error.message}`);
-      return false;
+      console.log(`Error when trying to get random user user: ${error}`);
     }
   };
 
+  const logOut = async function () {
+    try {
+      if (logOutUser()) {
+        setCurrentUser(null);
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(`Error when trying to log out user! ${error}`);
+    }
+  };
+
+  function handleNewChat() {
+    navigate("/Chat");
+    // should also give props about which chat was clicked or if 'new chat' was clicked
+  }
+
   function addChat() {
+    getRanUser();
+    console.log("this is random users state: ", randomUser);
+    console.log("this is random users id: ", randomUser.id);
+
     console.log("addchat clicked and entered");
     setChatList([
       ...chatList,
       {
         chat: [
           {
-            id: Math.random().toString(),
-            username: "Kitty What Up",
-            TL: "French",
-            NL: "English",
-            image:
-              "https://media.npr.org/assets/img/2021/08/11/gettyimages-1279899488_wide-f3860ceb0ef19643c335cb34df3fa1de166e2761-s1100-c50.jpg",
+            id: randomUser.id,
+            username: randomUser.get("username"),
+            TL: randomUser.get("targetLanguage"),
+            NL: randomUser.get("nativeLanguage"),
+            image: userPic.get("catPNG")._url,
           },
         ],
       },
     ]);
+    navigate("/Chat", {
+      state: { randomUser: randomUser, currentUser: currentUser },
+    });
   }
 
   function addGroupChat() {
@@ -112,21 +135,6 @@ export default function Home() {
     alert("Settings Button was pressed!");
   }
 
-  function getProfilePic() {
-    if (currentUser !== null) {
-      try {
-        const url = currentUser.get("profilePicture").url();
-      if (url !== null || url !== undefined) {
-        return url;
-      }
-      } catch(error) {
-        console.log("Error getting profile picture: "+ error);
-      }
-      
-    }
-    return errorKitten;
-  }
-
   return (
     <div className="home-page background">
       <div className="home-box purple-box">
@@ -134,7 +142,7 @@ export default function Home() {
           <div className="userImage">
             <img
               className="circle"
-              src={getProfilePic()}
+              src={userPic ? userPic.get("catPNG")._url : errorKitten}
               alt="the users profile pic"
             />
           </div>
@@ -164,7 +172,7 @@ export default function Home() {
           </div>
           <div className="user-buttons">
             <Button text="Settings" click={settingAlert} />
-            <Button text="Log out" click={logOutUser} />
+            <Button text="Log out" click={logOut} />
           </div>
         </div>
         <div className="chatOverview">

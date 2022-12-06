@@ -1,84 +1,88 @@
 import LanguageDropdown from "../../Components/language/LangugageDropdown";
-import TextInput from "../../Components/text/TextInput";
 import InterestList from "../../Components/InterestList/InterestList";
 import "./SignUp.css";
 import "../../DesignSystem/grid.css";
-import Parse from "parse";
 import { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "../../Components/Button/Button";
+import { createUser, readCatIcons } from "../../API/API";
 
 export default function SignUp() {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [nativeLanguage, setNativeLanguage] = useState([]);
   const [targetLanguage, setTargetLanguage] = useState([]);
   const [catIcons, setCatIcons] = useState(null);
-  const navigate = useNavigate();
-
-  const doUserRegistration = async function () {
-    console.log("this is doUserRegistration");
-    const user = new Parse.User();
-    user.set("username", username);
-    user.set("password", password);
-    user.set("email", email);
-    user.set("nativeLanguage", nativeLanguage);
-    user.set("targetLanguage", targetLanguage);
-    try {
-      await user.signUp();
-      alert(`User ${user.getUsername()} created`);
-      navigate("/");
-    } catch (error) {
-      alert(`Error! ${error}`);
-    }
-  };
+  const [userPic, setUserPic] = useState(null);
 
   useEffect(() => {
-    console.log("openeing useeffect");
-    const getCatPNG = async function () {
-      console.log("this is getCatpng");
+    const getCatIcons = async () => {
       try {
-        console.log("entering the try");
-        const query = new Parse.Query("CatIcons");
-        const icons = await query.find();
-        setCatIcons(icons);
-        console.log(catIcons);
+        const result = await readCatIcons();
+        setCatIcons(result);
       } catch (error) {
-        console.log("Error in getting Cat Png: " + error);
+        console.log(`Error when trying to read cat icons: ${error}`);
       }
     };
-    getCatPNG().catch(console.error);
+    getCatIcons();
   }, []);
 
+  useEffect(() => {
+    console.log("this is catIcons");
+    console.log(catIcons);
+    if (catIcons) {
+      console.log("Set profile pic to ", catIcons[0].get("name"));
+      const defaultIcon = catIcons[0];
+      setUserPic(defaultIcon);
+      console.log(defaultIcon);
+    }
+  }, [catIcons]);
+
   function makeProfileSelection() {
-    //to avoid many reloads
     try {
       return (
-        <div>
+        <>
           {catIcons.map((catIcon) => (
             <img
-              alt={catIcon !== null ? catIcon.get("name") : "not working :("}
-              src={catIcon !== null ? catIcon.get("catPNG")._url : "altText"}
-              onClick={() => handleSelect(catIcon.get("catPNG")._url)}
+              alt={catIcon.get("name")}
+              src={catIcon.get("catPNG")._url}
+              onClick={() => handleSelect(catIcon)}
             />
           ))}
-        </div>
+        </>
       );
     } catch (error) {
       return false;
     }
   }
 
-  function handleSelect(source) {
+  function handleSelect(catIcon) {
     //change profile picture to selected picture
+    setUserPic(catIcon);
     const profPic = document.getElementById("ProfilePicture");
-    profPic.src = source;
+    profPic.src = catIcon.get("catPNG")._url;
+  }
+
+  function handleSubmit() {
+    if (
+      createUser(
+        username,
+        password,
+        email,
+        nativeLanguage,
+        targetLanguage,
+        userPic
+      )
+    ) {
+      console.log("user created. navigating to home");
+      navigate("/home");
+    }
   }
 
   return (
     <div className="sign-up-page">
-      {/**left side, picture */}
       <div className="purple-box profile-box">
         <img
           className="selected-pic"
@@ -94,8 +98,6 @@ export default function SignUp() {
       </div>
 
       <div className="profile-info-box">
-        {/**right side user information */}
-        {/**User name control */}
         <div className="user-inputs">
           <div className="profile-info-labels">
             <div>
@@ -143,8 +145,14 @@ export default function SignUp() {
               size="large"
               type="password"
             />
-            <LanguageDropdown className="dropdown" setLanguage={setNativeLanguage} />
-            <LanguageDropdown className="dropdown" setLanguage={setTargetLanguage} />
+            <LanguageDropdown
+              className="dropdown"
+              setLanguage={setNativeLanguage}
+            />
+            <LanguageDropdown
+              className="dropdown"
+              setLanguage={setTargetLanguage}
+            />
             <InterestList />
           </div>
         </div>
@@ -155,9 +163,8 @@ export default function SignUp() {
 
         {/**TODO: show different Languages /intersts after selection */}
         <div className="submit-button">
-          <Button text="Sign Up" click={doUserRegistration} />
+          <Button text="Sign Up" click={handleSubmit} />
         </div>
-        {/* <button onClick={() => doUserRegistration()}>Sign up</button> */}
       </div>
     </div>
   );
