@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css";
 import "../../DesignSystem/grid.css";
-//import UserData from "../../Components/UserData";
 import ChatList from "../../Components/home/ChatList";
 import Button from "../../Components/Button/Button";
 import { useNavigate } from "react-router-dom";
@@ -25,7 +24,6 @@ export default function Home() {
      * create a variable to manage when the userdata should be changed
      * should be made when the settings page/button has been created
      */
-    //let isUpdated = true;
     const getCurrentUser = async () => {
       try {
         const resultU = await readCurrentUser();
@@ -39,72 +37,7 @@ export default function Home() {
       }
     };
     getCurrentUser();
-    /* 
-    const fetchCurrentUser = async () => {
-      try {
-        const currentUser = await Parse.User.current();
-        // Update state variable holding current user
-        if (isUpdated) {
-          setCurrentUser(currentUser);
-          /* console.log("this is current user");
-          console.log(currentUser);
-          console.log("this is profile pic uri");
-          console.log(currentUser.get("profilePicture").url()); */
-    /*}
-      } catch (error) {
-        alert(`Error trying to fetch current user! ${error.message}`);
-      }
-    };
-
-    fetchCurrentUser().catch(console.error);
-
-    return () => (isUpdated = false); */
   }, []); //right now it will only render once. When settings have been implementet, change this
-
-  /*   useEffect(() => {
-    console.log("this is current user");
-    if (currentUser) {
-      console.log(currentUser);
-      /* const icon = currentUser.get("profilePicture");
-      console.log("this is icon ---- profilePicture");
-      console.log(icon);
-      setUserPic(icon);
-      console.log(icon.id) */ /*
-    }
-  }, [currentUser]);
-
-  useEffect(() => {
-    console.log("this is getting profile pic");
-    if (userPic) {
-      console.log(userPic);
-    }
-  }, [userPic]);
- */ /*
-  useEffect(() => {
-    console.log("this is random user");
-    if (randomUser) {
-      console.log(randomUser);
-    }
-  }, [randomUser]);
-
-  /* const logOutUser = async function () {
-    try {
-      await Parse.User.logOut();
-      // To verify that current user is now empty, currentAsync can be used
-      const currentUser = await Parse.User.current();
-      if (currentUser === null) {
-        alert("Success! No user is logged in anymore!");
-      }
-      // Update state variable holding current user
-      //getCurrentUser();
-      setCurrentUser(null);
-      navigate("/");
-      return true;
-    } catch (error) {
-      alert(`Error! ${error.message}`);
-      return false;
-    }
-  }; */
 
   const getRanUser = async () => {
     try {
@@ -185,22 +118,6 @@ export default function Home() {
   function settingAlert() {
     alert("Settings Button was pressed!");
   }
-
-  /*   function getProfilePic() {
-    if (currentUser !== null) {
-      try {
-        console.log("this is getting profile pic");
-        console.log(currentUser.get("profilePicture")._url);
-        const url = currentUser.get("profilePicture")._url;
-        if (url !== null || url !== undefined) {
-          return url;
-        }
-      } catch (error) {
-        console.log("Error getting profile picture: " + error);
-      }
-    }
-    return errorKitten;
-  } */
 
   return (
     <div className="home-page background">
