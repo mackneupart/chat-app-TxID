@@ -19,7 +19,7 @@ export default function Home() {
   const [chatList, setChatList] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
   const [userPic, setUserPic] = useState(null);
-  const [randomUser, setRandomUser] = useState();
+  const [otherUser, setOtherUser] = useState();
   const [chats, setChats] = useState();
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export default function Home() {
 
         setCurrentUser(resultU);
         setUserPic(resultP[0]);
-        setRandomUser(resultR);
+        setOtherUser(resultR);
       } catch (error) {
         console.log(`Error when trying to read current user: ${error}`);
       }
@@ -48,7 +48,7 @@ export default function Home() {
       try {
         if (currentUser) {
           console.log("this is random user");
-          console.log(randomUser);
+          console.log(otherUser);
           const resultC = await readChats2(currentUser);
           setChats(resultC);
           setChatList(resultC);
@@ -72,7 +72,7 @@ export default function Home() {
 
   const getRanUser = async () => {
     try {
-      setRandomUser(await getRandomUser());
+      setOtherUser(await getRandomUser());
     } catch (error) {
       console.log(`Error when trying to get random user user: ${error}`);
     }
@@ -96,8 +96,8 @@ export default function Home() {
 
   function addChat() {
     getRanUser();
-    console.log("this is random users state: ", randomUser);
-    console.log("this is random users id: ", randomUser.id);
+    console.log("this is random users state: ", otherUser);
+    console.log("this is random users id: ", otherUser.id);
 
     console.log("addchat clicked and entered");
     /*  setChatList([
@@ -115,11 +115,11 @@ export default function Home() {
       },
     ]); */
 
-    createChat2(currentUser, randomUser);
+    createChat2(currentUser, otherUser);
 
-    /* navigate("/Chat", {
-      state: { randomUser: randomUser, currentUser: currentUser },
-    }); */
+    navigate("/Chat", {
+      state: { otherUser: otherUser, currentUser: currentUser },
+    });
   }
 
   function addGroupChat() {

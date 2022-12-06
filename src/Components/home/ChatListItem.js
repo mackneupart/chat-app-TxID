@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import "./ChatListItem.css";
 
 const ChatListItem = ({ chat }) => {
   const navigate = useNavigate();
@@ -25,16 +26,14 @@ const ChatListItem = ({ chat }) => {
   };
 
   return (
-    <div onClick={handleClick}>
-      <div className="chat-list-item-box">
-        <div className="chat-list-item-img-box">
-          <img className="chat-list-item-img" src={otherUserImage} />
-        </div>
-        <div className="chat-list-item-info">
-          <div className="chat-list-item-info-name">{otherUserName}</div>
-          <div className="chat-list-item-info-language">
-            {language1} / {language2}
-          </div>
+    <div className="chat-list-item-box" onClick={handleClick}>
+      <div className="chat-list-item-img-box">
+        <img className="chat-list-item-img" src={otherUserImage} />
+      </div>
+      <div className="chat-list-item-info">
+        <div className="chat-list-item-info-name">{otherUserName}</div>
+        <div className="chat-list-item-info-language">
+          {language1} / {language2}
         </div>
       </div>
     </div>
