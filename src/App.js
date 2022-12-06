@@ -38,10 +38,13 @@ const test = async function () {
     console.log(error);
   }
 };
-Parse.enableLocalDatastore();
+
 
 test();
  */
+
+Parse.enableLocalDatastore();
+
 function App(props) {
   return (
     <BrowserRouter>

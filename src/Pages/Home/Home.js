@@ -10,6 +10,7 @@ import {
   getRandomUser,
   logOutUser,
   readCurrentUser,
+  getChats,
 } from "../../API/API";
 
 export default function Home() {
@@ -18,7 +19,7 @@ export default function Home() {
   const [currentUser, setCurrentUser] = useState(null);
   const [userPic, setUserPic] = useState(null);
   const [randomUser, setRandomUser] = useState();
-  
+
   useEffect(() => {
     /**
      * create a variable to manage when the userdata should be changed
@@ -29,6 +30,7 @@ export default function Home() {
         const resultU = await readCurrentUser();
         const resultP = await getProfilePicture();
         const resultR = await getRandomUser();
+
         setCurrentUser(resultU);
         setUserPic(resultP[0]);
         setRandomUser(resultR);
@@ -38,6 +40,18 @@ export default function Home() {
     };
     getCurrentUser();
   }, []); //right now it will only render once. When settings have been implementet, change this
+
+  useEffect(() => {
+    const getAllChats = async () => {
+      try {
+        if (currentUser) {
+          const resultC = await getChats();
+        }
+      } catch (error) {
+        console.log(`Error when trying to get all chats: ${error}`);
+      }
+    };
+  }, [currentUser]);
 
   const getRanUser = async () => {
     try {
@@ -63,7 +77,6 @@ export default function Home() {
     // should also give props about which chat was clicked or if 'new chat' was clicked
   }
 
-
   function addChat() {
     getRanUser();
     console.log("this is random users state: ", randomUser);
@@ -84,6 +97,9 @@ export default function Home() {
         ],
       },
     ]);
+    navigate("/Chat", {
+      state: { randomUser: randomUser, currentUser: currentUser },
+    });
   }
 
   function addGroupChat() {
@@ -165,7 +181,7 @@ export default function Home() {
           </div>
           <div className="newChats">
             <div className="newChat">
-              <Button text="New Chat" click={handleNewChat} />
+              <Button text="New Chat" click={addChat} />
             </div>
             <div className="newGroupChat">
               <Button text="New Group Chat" click={addGroupChat} />

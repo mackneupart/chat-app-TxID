@@ -81,7 +81,7 @@ const readAllUsers = async function () {
   //console.log("reading all users");
   const parseQuery = new Parse.Query("User");
   try {
-    let users = await parseQuery.find();
+    const users = await parseQuery.find();
     // console.log(users);
     return users;
   } catch (error) {
@@ -97,7 +97,7 @@ const getRandomNumber = async function (length) {
     for (let key in allUsers) {
       length += 1;
     }
-   // console.log("length:   ", length);
+    // console.log("length:   ", length);
 
     const ranNum = Math.floor(Math.random() * length);
 
@@ -153,6 +153,32 @@ export const getRandomUser = async function () {
   } catch (error) {
     console.log(`Error when trying to get a random user: ${error.message}`);
     return false;
+  }
+};
+
+const readMessages = async function (currentID) {
+  const parseQuery = new Parse.Query("Message");
+  try {
+    parseQuery.equalTo("sender", currentID);
+    const chats = await parseQuery.find();
+    return chats;
+  } catch (error) {
+    console.log(`Error when trying to read messages! ${error}`);
+  }
+};
+
+export const getChats = async function (currentID) {
+  try {
+    const allMessages = await readMessages(currentID);
+    var chats = new Set();
+    for (var message of allMessages) {
+      var receiverID = message.get("receiver");
+      chats.add(receiverID);
+    }
+    console.log("this is chats")
+    console.log(chats);
+  } catch (error) {
+    console.log(`Error when trying to get chats! ${error}`);
   }
 };
 
