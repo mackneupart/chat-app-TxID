@@ -19,7 +19,7 @@ export default function Home() {
   const [currentUser, setCurrentUser] = useState(null);
   const [userPic, setUserPic] = useState(null);
   const [randomUser, setRandomUser] = useState();
-
+  
   useEffect(() => {
     /**
      * create a variable to manage when the userdata should be changed
@@ -124,6 +124,12 @@ export default function Home() {
       console.log(`Error when trying to log out user! ${error}`);
     }
   };
+
+  function handleNewChat() {
+    navigate("/Chat");
+    // should also give props about which chat was clicked or if 'new chat' was clicked
+  }
+
 
   function addChat() {
     getRanUser();
@@ -242,7 +248,7 @@ export default function Home() {
           </div>
           <div className="newChats">
             <div className="newChat">
-              <Button text="New Chat" click={addChat} />
+              <Button text="New Chat" click={handleNewChat} />
             </div>
             <div className="newGroupChat">
               <Button text="New Group Chat" click={addGroupChat} />
