@@ -7,14 +7,7 @@ const ChatListItem = ({ chat, currentUser }) => {
   var otherUser = {}
   if (chat.get("users2")[0].id === currentUser.id) { otherUser = chat.get("users2")[1]}
   else { otherUser = chat.get("users2")[0]}
-  /* const currentUserName = chat.get("users2")[0].get("username"); */
-  //const otherUserName = chat.get("users2")[1].get("username");
-  /* const currentUserImage = chat
-    .get("users2")[0]
-    .get("profilePicture")
-    .get("catPNG")._url; */
-  const otherUserImage = chat
-    .get("users2")[1]
+  const otherUserImage = otherUser
     .get("profilePicture")
     .get("catPNG")._url;
   const language1 = chat.get("Language1");
