@@ -7,6 +7,7 @@ import SignUp from "./Pages/SignUp/SignUp";
 import Parse from "parse";
 //import { createUser, readCatIcons } from "./API/API";
 import { Chat } from "./Pages/Chat/Chat";
+import PasswordRequest from "./Pages/PasswordRequest.js/PasswordRequest";
 
 const ParseAppID = process.env.REACT_APP_PARSE_APPLICATION_ID;
 const ParseHostURL = process.env.REACT_APP_PARSE_HOST_URL;
@@ -54,6 +55,10 @@ function App(props) {
         <Route path="/signup" element={<SignUp page="SignUp" />} />
         <Route path="/home" element={<Home page="Home" />} />
         <Route path="chat" element={<Chat page="Chat" />} />
+        <Route
+          path="passwordRequest"
+          element={<PasswordRequest page="PasswordRequest" />}
+        />
       </Routes>
     </BrowserRouter>
   );

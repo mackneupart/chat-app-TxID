@@ -93,6 +93,10 @@ TO DO
   grid-row-start: 5;
   align-self: center;
   justify-self: center;
+  text-decoration: underline;
+}
+.forgot-pass:hover{
+  cursor: pointer;
 }
 
 .login-button {
