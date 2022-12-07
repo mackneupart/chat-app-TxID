@@ -197,7 +197,7 @@ export default function Home() {
         </div>
         <div className="chatOverview">
           <div className="chat">
-            <ChatList chatList={chatList} />
+            <ChatList chatList={chatList} currentUser={currentUser}/>
           </div>
           <div className="newChats">
             <div className="newChat">

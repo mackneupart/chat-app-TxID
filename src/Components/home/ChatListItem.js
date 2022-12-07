@@ -2,12 +2,13 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./ChatListItem.css";
 
-const ChatListItem = ({ chat }) => {
+const ChatListItem = ({ chat, currentUser }) => {
   const navigate = useNavigate();
-  const currentUser = chat.get("users2")[0];
-  const otherUser = chat.get("users2")[1];
+  var otherUser = {}
+  if (chat.get("users2")[0] === currentUser) { otherUser = chat.get("users2")[1]}
+  else { otherUser = chat.get("users2")[0]}
   /* const currentUserName = chat.get("users2")[0].get("username"); */
-  const otherUserName = chat.get("users2")[1].get("username");
+  //const otherUserName = chat.get("users2")[1].get("username");
   /* const currentUserImage = chat
     .get("users2")[0]
     .get("profilePicture")
@@ -31,7 +32,7 @@ const ChatListItem = ({ chat }) => {
         <img className="chat-list-item-img" src={otherUserImage} />
       </div>
       <div className="chat-list-item-info">
-        <div className="chat-list-item-info-name">{otherUserName}</div>
+        <div className="chat-list-item-info-name">{otherUser.get("username")}</div>
         <div className="chat-list-item-info-language">
           {language1} / {language2}
         </div>
