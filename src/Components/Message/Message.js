@@ -11,7 +11,7 @@ export default function Message({ message, currentUser }) {
   const timestamp = formatDateToTime(message.get("createdAt"));
 
   const sentByMe = () => {
-    if (sender === currentUser) {
+    if (sender === currentUser.get("username")) {
       return true;
     }
     return false;
