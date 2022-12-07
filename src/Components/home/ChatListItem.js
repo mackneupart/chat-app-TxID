@@ -5,7 +5,7 @@ import "./ChatListItem.css";
 const ChatListItem = ({ chat, currentUser }) => {
   const navigate = useNavigate();
   var otherUser = {}
-  if (chat.get("users2")[0] === currentUser) { otherUser = chat.get("users2")[1]}
+  if (chat.get("users2")[0].id === currentUser.id) { otherUser = chat.get("users2")[1]}
   else { otherUser = chat.get("users2")[0]}
   /* const currentUserName = chat.get("users2")[0].get("username"); */
   //const otherUserName = chat.get("users2")[1].get("username");
