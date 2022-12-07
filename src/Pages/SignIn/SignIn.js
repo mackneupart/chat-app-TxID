@@ -58,7 +58,7 @@ function SignIn() {
   };
 
   const goToPasswordRequest = () => {
-    navigate("passwordRequest");
+    navigate("passwordReset");
   };
 
   /*   // Function that will return current user and also update current username
