@@ -10,11 +10,11 @@
 .message-list {
     display: grid;
 }
-.message-list > [type="send"]{
+.message-list > .message_sent{
     justify-self: right;
     
 }
-.message-list > [type="received"]{
+.message-list > .message_received{
     justify-self: left;
     
 }
