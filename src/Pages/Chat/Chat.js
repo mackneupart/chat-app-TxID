@@ -5,7 +5,7 @@ import ChatBox from "../../Components/ChatBox/ChatBox";
 export const Chat = () => {
   const { state } = useLocation();
   const currentUser = state.currentUser;
-  const otherUser = state.randomUser;
+  const otherUser = state.otherUser;
   //const navigate = useNavigate();
 
   return (
