@@ -11,7 +11,7 @@
     
 }
 
-.content[type = send]{
+.content[type = sent]{
     background-color: white;
     text-align: right;
     border-radius: 600px 600px 50px 600px;

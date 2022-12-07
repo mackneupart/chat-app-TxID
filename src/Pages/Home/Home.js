@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css";
 import "../../DesignSystem/grid.css";
-//import UserData from "../../Components/UserData";
 import ChatList from "../../Components/home/ChatList";
 import Button from "../../Components/Button/Button";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +10,8 @@ import {
   getRandomUser,
   logOutUser,
   readCurrentUser,
+  readChats2,
+  createChat2,
 } from "../../API/API";
 
 export default function Home() {
@@ -18,97 +19,60 @@ export default function Home() {
   const [chatList, setChatList] = useState([]);
   const [currentUser, setCurrentUser] = useState(null);
   const [userPic, setUserPic] = useState(null);
-  const [randomUser, setRandomUser] = useState();
+  const [otherUser, setOtherUser] = useState();
+  const [chats, setChats] = useState();
 
   useEffect(() => {
     /**
      * create a variable to manage when the userdata should be changed
      * should be made when the settings page/button has been created
      */
-    //let isUpdated = true;
     const getCurrentUser = async () => {
       try {
         const resultU = await readCurrentUser();
         const resultP = await getProfilePicture();
         const resultR = await getRandomUser();
+
         setCurrentUser(resultU);
         setUserPic(resultP[0]);
-        setRandomUser(resultR);
+        setOtherUser(resultR);
       } catch (error) {
         console.log(`Error when trying to read current user: ${error}`);
       }
     };
     getCurrentUser();
-    /* 
-    const fetchCurrentUser = async () => {
+  }, []); //right now it will only render once. When settings have been implementet, change this
+
+  useEffect(() => {
+    const getAllChats = async () => {
       try {
-        const currentUser = await Parse.User.current();
-        // Update state variable holding current user
-        if (isUpdated) {
-          setCurrentUser(currentUser);
-          /* console.log("this is current user");
-          console.log(currentUser);
-          console.log("this is profile pic uri");
-          console.log(currentUser.get("profilePicture").url()); */
-    /*}
+        if (currentUser) {
+          console.log("this is random user");
+          console.log(otherUser);
+          const resultC = await readChats2(currentUser);
+          setChats(resultC);
+          setChatList(resultC);
+        }
       } catch (error) {
-        alert(`Error trying to fetch current user! ${error.message}`);
+        console.log(`Error when trying to get all chats: ${error}`);
       }
     };
 
-    fetchCurrentUser().catch(console.error);
-
-    return () => (isUpdated = false); */
-  }, []); //right now it will only render once. When settings have been implementet, change this
-
-  /*   useEffect(() => {
-    console.log("this is current user");
-    if (currentUser) {
-      console.log(currentUser);
-      /* const icon = currentUser.get("profilePicture");
-      console.log("this is icon ---- profilePicture");
-      console.log(icon);
-      setUserPic(icon);
-      console.log(icon.id) */ /*
-    }
+    getAllChats();
   }, [currentUser]);
 
-  useEffect(() => {
-    console.log("this is getting profile pic");
-    if (userPic) {
-      console.log(userPic);
+  /*   useEffect(() => {
+    if (chats) {
+      console.log("this is resultC - users2");
+      console.log(chats[0]);
+      console.log(chats[0].get("users2")[0].get("username"));
+      //console.log(chats[0].relation("usersObjects"));
     }
-  }, [userPic]);
- */ /*
-  useEffect(() => {
-    console.log("this is random user");
-    if (randomUser) {
-      console.log(randomUser);
-    }
-  }, [randomUser]);
-
-  /* const logOutUser = async function () {
-    try {
-      await Parse.User.logOut();
-      // To verify that current user is now empty, currentAsync can be used
-      const currentUser = await Parse.User.current();
-      if (currentUser === null) {
-        alert("Success! No user is logged in anymore!");
-      }
-      // Update state variable holding current user
-      //getCurrentUser();
-      setCurrentUser(null);
-      navigate("/");
-      return true;
-    } catch (error) {
-      alert(`Error! ${error.message}`);
-      return false;
-    }
-  }; */
+  }, [chats]); */
 
   const getRanUser = async () => {
     try {
-      setRandomUser(await getRandomUser());
+      setOtherUser(await getRandomUser());
     } catch (error) {
       console.log(`Error when trying to get random user user: ${error}`);
     }
@@ -125,13 +89,18 @@ export default function Home() {
     }
   };
 
+  function handleNewChat() {
+    navigate("/Chat");
+    // should also give props about which chat was clicked or if 'new chat' was clicked
+  }
+
   function addChat() {
     getRanUser();
-    console.log("this is random users state: ", randomUser);
-    console.log("this is random users id: ", randomUser.id);
+    console.log("this is random users state: ", otherUser);
+    console.log("this is random users id: ", otherUser.id);
 
     console.log("addchat clicked and entered");
-    setChatList([
+    /*  setChatList([
       ...chatList,
       {
         chat: [
@@ -144,7 +113,13 @@ export default function Home() {
           },
         ],
       },
-    ]);
+    ]); */
+
+    createChat2(currentUser, otherUser);
+
+    navigate("/Chat", {
+      state: { otherUser: otherUser, currentUser: currentUser },
+    });
   }
 
   function addGroupChat() {
@@ -179,22 +154,6 @@ export default function Home() {
   function settingAlert() {
     alert("Settings Button was pressed!");
   }
-
-  /*   function getProfilePic() {
-    if (currentUser !== null) {
-      try {
-        console.log("this is getting profile pic");
-        console.log(currentUser.get("profilePicture")._url);
-        const url = currentUser.get("profilePicture")._url;
-        if (url !== null || url !== undefined) {
-          return url;
-        }
-      } catch (error) {
-        console.log("Error getting profile picture: " + error);
-      }
-    }
-    return errorKitten;
-  } */
 
   return (
     <div className="home-page background">
@@ -238,7 +197,7 @@ export default function Home() {
         </div>
         <div className="chatOverview">
           <div className="chat">
-            <ChatList chatList={chatList} />
+            <ChatList chatList={chatList} currentUser={currentUser}/>
           </div>
           <div className="newChats">
             <div className="newChat">

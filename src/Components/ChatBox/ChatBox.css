@@ -1,8 +1,7 @@
-
 .chat-box{
     background-color: var(--purple-900);
-    /* width: 50%; */
-    /* height: 500px; */
+    width: 50%;
+    height: 500px;
     overflow-y: scroll;
     scrollbar-color: var(--blue-900) var(--purple-900);
     scrollbar-width: thin;
@@ -11,12 +10,11 @@
 .message-list {
     display: grid;
 }
-
-.message-list > [type="send"]{
+.message-list > .message_sent{
     justify-self: right;
     
 }
-.message-list > [type="received"]{
+.message-list > .message_received{
     justify-self: left;
     
 }

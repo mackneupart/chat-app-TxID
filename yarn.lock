@@ -1033,12 +1033,12 @@
     "core-js-pure" "^3.25.1"
     "regenerator-runtime" "^0.13.10"
 
-"@babel/runtime-corejs3@7.14.7":
-  "integrity" "sha512-Wvzcw4mBYbTagyBVZpAJWI06auSIj033T/yNE0Zn1xcup83MieCddZA7ls3kme17L4NOGBrQ09Q+nKB41RLWBA=="
-  "resolved" "https://registry.npmjs.org/@babel/runtime-corejs3/-/runtime-corejs3-7.14.7.tgz"
-  "version" "7.14.7"
+"@babel/runtime-corejs3@7.17.8":
+  "integrity" "sha512-ZbYSUvoSF6dXZmMl/CYTMOvzIFnbGfv4W3SEHYgMvNsFTeLaF2gkGAF4K2ddmtSK4Emej+0aYcnSC6N5dPCXUQ=="
+  "resolved" "https://registry.npmjs.org/@babel/runtime-corejs3/-/runtime-corejs3-7.17.8.tgz"
+  "version" "7.17.8"
   dependencies:
-    "core-js-pure" "^3.15.0"
+    "core-js-pure" "^3.20.2"
     "regenerator-runtime" "^0.13.4"
 
 "@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.5", "@babel/runtime@^7.16.3", "@babel/runtime@^7.18.9", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
@@ -1048,10 +1048,10 @@
   dependencies:
     "regenerator-runtime" "^0.13.4"
 
-"@babel/runtime@7.15.4":
-  "integrity" "sha512-99catp6bHCaxr4sJ/DbTGgHS4+Rs2RVd2g7iOap6SLGPDknRK9ztKNsE/Fg6QhSeh1FGE5f6gHGQmvvn3I3xhw=="
-  "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.15.4.tgz"
-  "version" "7.15.4"
+"@babel/runtime@7.18.0":
+  "integrity" "sha512-YMQvx/6nKEaucl0MY56mwIG483xk8SDNdlUwb2Ts6FUpr7fm85DxEmsY18LXBNhcTz6tO6JwZV8w1W06v8UKeg=="
+  "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.18.0.tgz"
+  "version" "7.18.0"
   dependencies:
     "regenerator-runtime" "^0.13.4"
 
@@ -1580,6 +1580,20 @@
   dependencies:
     "@nodelib/fs.scandir" "2.1.5"
     "fastq" "^1.6.0"
+
+"@parse/react-base@^0.0.1-alpha.18":
+  "integrity" "sha512-4I4/+WfaZYahcQabi/8LKJXPoFPZpgTjPMwFdOxnIhD/30VlVbFZAjIcaYpjOSzD521TMbC9zOsZb+IeRtb8sg=="
+  "resolved" "https://registry.npmjs.org/@parse/react-base/-/react-base-0.0.1-alpha.18.tgz"
+  "version" "0.0.1-alpha.18"
+  dependencies:
+    "tslib" "2.3.1"
+
+"@parse/react@^0.0.1-alpha.18":
+  "integrity" "sha512-d+GigQ2TTsIyjqtBakVlwOGuAXAAR3J0QaeRsSmwuYQ6ImWOP6pPSfom7iWxeuz7zD4nv76nRrDL5VI/IIezeQ=="
+  "resolved" "https://registry.npmjs.org/@parse/react/-/react-0.0.1-alpha.18.tgz"
+  "version" "0.0.1-alpha.18"
+  dependencies:
+    "@parse/react-base" "^0.0.1-alpha.18"
 
 "@pmmmwh/react-refresh-webpack-plugin@^0.5.3":
   "integrity" "sha512-7QV4cqUwhkDIHpMAZ9mestSJ2DMIotVTbOUwbiudhjCRTAWWKIaBecELiEM2LT3AHFeOAaHIcFu4dbXjX+9GBA=="
@@ -3313,7 +3327,7 @@
   dependencies:
     "browserslist" "^4.21.4"
 
-"core-js-pure@^3.15.0", "core-js-pure@^3.23.3", "core-js-pure@^3.25.1":
+"core-js-pure@^3.20.2", "core-js-pure@^3.23.3", "core-js-pure@^3.25.1":
   "integrity" "sha512-LiN6fylpVBVwT8twhhluD9TzXmZQQsr2I2eIKtWNbZI1XMfBT7CV18itaN6RA7EtQd/SDdRx/wzvAShX2HvhQA=="
   "resolved" "https://registry.npmjs.org/core-js-pure/-/core-js-pure-3.26.0.tgz"
   "version" "3.26.0"
@@ -5037,10 +5051,12 @@
   "resolved" "https://registry.npmjs.org/icss-utils/-/icss-utils-5.1.0.tgz"
   "version" "5.1.0"
 
-"idb-keyval@5.0.6":
-  "integrity" "sha512-6lJuVbwyo82mKSH6Wq2eHkt9LcbwHAelMIcMe0tP4p20Pod7tTxq9zf0ge2n/YDfMOpDryerfmmYyuQiaFaKOg=="
-  "resolved" "https://registry.npmjs.org/idb-keyval/-/idb-keyval-5.0.6.tgz"
-  "version" "5.0.6"
+"idb-keyval@6.0.3":
+  "integrity" "sha512-yh8V7CnE6EQMu9YDwQXhRxwZh4nv+8xm/HV4ZqK4IiYFJBWYGjJuykADJbSP+F/GDXUBwCSSNn/14IpGL81TuA=="
+  "resolved" "https://registry.npmjs.org/idb-keyval/-/idb-keyval-6.0.3.tgz"
+  "version" "6.0.3"
+  dependencies:
+    "safari-14-idb-fix" "^3.0.0"
 
 "idb@^7.0.1":
   "integrity" "sha512-gchesWBzyvGHRO9W8tzUWFDycow5gwjvFKfyV9FF32Y7F50yZMp7mP+T2mJIWFx49zicqyC4uefHM17o6xKIVQ=="
@@ -6710,17 +6726,17 @@
     "json-parse-even-better-errors" "^2.3.0"
     "lines-and-columns" "^1.1.6"
 
-"parse@^3.4.0":
-  "integrity" "sha512-FMZLxPW6PvrBgxkXc9AmnYsFKvPwiS4G2n9OI4mdfiSoNzIVLc+bXzlUdJ+I7hiqHsBTP0BrdQczw2/cnVkJ6w=="
-  "resolved" "https://registry.npmjs.org/parse/-/parse-3.4.0.tgz"
-  "version" "3.4.0"
+"parse@^3.5.1":
+  "integrity" "sha512-uxkLVNfbqgZ/pStg/jIQGh09tOUkPZorzDIqz9vSFjZ3iIZzgvNk6VBbjXjcMWsR8LyFPOR1ROR6/y9Dedn3/w=="
+  "resolved" "https://registry.npmjs.org/parse/-/parse-3.5.1.tgz"
+  "version" "3.5.1"
   dependencies:
-    "@babel/runtime" "7.15.4"
-    "@babel/runtime-corejs3" "7.14.7"
-    "idb-keyval" "5.0.6"
+    "@babel/runtime" "7.18.0"
+    "@babel/runtime-corejs3" "7.17.8"
+    "idb-keyval" "6.0.3"
     "react-native-crypto-js" "1.0.0"
     "uuid" "3.4.0"
-    "ws" "7.5.1"
+    "ws" "8.6.0"
     "xmlhttprequest" "1.8.0"
   optionalDependencies:
     "crypto-js" "4.1.1"
@@ -7931,6 +7947,11 @@
   dependencies:
     "queue-microtask" "^1.2.2"
 
+"safari-14-idb-fix@^3.0.0":
+  "integrity" "sha512-eBNFLob4PMq8JA1dGyFn6G97q3/WzNtFK4RnzT1fnLq+9RyrGknzYiM/9B12MnKAxuj1IXr7UKYtTNtjyKMBog=="
+  "resolved" "https://registry.npmjs.org/safari-14-idb-fix/-/safari-14-idb-fix-3.0.0.tgz"
+  "version" "3.0.0"
+
 "safe-buffer@^5.1.0", "safe-buffer@>=5.1.0", "safe-buffer@~5.2.0", "safe-buffer@5.2.1":
   "integrity" "sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ=="
   "resolved" "https://registry.npmjs.org/safe-buffer/-/safe-buffer-5.2.1.tgz"
@@ -8719,6 +8740,11 @@
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.4.1.tgz"
   "version" "2.4.1"
 
+"tslib@2.3.1":
+  "integrity" "sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw=="
+  "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.3.1.tgz"
+  "version" "2.3.1"
+
 "tsutils@^3.21.0":
   "integrity" "sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA=="
   "resolved" "https://registry.npmjs.org/tsutils/-/tsutils-3.21.0.tgz"
@@ -9382,10 +9408,10 @@
   "resolved" "https://registry.npmjs.org/ws/-/ws-8.11.0.tgz"
   "version" "8.11.0"
 
-"ws@7.5.1":
-  "integrity" "sha512-2c6faOUH/nhoQN6abwMloF7Iyl0ZS2E9HGtsiLrWn0zOOMWlhtDmdf/uihDt6jnuCxgtwGBNy6Onsoy2s2O2Ow=="
-  "resolved" "https://registry.npmjs.org/ws/-/ws-7.5.1.tgz"
-  "version" "7.5.1"
+"ws@8.6.0":
+  "integrity" "sha512-AzmM3aH3gk0aX7/rZLYvjdvZooofDu3fFOzGqcSnQ1tOcTWwhM/o+q++E8mAyVVIyUdajrkzWUGftaVSDLn1bw=="
+  "resolved" "https://registry.npmjs.org/ws/-/ws-8.6.0.tgz"
+  "version" "8.6.0"
 
 "xml-name-validator@^3.0.0":
   "integrity" "sha512-A5CUptxDsvxKJEU3yO6DuWBSJz/qizqzJKOMIfUJHETbBw/sFaDxgd6fxm1ewUaM0jZ444Fc5vC5ROYurg/4Pw=="

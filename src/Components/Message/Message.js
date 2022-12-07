@@ -1,20 +1,29 @@
-import "./Message.css"
+import "./Message.css";
 
-export default function Message({author, currentUser, content,  timestamp, index}){
-    let received = true;
-    //const currentUser = "User1"
-    if (author === currentUser){
-        received = false
-        author = "you"
+// Helper to format createdAt value on Message
+const formatDateToTime = (date) => {
+  return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+};
+
+export default function Message({ message, currentUser }) {
+  const sender = message.get("sender").get("username");
+  const content = message.get("text");
+  const timestamp = formatDateToTime(message.get("createdAt"));
+
+  const sentByMe = () => {
+    if (sender === currentUser.get("username")) {
+      return true;
     }
+    return false;
+  };
 
-    return(
-        
-        <div className="message" type= {received ? "received" : "send"}>
-            <div className="author">{author}:</div>
-            <div className="content" type= {received ? "received" : "send"}>{content}</div>
-            <div className="timestamp">{timestamp}</div>
-        </div>
-        
-    );
+  return (
+    <div className="message" type={sentByMe() ? "sent" : "received"}>
+      <div className="author">{sender}:</div>
+      <div className="content" type={sentByMe() ? "sent" : "received"}>
+        {content}
+      </div>
+      <div className="timestamp">{timestamp}</div>
+    </div>
+  );
 }

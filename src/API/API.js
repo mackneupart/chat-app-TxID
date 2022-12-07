@@ -24,23 +24,72 @@ export const createUser = async function (
   }
 };
 
+export const createChat = async function (user1, user2) {
+  console.log("creating a new chat");
+
+  const usersObjects = [user1, user2];
+  try {
+    let Chat = new Parse.Object("Chat");
+    let chatsRelation = Chat.relation("users");
+    chatsRelation.add(usersObjects); //takes an array as parameter
+    await Chat.save();
+    return true;
+  } catch (error) {
+    console.log(`Error when trying to create a new chat! ${error}`);
+  }
+};
+
+export const readChats = async function (currentUser) {
+  console.log("reading chats belonging to user:");
+  console.log(currentUser);
+  try {
+    const parseQuery = new Parse.Query("Chat");
+    parseQuery.equalTo("users", currentUser);
+    let chats = await parseQuery.find();
+    for (let chat of chats) {
+      let chatUsersRelation = chat.relation("users");
+      chat.usersObjects = await chatUsersRelation.query().find();
+    }
+    return chats;
+  } catch (error) {
+    console.log(`Error when trying to read chats! ${error}`);
+  }
+};
+
+export const createChat2 = async function (user1, user2) {
+  console.log("creating a new chat");
+  const usersObjects = [user1, user2];
+  try {
+    let chat = new Parse.Object("Chat");
+    for (var user of usersObjects) {
+      chat.add("users2", user);
+    }
+    await chat.save();
+    console.log("new chat created");
+    return true;
+  } catch (error) {
+    console.log(`Error when trying to create a new chat! ${error}`);
+  }
+};
+
+export const readChats2 = async function (currentUser) {
+  console.log("reading chats belonging to user:");
+  console.log(currentUser);
+  try {
+    const parseQuery = new Parse.Query("Chat");
+    parseQuery.equalTo("users2", currentUser);
+    parseQuery.include("users2");
+    const chats = await parseQuery.find();
+    return chats;
+  } catch (error) {
+    console.log(`Error when trying to read chats! ${error}`);
+  }
+};
+
 export const readCurrentUser = async function () {
   try {
-    /* 
-    const query = new Parse.Query('User');
-    console.log(query)
-    const test = query.include('profilePicture')
-
-    
-    console.log(test) */
-    //console.log(await Parse.User.current());
     const currentUser = Parse.User.current();
     if (currentUser) {
-      //console.log(`Current logged in user:`);
-      //console.log(currentUser)
-      /* console.log(currentUser.get("profilePicture"));
-      const pic = await currentUser.get("profilePicture").name();
-      console.log(pic); */
       return currentUser;
     }
   } catch (error) {
@@ -56,10 +105,6 @@ export const getProfilePicture = async function () {
     const query = new Parse.Query("CatIcons");
     query.equalTo("objectId", iconId);
     const result = await query.find();
-    /* 
-    console.log("this is result--------------")
-    console.log(result)
-    console.log(result[0].get("catPNG")._url) */
     return result;
   } catch (error) {
     console.log(`Error when trying to get user profile picture! ${error}`);
@@ -78,11 +123,11 @@ export const logOutUser = async function () {
 };
 
 const readAllUsers = async function () {
-  //console.log("reading all users");
+  console.log("reading all users");
   const parseQuery = new Parse.Query("User");
   try {
-    let users = await parseQuery.find();
-    // console.log(users);
+    parseQuery.include("profilePicture");
+    const users = await parseQuery.find();
     return users;
   } catch (error) {
     console.log(`Error when trying to read all users: ${error.message}`);
@@ -97,7 +142,7 @@ const getRandomNumber = async function (length) {
     for (let key in allUsers) {
       length += 1;
     }
-   // console.log("length:   ", length);
+    // console.log("length:   ", length);
 
     const ranNum = Math.floor(Math.random() * length);
 
@@ -144,7 +189,10 @@ export const getRandomUser = async function () {
         console.log("the random user is the same as the current");
         const allOtherUsers = allUsers.splice(ranNum, 1);
         const newRanNum = getRandomNumber(allOtherUsers);
-        console.log("new random user", allOtherUsers[newRanNum]);
+        if (newRanNum) {
+          console.log("this is the new random number: ", newRanNum);
+          console.log("new random user", allOtherUsers[newRanNum]);
+        }
         return allOtherUsers[newRanNum];
       }
       console.log("the random user is different then the current:", result);
@@ -155,6 +203,32 @@ export const getRandomUser = async function () {
     return false;
   }
 };
+/* 
+const readMessages = async function (currentID) {
+  const parseQuery = new Parse.Query("Message");
+  try {
+    parseQuery.equalTo("sender", currentID);
+    const chats = await parseQuery.find();
+    return chats;
+  } catch (error) {
+    console.log(`Error when trying to read messages! ${error}`);
+  }
+};
+
+export const getChats = async function (currentID) {
+  try {
+    const allMessages = await readMessages(currentID);
+    var chats = new Set();
+    for (var message of allMessages) {
+      var receiverID = message.get("receiver");
+      chats.add(receiverID);
+    }
+    console.log("this is chats");
+    console.log(chats);
+  } catch (error) {
+    console.log(`Error when trying to get chats! ${error}`);
+  }
+}; */
 
 /* 
 
