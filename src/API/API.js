@@ -24,6 +24,15 @@ export const createUser = async function (
   }
 };
 
+export const deleteUser = async function (user) {
+  try {
+    
+    return true;
+  } catch (error) {
+    alert(`Error when trying to delete user. ${error}`)
+  }
+};
+
 export const createChat = async function (user1, user2) {
   console.log("creating a new chat");
 
