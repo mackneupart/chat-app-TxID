@@ -88,12 +88,16 @@ export default function Home() {
   };
 
   function handleDelete() {
-    if (deleteUser(currentUser)) {
-      navigate("/")
-      alert("Your user was succesfully deleted. You're welcome back anytime!")
-    } else {
-      alert("User not deleted.")
+    const prompt = "Are you sure you want to delete your account? Press OK to delete.";
+    if (window.confirm(prompt)) {
+      if (deleteUser(currentUser)) {
+        navigate("/")
+        alert("Your user was succesfully deleted. You're welcome back anytime!")
+      } else {
+        alert("User not deleted.")
+      }
     }
+    
   };
 
   function handleNewChat() {
