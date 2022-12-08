@@ -26,10 +26,10 @@ export const createUser = async function (
 
 export const deleteUser = async function (user) {
   try {
-    
+    await user.destroy();
     return true;
   } catch (error) {
-    alert(`Error when trying to delete user. ${error}`)
+    alert(`Error from API when trying to delete user. ${error}.`)
   }
 };
 

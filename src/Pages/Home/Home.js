@@ -88,12 +88,11 @@ export default function Home() {
   };
 
   function handleDelete() {
-    try {
-      deleteUser(currentUser)
+    if (deleteUser(currentUser)) {
       navigate("/")
       alert("Your user was succesfully deleted. You're welcome back anytime!")
-    } catch (error) {
-      console.log(`Error when trying to delete user. ${error}`);
+    } else {
+      alert("User not deleted.")
     }
   };
 
