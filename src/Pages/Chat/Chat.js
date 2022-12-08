@@ -6,6 +6,7 @@ export const Chat = () => {
   const { state } = useLocation();
   const currentUser = state.currentUser;
   const otherUser = state.otherUser;
+  const chat = state.chat;
   //const navigate = useNavigate();
 
   return (
@@ -16,7 +17,7 @@ export const Chat = () => {
         )} sending, ${otherUser.get("username")} receiving!`}</h2>
       </div>
 
-      <ChatBox currentUser={currentUser} otherUser={otherUser} />
+      <ChatBox currentUser={currentUser} otherUser={otherUser} chat={chat}/>
     </div>
   );
 };

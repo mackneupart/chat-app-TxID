@@ -3,7 +3,7 @@ import ChatListItem from "./ChatListItem";
 import ChatListGroupItem from "./ChatListGroupItem";
 import "./ChatList.css";
 
-const ChatList = ({ chatList, currentUser }) => {
+const ChatList = ({ chatList, currentUser, chat }) => {
   return (
     <div className="chat-list">
       {chatList.map((chat) => {

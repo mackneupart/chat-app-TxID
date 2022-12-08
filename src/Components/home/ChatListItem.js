@@ -15,7 +15,7 @@ const ChatListItem = ({ chat, currentUser }) => {
 
   const handleClick = () => {
     navigate("/Chat", {
-      state: { otherUser: otherUser, currentUser: currentUser },
+      state: { otherUser: otherUser, currentUser: currentUser, chat: chat },
     });
   };
 

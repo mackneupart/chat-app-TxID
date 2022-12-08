@@ -4,7 +4,7 @@ import { useParseQuery } from "@parse/react";
 import Parse from "parse";
 import "./ChatBox.css";
 
-export default function ChatBox({ currentUser, otherUser }) {
+export default function ChatBox({ currentUser, otherUser, chat }) {
   const [messageInput, setMessageInput] = useState("");
 
   const parseQuery = new Parse.Query("Message");
@@ -32,6 +32,7 @@ export default function ChatBox({ currentUser, otherUser }) {
         Message.set("text", messageText);
         Message.set("sender", currentUser);
         Message.set("receiver", otherUser);
+        Message.set("chat", chat);
         Message.save();
         console.log("is live: " + isLive);
         console.log("results: ", results);
