@@ -26,6 +26,18 @@ export const createUser = async function (
 
 export const deleteUser = async function (user) {
   try {
+    const chatsToDelete = readChats2 // later: ask Scarlett about readChats2 vs readChats 
+    const messageQuery = new Parse.Query("Message");
+    // HELP WANTED:
+    // I need to loop over all chats in chatsToDelete, finding all messages in those chats.
+    // Maybe by doing something like this:
+    // messageQuery.matches("chat", chat); (but for each chat in chatsToDelete)
+    // let messagesToDelete = await messageQuery.find()
+    // and then I need to delete those messages,
+    // and then delete all the now empty chats.
+    // /cema.
+  
+    // delete the user:
     await user.destroy();
     return true;
   } catch (error) {
