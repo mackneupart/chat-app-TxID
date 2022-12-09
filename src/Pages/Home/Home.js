@@ -198,7 +198,7 @@ export default function Home() {
             </div>
           </div>
           <div className="user-buttons">
-            <Button text="Delete my account" click={handleDelete} />
+            <Button text="Delete profile" click={handleDelete} />
             <Button text="Log out" click={logOut} />
           </div>
         </div>
