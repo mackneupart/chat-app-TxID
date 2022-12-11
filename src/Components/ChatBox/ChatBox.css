@@ -1,7 +1,12 @@
 .chat-box{
     background-color: var(--purple-900);
-    width: 50%;
-    height: 500px;
+    display: grid;
+    
+    
+    
+}
+.threat{
+    height: inherit;
     overflow-y: scroll;
     scrollbar-color: var(--blue-900) var(--purple-900);
     scrollbar-width: thin;
@@ -17,4 +22,31 @@
 .message-list > .message_received{
     justify-self: left;
     
+}
+.sending-messages{
+    grid-row-start: 2;
+    padding: 0.5%;
+    /* styling for children */
+    display: grid;
+    grid-template-columns: 70% 30%;
+    grid-template-rows: 50% 50%;
+}
+.form-input{
+   width: 100%;
+   height: 100%;
+   grid-row-start: 1;
+   grid-row-end: 3;
+   overflow-y: scroll;
+   scrollbar-color: var(--blue-900) var(--purple-900);
+   scrollbar-width: thin;
+   
+}
+.send-btn{
+    grid-column-start: 2;
+}
+.server-info{
+    grid-column-start: 2;
+    font-size: 70%;
+    margin: 0;
+    padding: 0;
 }

@@ -2,7 +2,7 @@ import "./Message.css";
 
 // Helper to format createdAt value on Message
 const formatDateToTime = (date) => {
-  return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+  return `${date.getDay()}.${date.getMonth()}. ${date.getHours()}:${date.getMinutes()}`;
 };
 
 export default function Message({ message, currentUser }) {

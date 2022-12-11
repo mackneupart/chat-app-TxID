@@ -16,8 +16,8 @@ Parse.initialize(ParseAppID, ParseJavaScriptKey);
 Parse.serverURL = ParseHostURL;
 
 
-test();
- */
+// test();
+
 
 Parse.enableLocalDatastore();
 
