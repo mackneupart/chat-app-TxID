@@ -4,7 +4,7 @@
   background-color: var(--blue-500);
   height: 42px;
   width: 122px;
-  border-radius: 15px;
+  border-radius: 10px;
   cursor: pointer;
 }
 .button-text {
