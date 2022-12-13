@@ -2,9 +2,10 @@
 import { Navigate, useNavigate, useLocation } from "react-router-dom";
 import ChatBox from "../../Components/ChatBox/ChatBox";
 import ChatSidebar from "../../Components/ChatSidebar/ChatSidebar";
+import "./Chat.css"
 // import{readChats2} from "../../API/API"
 
-export const Chat = () => {
+export default function Chat() {
   const { state } = useLocation();
   const currentUser = state.currentUser;
   const otherUser = state.otherUser;

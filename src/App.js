@@ -4,10 +4,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home/Home";
 import SignIn from "./Pages/SignIn/SignIn.js";
 import SignUp from "./Pages/SignUp/SignUp";
-import ChatTest from "./Pages/ChatTest/ChatTest"
+import Chat from "./Pages/Chat/Chat"
 import Parse from "parse";
 //import { createUser, readCatIcons } from "./API/API";
-import { Chat } from "./Pages/Chat/Chat";
 
 const ParseAppID = process.env.REACT_APP_PARSE_APPLICATION_ID;
 const ParseHostURL = process.env.REACT_APP_PARSE_HOST_URL;

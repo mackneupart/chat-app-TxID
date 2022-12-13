@@ -21,7 +21,7 @@ export default function Message({ message, currentUser }) {
     <div className="message" type={sentByMe() ? "sent" : "received"}>
       <div className="author">{sender}:</div>
       <div className="content" type={sentByMe() ? "sent" : "received"}>
-        {content}
+          {content}  
       </div>
       <div className="timestamp">{timestamp}</div>
     </div>

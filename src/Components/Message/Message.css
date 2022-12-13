@@ -1,25 +1,25 @@
 .message{
     margin:10px;
-    width: fit-content;
-    max-width: 50%;
+    /* width: fit-content; */
+    
 }
 
 
 .content[type = received]{ 
     background-color: var(--purple-100);
-    border-radius: 600px 600px 600px 50px;
+    border-radius: 50px 50px 50px 7px;
     
 }
 
 .content[type = sent]{
     background-color: white;
-    text-align: right;
-    border-radius: 600px 600px 50px 600px;
+    border-radius: 50px 50px 7px 50px;
 }
 
 .content{
     padding: 20px;
-    
+    width: fit-content;
+    word-break: break-word;
 }
 
 .author{

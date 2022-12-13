@@ -68,9 +68,9 @@ export default function ChatBox({ currentUser, otherUser }) {
       </div>
       
       <div className="sending-messages">
-        <form action="/form/submit" method="GET">
+        <form className="input-form" action="/form/submit" method="GET" >
           <textarea
-            className="form-input"
+            className="input-area"
             cols = "60"
             rows= "5"
             value={messageInput}
