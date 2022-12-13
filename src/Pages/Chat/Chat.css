@@ -17,3 +17,19 @@
     grid-row-start: 2;
     /* grid-row-end: 2;  */
 }
+
+.home-icon {
+    cursor: pointer; 
+}
+
+.topbar {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+}
+
+.chat-partner {
+    display: flex;
+    flex-direction: row;
+    font-size:larger;
+}
