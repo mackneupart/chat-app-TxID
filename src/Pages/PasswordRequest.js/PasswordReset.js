@@ -46,17 +46,19 @@ export default function PasswordReset() {
     <div>
       <div className="password-reset">
         <div className="purple-box">
-          <div>
+          <div className="heading-top">
             <img
               className="header-logo"
               src="./Icons/welcome-cat.png"
               alt="cat mascot"
             />
             <h1 className="heading">Forgot your password?</h1>
+            <p>
+              Please enter your email to receive a request to reset your
+              password
+            </p>
           </div>
-          <p>
-            Please enter your email to receive a request to reset your password
-          </p>
+
           <input
             className="input"
             value={email}
