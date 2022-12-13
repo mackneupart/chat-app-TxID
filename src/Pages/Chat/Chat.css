@@ -9,33 +9,29 @@
 .chat-sidebar{
     grid-column-start:2 ;
     grid-row-start: 4;
-    /* grid-column-end: 2; */
-
 }
 .chat-box{
     grid-column-start:3 ;
     grid-row-start: 4;
-    /* grid-row-end: 2;  */
 }
 
 .home-icon {
     cursor: pointer; 
-}
-
-.topbar {
-    display: flex;
-    flex-direction: row;
-    grid-column-start: 2;
     grid-row-start: 2;
-    
+    grid-column-start: 2;
+    width: 25%;
 }
 
 .chat-partner {
     display: flex;
     flex-direction: row;
     font-size:larger;
+    align-items: center;
+    grid-row-start: 2;
     grid-column-start: 3;
+    vertical-align: bottom;
 }
 
-.logout-button {
+.partner-pic {
+    width: 7%;
 }
