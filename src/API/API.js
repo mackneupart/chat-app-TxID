@@ -24,10 +24,61 @@ export const createUser = async function (
   }
 };
 
+const messagesForChat = async function (chat) {
+  try {
+    const messageQuery = new Parse.Query("Message");
+    messageQuery.equalTo("chat", chat);
+    return messageQuery.find();
+  } catch (error) {
+    console.log(
+      `Error when trying to get all messages belonging to a chat! ${error}`
+    );
+  }
+};
+
+// cascading delete - doesn't seem to exist for parse
 export const deleteUser = async function (user) {
   try {
-    const chatsToDelete = readChats2 // later: ask Scarlett about readChats2 vs readChats 
+    let chats = await readChats2(user);
+    for (let chat of chats) {
+      let messages = await messagesForChat(chat);
+      await Parse.Object.destroyAll(messages);
+    }
+    await Parse.Object.destroyAll(chats);
+    await user.destroy();
+    console.log("messages and chats should have been deleted");
+    return true;
+  } catch (error) {
+    console.log(
+      `Error when trying to delete the user and all of their chats and messages! ${error}`
+    );
+  }
+};
+
+/* export const deleteUser = async function (user) {
+  try {
+    //const chatsToDelete = readChats2 // later: ask Scarlett about readChats2 vs readChats
+
+    //find all the chats that are related to the user
+    const chatQuery = new Parse.Query("Chat");
+    chatQuery
+      .find()
+      .then(function (results) {
+        let promise = Promise.resolve();
+        results.forEach((result) => {
+          promise = promise.then(() => {
+            return result.destroy();
+          });
+        });
+        return promise;
+      })
+      .then(function () {
+        console.log("all messages was deleted");
+      });
+
     const messageQuery = new Parse.Query("Message");
+    messageQuery.equalTo("users2", user);
+
     // HELP WANTED:
     // I need to loop over all chats in chatsToDelete, finding all messages in those chats.
     // Maybe by doing something like this:
@@ -36,14 +87,14 @@ export const deleteUser = async function (user) {
     // and then I need to delete those messages,
     // and then delete all the now empty chats.
     // /cema.
-  
+
     // delete the user:
     await user.destroy();
     return true;
   } catch (error) {
-    alert(`Error from API when trying to delete user. ${error}.`)
+    alert(`Error from API when trying to delete user. ${error}.`);
   }
-};
+}; */
 
 export const createChat = async function (user1, user2) {
   console.log("creating a new chat");
