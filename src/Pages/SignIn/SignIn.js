@@ -35,7 +35,6 @@ function SignIn() {
           setClick(false);
 
           navigate("/home");
-
         } catch (error) {
           setClick(false);
           // Error can be caused by wrong parameters or lack of Internet connection
@@ -56,6 +55,10 @@ function SignIn() {
   const login = () => {
     console.log("change setClick");
     setClick(!click);
+  };
+
+  const goToPasswordRequest = () => {
+    navigate("passwordReset");
   };
 
   /*   // Function that will return current user and also update current username
@@ -103,7 +106,7 @@ function SignIn() {
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
                 name="pass"
-                placeholder="password"
+                placeholder="Password"
                 required
               />
               <img
@@ -114,7 +117,7 @@ function SignIn() {
               />
             </div>
           </form>
-          <a className="forgot-pass" href="http://google.com">
+          <a className="forgot-pass" onClick={goToPasswordRequest}>
             Forgot password?
           </a>
           <div className="login-button">
