@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home/Home";
 import SignIn from "./Pages/SignIn/SignIn.js";
 import SignUp from "./Pages/SignUp/SignUp";
+import PasswordReset from "./Pages/PasswordRequest.js/PasswordReset";
 import Parse from "parse";
 //import { createUser, readCatIcons } from "./API/API";
 import { Chat } from "./Pages/Chat/Chat";
@@ -54,6 +55,10 @@ function App(props) {
         <Route path="/signup" element={<SignUp page="SignUp" />} />
         <Route path="/home" element={<Home page="Home" />} />
         <Route path="chat" element={<Chat page="Chat" />} />
+        <Route
+          path="passwordReset"
+          element={<PasswordReset page="PasswordReset" />}
+        />
       </Routes>
     </BrowserRouter>
   );
