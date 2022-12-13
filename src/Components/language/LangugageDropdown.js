@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import ListItem from '../ListItem/ListItem';
+import "./LanguageDropdown.css"
 
 
 export default function LanguageDropdown({setLanguage}) {
@@ -161,12 +162,14 @@ export default function LanguageDropdown({setLanguage}) {
             <option value="yo">Yoruba - Èdè Yorùbá</option>
             <option value="zu">Zulu - isiZulu</option>
         </select>
-        <ul>{langList.map((item, index) => 
+        <ul className='selected-languages'>{langList.map((item, index) => 
                 <ListItem key = {index} item ={item} index = {index} deleteItem = {deleteItem} />
             )}
             {setLanguage(langList)}
             
         </ul>
+        
+        
         </div>
     );
 }

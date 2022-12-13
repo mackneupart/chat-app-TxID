@@ -137,11 +137,16 @@ export default function SignUp() {
               size="large"
               className="form_input"
             />
-            <input type="password"></input>
+            <input 
+            value={password}
+            placeholder="Password"
+            size="large"
+            type="password"
+            />
             <input
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              placeholder="Password"
+              placeholder="Repeat Password"
               size="large"
               type="password"
             />
