@@ -96,6 +96,10 @@ export const readCurrentUser = async function () {
     console.log(`Error when trying to get current user! ${error}`);
   }
 };
+// Above function could be refactored to this:
+/* export function getCurrentUser(){
+  return Parse.User.current()
+} */
 
 export const getProfilePicture = async function () {
   try {
