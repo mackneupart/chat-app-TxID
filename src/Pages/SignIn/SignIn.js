@@ -126,7 +126,6 @@ function SignIn() {
           <Link className="signup-button" to="signUp">
             <Button text="Sign Up" />
           </Link>
-          
         </div>
       </div>
     </div>
