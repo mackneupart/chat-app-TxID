@@ -106,7 +106,7 @@ function SignIn() {
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
                 name="pass"
-                placeholder="password"
+                placeholder="Password"
                 required
               />
               <img

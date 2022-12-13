@@ -49,6 +49,7 @@ TO DO
   /* logo is taking up 10% of the vh and 40% of the vw */
   width: calc(0.3 * 20vw);
   height:auto;
+  margin-bottom: 10%;
   /*height: calc(0.4 * 20vh);*/
 }
 .header-welcome {
@@ -58,6 +59,7 @@ TO DO
   text-shadow: 2px 2px black;
   margin-block: 0;
   padding:0;
+  margin-bottom: 10%;
 }
 
 
@@ -66,18 +68,20 @@ TO DO
   /*styling concerning its children*/
   display: grid;
   grid-template-rows: 45% 45%;
-  grid-row-gap: 10%;
+  grid-row-gap: 30%;
   align-items: center;
   justify-content: center;
 }
 
 .input-container {
   display: flex;
+  
 }
 
 .input-field {
-  border-radius: 10%;
+  border-radius: 2px;
   width: calc(0.4 * 50vw);
+  height:inherit;
   margin-left: auto;
 }
 
@@ -86,11 +90,8 @@ TO DO
 }
 
 .forgot-pass {
-  /* margin-right: auto;
-    margin-left: auto;
-    margin-bottom: 10px;
-    max-width: max-content; */
   grid-row-start: 5;
+  margin-top: 3%;
   align-self: center;
   justify-self: center;
   text-decoration: underline;
