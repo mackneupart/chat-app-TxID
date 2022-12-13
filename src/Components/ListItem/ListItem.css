@@ -1,0 +1,15 @@
+.item{
+    background-color: var(--light-grey-100);
+    width: min-content;
+    font-size: 80%;
+    color: var(--blue-900);
+    list-style-type: none;
+    white-space: nowrap;
+    display: inline-block;
+    margin: 1%;
+    
+}
+.delete{
+    /* padding: 0% 5%; */
+    border: 1px solid grey;
+}

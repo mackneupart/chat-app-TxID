@@ -55,6 +55,9 @@ h3 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  overflow-y: scroll;
+  scrollbar-color: var(--blue-900) var(--purple-900);
+  scrollbar-width: thin;
 }
 
 .profile-info-box {
