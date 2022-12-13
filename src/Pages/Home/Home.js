@@ -12,6 +12,7 @@ import {
   readCurrentUser,
   readChats2,
   createChat2,
+  deleteUser,
 } from "../../API/API";
 
 export default function Home() {
@@ -23,10 +24,6 @@ export default function Home() {
   const [chats, setChats] = useState();
 
   useEffect(() => {
-    /**
-     * create a variable to manage when the userdata should be changed
-     * should be made when the settings page/button has been created
-     */
     const getCurrentUser = async () => {
       try {
         const resultU = await readCurrentUser();
@@ -86,6 +83,24 @@ export default function Home() {
       }
     } catch (error) {
       console.log(`Error when trying to log out user! ${error}`);
+    }
+  };
+
+  const handleDelete = async function () {
+    const prompt =
+      "Are you sure you want to delete your account? Press OK to delete.";
+    if (window.confirm(prompt)) {
+      try {
+        await deleteUser(currentUser);
+        navigate("/");
+        alert(
+          "Your user was succesfully deleted. You're welcome back anytime!"
+        );
+      } catch (error) {
+        console.log(`Error when trying to delte user! ${error}`);
+      }
+    } else {
+      alert("User not deleted.");
     }
   };
 
@@ -151,10 +166,6 @@ export default function Home() {
     ]);
   }
 
-  function settingAlert() {
-    alert("Settings Button was pressed!");
-  }
-
   return (
     <div className="home-page background">
       <div className="home-box purple-box">
@@ -191,13 +202,13 @@ export default function Home() {
             </div>
           </div>
           <div className="user-buttons">
-            <Button text="Settings" click={settingAlert} />
+            <Button text="Delete profile" click={handleDelete} />
             <Button text="Log out" click={logOut} />
           </div>
         </div>
         <div className="chatOverview">
           <div className="chat">
-            <ChatList chatList={chatList} currentUser={currentUser}/>
+            <ChatList chatList={chatList} currentUser={currentUser} />
           </div>
           <div className="newChats">
             <div className="newChat">

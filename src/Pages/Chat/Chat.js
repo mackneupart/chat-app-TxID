@@ -8,7 +8,8 @@ export default function Chat() {
   const { state } = useLocation();
   const currentUser = state.currentUser;
   const otherUser = state.otherUser;
-  const navigate = useNavigate();
+  const chat = state.chat;
+  //const navigate = useNavigate();
 
   const goHome = function () {
     navigate("/home", {
@@ -34,7 +35,8 @@ export default function Chat() {
       <div className="chat-sidebar">
         <ChatSidebar currentUser = {currentUser}/>
       </div>
-      <ChatBox className = "chat-box" currentUser={currentUser} otherUser = {otherUser}/>
+
+      <ChatBox currentUser={currentUser} otherUser={otherUser} chat={chat}/>
     </div>
   );
 };

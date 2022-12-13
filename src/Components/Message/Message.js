@@ -5,7 +5,7 @@ const formatDateToTime = (date) => {
   return `${date.getDay()}.${date.getMonth()}. ${date.getHours()}:${date.getMinutes()}`;
 };
 
-export default function Message({ message, currentUser }) {
+export default function Message({ message, currentUser, chat }) {
   const sender = message.get("sender").get("username");
   const content = message.get("text");
   const timestamp = formatDateToTime(message.get("createdAt"));
