@@ -1,3 +1,7 @@
 .languageDropdown {
     width: 100%;
+
+}
+.languageDropdown > select{
+    height: 3em;
 }
