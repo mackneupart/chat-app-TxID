@@ -1,6 +1,7 @@
 .chat-box{
     background-color: var(--purple-900);
     display: grid;
+    grid-template-rows: 80% 20%;
     
     
     
