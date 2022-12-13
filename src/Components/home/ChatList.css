@@ -1,18 +1,26 @@
 .chat-list {
   display: grid;
   row-gap: 10px;
+  display: grid;
+  row-gap: 10px;
+  overflow-y: scroll;
+  scrollbar-color: var(--blue-900) var(--purple-100);
+  scrollbar-width: thin;
+  max-height: 60vh;
 }
 
 .chat-list-item-box {
-  border-radius: 15px;
-  background-color: plum;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 2px 2px var(--light-grey-900);
   /*styling concerning its children*/
   display: grid;
-  grid-template-columns: 1fr 3fr 1fr 5fr 1fr;
+  grid-template-columns: 1fr 3fr 1fr 3fr 1fr;
 }
 
 .chat-list-item-info {
   grid-column-start: 4;
+
   /*styling concerning its children*/
   display: grid;
   grid-template-rows: 1fr 3fr 1fr 2fr 1fr;
