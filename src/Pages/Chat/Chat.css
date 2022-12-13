@@ -2,19 +2,19 @@
     height: 100vh;
     display: grid;
     grid-template-columns: 10% 20% 60% 10%;
-    grid-template-rows: 10% 85% 5%;
+    grid-template-rows: 5% 8% 2% 80% 5%;
     box-shadow: inset;
     
 }
 .chat-sidebar{
     grid-column-start:2 ;
-    grid-row-start: 2;
+    grid-row-start: 4;
     /* grid-column-end: 2; */
 
 }
 .chat-box{
     grid-column-start:3 ;
-    grid-row-start: 2;
+    grid-row-start: 4;
     /* grid-row-end: 2;  */
 }
 
@@ -25,11 +25,17 @@
 .topbar {
     display: flex;
     flex-direction: row;
-    margin-top: 20px;
+    grid-column-start: 2;
+    grid-row-start: 2;
+    
 }
 
 .chat-partner {
     display: flex;
     flex-direction: row;
     font-size:larger;
+    grid-column-start: 3;
+}
+
+.logout-button {
 }
