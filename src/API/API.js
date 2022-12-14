@@ -24,6 +24,29 @@ export const createUser = async function (
   }
 };
 
+/* This version of deleteUser() will delete the user and also
+delete all of their messages and chats.
+From a usability viewpoint, maybe it would be better to
+move the messages to a 'deleted user' account, so the
+other users can still read old messages. /cema
+ */
+export const deleteUser = async function (user) {
+  try {
+    let chats = await readChats2(user);
+    for (let chat of chats) {
+      let messages = await messagesForChat(chat);
+      await Parse.Object.destroyAll(messages);
+    }
+    await Parse.Object.destroyAll(chats);
+    await user.destroy();
+    return true;
+  } catch (error) {
+      console.log(
+        `Error when trying to delete the user and all of their chats and messages! ${error}`
+      );
+  }
+};
+
 export const createChat = async function (user1, user2) {
   console.log("creating a new chat");
 
