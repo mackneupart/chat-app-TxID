@@ -32,9 +32,6 @@ TO DO
   justify-content: center;
   grid-template-rows: 5% 40% 5% 25% 5% 15% 5%;
   border-radius: 5px;
-  flex-wrap: wrap;
-
-
 } 
 
 .userImage {
