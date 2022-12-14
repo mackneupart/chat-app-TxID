@@ -32,6 +32,7 @@ TO DO
   justify-content: center;
   grid-template-rows: 5% 40% 5% 25% 5% 15% 5%;
   border-radius: 5px;
+  flex-wrap: wrap;
 
 
 } 
@@ -52,7 +53,10 @@ TO DO
   height: 80%; */
   align-self: center;
   justify-self: center;
+  background-color: var(--light-grey-900);
+  width: 40%;
 }
+
 
 .userInfo {
   grid-row-start: 4;
@@ -76,7 +80,6 @@ TO DO
   align-items: left;
   grid-column-start: 3;
   font-size: 1.2vw;
-  
 }
 
 .user-buttons {
@@ -100,6 +103,7 @@ TO DO
   /*styling concerning its children*/
   display: grid;
   grid-template-columns: auto 10% auto;
+  margin-top: auto;
 }
 
 .newChat {
