@@ -20,8 +20,18 @@ const ChatListItem = ({ chat, currentUser }) => {
     });
   };
 
-  const deleteChat = () => {
-    alert("you pressed deleteChat");
+  const deleteChat = async function () {
+    const prompt =
+      "Are you sure you want to delete your account? Press OK to delete.";
+    if (window.confirm(prompt)) {
+      try {
+        alert(
+          "Your user was succesfully deleted. You're welcome back anytime!"
+        );
+      } catch (error) {
+        console.log(`Error when trying to delte user! ${error}`);
+      }
+    }
   };
 
   return (
