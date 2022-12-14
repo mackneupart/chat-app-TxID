@@ -34,7 +34,7 @@ export const deleteUser = async function (user) {
   try {
     let chats = await readChats2(user);
     for (let chat of chats) {
-      let messages = await messagesForChat(chat);
+      let messages = await getMessages(chat);
       await Parse.Object.destroyAll(messages);
     }
     await Parse.Object.destroyAll(chats);
@@ -76,6 +76,19 @@ export const readChats = async function (currentUser) {
     return chats;
   } catch (error) {
     console.log(`Error when trying to read chats! ${error}`);
+  }
+};
+
+
+const getMessages = async function (chat) {
+  try {
+    const messageQuery = new Parse.Query("Message");
+    messageQuery.equalTo("chat", chat);
+    return messageQuery.find();
+  } catch (error) {
+    console.log(
+      `Error when trying to get all messages belonging to a chat! ${error}`
+    );
   }
 };
 
