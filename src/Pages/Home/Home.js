@@ -228,11 +228,15 @@ export default function Home() {
         </div>
         <div className="chat-overview">
           <div className="chat">
-            <ChatList
-              chatList={chatList}
-              currentUser={currentUser}
-              deleteChat={handleDeleteChat}
-            />
+            {chatList.length !== 0 ? (
+              <ChatList
+                chatList={chatList}
+                currentUser={currentUser}
+                deleteChat={handleDeleteChat}
+              />
+            ) : (
+              <div className="no-chat">you currently have no active chats</div>
+            )}
           </div>
         </div>
         <div className="newChats">

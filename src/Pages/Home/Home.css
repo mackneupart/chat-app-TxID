@@ -112,5 +112,11 @@ TO DO
   grid-template-columns: auto 10% auto;
   
 }
+.no-chat{
+ text-align: center;
+margin-top: 50%;
+font-weight: 600;
+font-size: larger;
+  }
 
 
