@@ -73,7 +73,7 @@ export default function Home() {
     } catch (error) {
       console.log(`Error when trying to get random user user: ${error}`);
     }
-  };
+  }; 
 
   const logOut = async function () {
     try {
@@ -109,11 +109,10 @@ export default function Home() {
     // should also give props about which chat was clicked or if 'new chat' was clicked
   }
 
-  function addChat() {
-    getRanUser();
+  const addChat = async function () {
+    await getRanUser();
     console.log("this is random users state: ", otherUser);
     console.log("this is random users id: ", otherUser.id);
-
     console.log("addchat clicked and entered");
     /*  setChatList([
       ...chatList,
