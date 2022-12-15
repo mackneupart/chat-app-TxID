@@ -4,8 +4,6 @@ import { getCurrentUser } from "../../API/API";
 import "./ChatListItem.css";
 
 const ChatListItem = ({ chat }) => {
-  console.log("this is chat in chat list item combonent");
-  console.log(chat);
   const navigate = useNavigate();
 
   var otherUser = {};

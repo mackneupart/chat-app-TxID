@@ -10,8 +10,6 @@ export default function Chat() {
   const otherUser = state.otherUser;
   const chat = state.chat;
   const navigate = useNavigate();
-  console.log("this is chat in the chat page");
-  console.log(chat);
 
   const goHome = function () {
     navigate(

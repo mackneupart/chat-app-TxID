@@ -11,8 +11,6 @@ export default function ChatBox({ chat }) {
   return (
     <div className="chat-box">
       <div className="threat">
-        {console.log("this is chat in message")}
-        {console.log(chat)}
         {messages && (
           <div className="message-list">
             {messages
