@@ -109,7 +109,7 @@ TO DO
   grid-row-start: 3;
   /*styling concerning its children*/
   display: grid;
-  grid-template-columns: auto 10% auto;
+  grid-template-columns: auto 30% auto;
   
 }
 .no-chat{
