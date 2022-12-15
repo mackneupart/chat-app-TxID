@@ -24,6 +24,40 @@ export const createUser = async function (
   }
 };
 
+export const sendMessage = async function (
+  messageText,
+  currentUser,
+  otherUser,
+  chat
+) {
+  const Message = new Parse.Object("Message");
+  try {
+    Message.set("text", messageText);
+    Message.set("sender", currentUser);
+    Message.set("receiver", otherUser);
+    Message.set("chat", chat);
+    await Message.save();
+    return true;
+  } catch (error) {
+    console.log(
+      `Error when trying to send a message to the database! ${error}`
+    );
+  }
+};
+
+export const getMessages = async function (chat) {
+  try {
+    const parseQuery = new Parse.Query("Message");
+    parseQuery.containedIn("chat", chat);
+    parseQuery.ascending("createdAt");
+    parseQuery.includeAll();
+    return parseQuery
+  } catch (error) {
+    console.log(`Error when trying to get messages! ${error}`);
+  }
+};
+
+//almost the same as above
 const messagesForChat = async function (chat) {
   try {
     const messageQuery = new Parse.Query("Message");
@@ -195,7 +229,6 @@ export const logOutUser = async function () {
 };
 
 const readAllUsers = async function () {
-  console.log("reading all users");
   const parseQuery = new Parse.Query("User");
   try {
     parseQuery.include("profilePicture");
