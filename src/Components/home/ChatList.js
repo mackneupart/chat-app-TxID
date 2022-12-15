@@ -1,13 +1,13 @@
 import React from "react";
 import ChatListItem from "./ChatListItem";
-import ChatListGroupItem from "./ChatListGroupItem";
+//import ChatListGroupItem from "./ChatListGroupItem";
 import "./ChatList.css";
 
-const ChatList = ({ chatList, currentUser, chat }) => {
+const ChatList = ({ chatList }) => {
   return (
     <div className="chat-list">
       {chatList.map((chat) => {
-        return <ChatListItem chat={chat} currentUser={currentUser}/>;
+        return <ChatListItem key={chat.id} chat={chat} />;
 
         /* if (chat.hasOwnProperty("chat")) {
           console.log(chat.hasOwnProperty("chat"));

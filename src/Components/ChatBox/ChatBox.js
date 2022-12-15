@@ -1,66 +1,32 @@
 import Message from "../Message/Message";
 import Button from "../Button/Button";
-import React, { useEffect, useState } from "react";
-import { useParseQuery } from "@parse/react";
-//import Parse from "parse";
 import "./ChatBox.css";
-import { getMessages, sendMessage } from "../../API/API";
+import useLiveMessages from "../../Hooks/useLiveMessages";
+import { getCurrentUser } from "../../API/API";
 
-export default function ChatBox({ currentUser, otherUser, chat }) {
-  const [messageInput, setMessageInput] = useState("");
-
-  /*  const parseQuery = new Parse.Query("Message");
-  parseQuery.containedIn("sender", [currentUser.id, otherUser.id]);
-  parseQuery.containedIn("receiver", [currentUser.id, otherUser.id]);
-
-  parseQuery.ascending("createdAt");
-  parseQuery.includeAll(); */
-  const parseResult = getMessages(chat);
-
-  // Declare hook and variables to hold hook responses
-  const { isLive, isLoading, isSyncing, results, count, error, reload } =
-    useParseQuery(parseResult, {
-      enableLocalDatastore: true, // Enables cache in local datastore (default: true)
-      enableLiveQuery: true, // Enables live query for real-time update (default: true)
-    });
-
-  /*     useParseQuery(parseQuery, {
-      enableLocalDatastore: true, // Enables cache in local datastore (default: true)
-      enableLiveQuery: true, // Enables live query for real-time update (default: true)
-    }); */
-
-  // Message sender handler
-  const sendMessageHandler = async () => {
-    try {
-      const messageText = messageInput;
-      if (messageText !== "") {
-        await sendMessage(messageText, currentUser, otherUser, chat);
-        console.log("is live: " + isLive);
-        console.log("results: ", results);
-        setMessageInput("");
-      }
-    } catch (error) {
-      alert(error);
-    }
-  };
+export default function ChatBox({ chat }) {
+  const { messageInput, handle, status, messages, count, error, reload } =
+    useLiveMessages(chat);
 
   return (
     <div className="chat-box">
       <div className="threat">
-        {results && (
+        {console.log("this is chat in message")}
+        {console.log(chat)}
+        {messages && (
           <div className="message-list">
-            {results
+            {messages
               .sort((a, b) => a.get("createdAt") > b.get("createdAt"))
-              .map((result) => (
+              .map((message) => (
                 <div
-                  key={result.id}
+                  key={message.id}
                   className={
-                    result.get("sender").id === currentUser.id
+                    message.get("chat").get("users")[0].id === getCurrentUser().id
                       ? "message_sent"
                       : "message_received"
                   }
                 >
-                  <Message message={result} currentUser={currentUser} />
+                  <Message message={message} />
                 </div>
               ))}
           </div>
@@ -74,16 +40,16 @@ export default function ChatBox({ currentUser, otherUser, chat }) {
             cols="60"
             rows="5"
             value={messageInput}
-            onChange={(event) => setMessageInput(event.target.value)}
+            onChange={handle.change}
             placeholder={"Your message..."}
           ></textarea>
         </form>
 
-        <Button className="send-btn" text="Send" click={sendMessageHandler} />
+        <Button className="send-btn" text="Send" click={handle.send} />
         <div className="server-info">
-          {isLoading && <p>{"Loading…"}</p>}
-          {isSyncing && <p>{"Syncing…"}</p>}
-          {isLive ? <p>{"Status: Live"}</p> : <p>{"Status: Offline"}</p>}
+          {status.isLoading && <p>{"Loading…"}</p>}
+          {status.isSyncing && <p>{"Syncing…"}</p>}
+          {status.isLive ? <p>{"Status: Live"}</p> : <p>{"Status: Offline"}</p>}
           {error && <p>{error.message}</p>}
           {count && <p>{`Count: ${count}`}</p>}
         </div>

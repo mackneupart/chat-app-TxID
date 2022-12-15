@@ -65,21 +65,18 @@ export default function SignUp() {
     profPic.src = catIcon.get("catPNG")._url;
   }
 
-  function handleSubmit() {
-    if (
-      createUser(
-        username,
-        password,
-        email,
-        nativeLanguage,
-        targetLanguage,
-        userPic
-      )
-    ) {
-      console.log("user created. navigating to home");
-      navigate("/home");
-    }
-  }
+  const handleSubmit = async function () {
+    await createUser(
+      username,
+      password,
+      email,
+      nativeLanguage,
+      targetLanguage,
+      userPic
+    );
+    console.log("user created. navigating to home");
+    navigate("/home");
+  };
 
   return (
     <div className="sign-up-page">
@@ -137,11 +134,11 @@ export default function SignUp() {
               size="large"
               className="form_input"
             />
-            <input 
-            value={password}
-            placeholder="Password"
-            size="large"
-            type="password"
+            <input
+              value={password}
+              placeholder="Password"
+              size="large"
+              type="password"
             />
             <input
               value={password}
