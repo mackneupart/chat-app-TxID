@@ -11,6 +11,7 @@ export default function SignUp() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
   const [email, setEmail] = useState("");
   const [nativeLanguage, setNativeLanguage] = useState([]);
   const [targetLanguage, setTargetLanguage] = useState([]);
@@ -66,19 +67,28 @@ export default function SignUp() {
   }
 
   function handleSubmit() {
-    if (
-      createUser(
-        username,
-        password,
-        email,
-        nativeLanguage,
-        targetLanguage,
-        userPic
-      )
-    ) {
-      console.log("user created. navigating to home");
-      navigate("/home");
+    if (checkPassword()) {
+      if (
+        createUser(
+          username,
+          password,
+          email,
+          nativeLanguage,
+          targetLanguage,
+          userPic
+        )
+      ) {
+        console.log("user created. navigating to home");
+        navigate("/home");
+      }
+    } else {
+      alert("your password does not match");
     }
+  }
+
+  function checkPassword() {
+    if (repeatPassword === password) return true;
+    return false;
   }
 
   return (
@@ -137,15 +147,16 @@ export default function SignUp() {
               size="large"
               className="form_input"
             />
-            <input 
-            value={password}
-            placeholder="Password"
-            size="large"
-            type="password"
-            />
             <input
               value={password}
               onChange={(event) => setPassword(event.target.value)}
+              placeholder="Password"
+              size="large"
+              type="password"
+            />
+            <input
+              value={repeatPassword}
+              onChange={(event) => setRepeatPassword(event.target.value)}
               placeholder="Repeat Password"
               size="large"
               type="password"
