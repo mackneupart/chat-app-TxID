@@ -26,6 +26,8 @@
 .chat-list-item-info-name {
   grid-row-start: 2;
   font-size: 2vw;
+  /*this is not a great fix, to fix the size of chatListItems but it fixes it...*/
+  min-width: 200px;
   text-align: center;
 }
 
