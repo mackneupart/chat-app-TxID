@@ -46,16 +46,18 @@ export const deleteUser = async function (user) {
     );
   }
 };
-export const deleteChat = async function (chat) {
+
+export async function deleteChat(chat) {
   try {
-    const messages = await getMessages(chat);
-    await Parse.Object.destroyAll(messages);
-    await chat.destroy();
-    return true;
+    //remember to also delete messages of the chat
+    //let messages = await getMessages(chat);
+    //await Parse.Object.destroyAll(messages);
+    const success = chat.destroy();
+    return success;
   } catch (error) {
-    console.log("error when deleting chat");
+    return false;
   }
-};
+}
 
 export const createChat = async function (user1, user2) {
   console.log("creating a new chat");

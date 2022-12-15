@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./ChatListItem.css";
 import { deleteChat, readChats2 } from "../../API/API";
 
-const ChatListItem = ({ chat, currentUser }) => {
+const ChatListItem = ({ chat, currentUser, deleteChat }) => {
   const navigate = useNavigate();
   var otherUser = {};
   if (chat.get("users2")[0].id === currentUser.id) {
@@ -21,23 +21,13 @@ const ChatListItem = ({ chat, currentUser }) => {
     });
   };
 
-  const deleteThisChat = () => {
-    const prompt = `Are you sure you want to delete chat with: ${otherUser.get(
-      "username"
-    )}? Press OK to delete.`;
-    if (window.confirm(prompt)) {
-      try {
-        deleteChat(chat);
-        alert(`You deleted chat with: ${otherUser.get("username")}`);
-      } catch (error) {
-        console.log(`Error when trying to delte user! ${error}`);
-      }
-    }
-  };
+  function handleDeleteChat() {
+    deleteChat(chat);
+  }
 
   return (
     <div>
-      <button className="delete-chat-button" onClick={deleteThisChat}>
+      <button className="delete-chat-button" onClick={handleDeleteChat}>
         X
       </button>
       <div className="chat-list-item-box" onClick={handleClick}>

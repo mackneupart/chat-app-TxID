@@ -3,11 +3,17 @@ import ChatListItem from "./ChatListItem";
 import ChatListGroupItem from "./ChatListGroupItem";
 import "./ChatList.css";
 
-const ChatList = ({ chatList, currentUser }) => {
+const ChatList = ({ chatList, currentUser, deleteChat }) => {
   return (
     <div className="chat-list">
       {chatList.map((chat) => {
-        return <ChatListItem chat={chat} currentUser={currentUser}/>;
+        return (
+          <ChatListItem
+            chat={chat}
+            currentUser={currentUser}
+            deleteChat={deleteChat}
+          />
+        );
 
         /* if (chat.hasOwnProperty("chat")) {
           console.log(chat.hasOwnProperty("chat"));

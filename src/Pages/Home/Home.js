@@ -12,7 +12,8 @@ import {
   readCurrentUser,
   readChats2,
   createChat2,
-  deleteUser
+  deleteUser,
+  deleteChat,
 } from "../../API/API";
 
 export default function Home() {
@@ -105,6 +106,19 @@ export default function Home() {
       }
     }
   };
+  async function handleDeleteChat(chat) {
+    const prompt = `Are you sure you want to delete chat?`;
+    if (window.confirm(prompt)) {
+      const success = await deleteChat(chat);
+      if (success) {
+        console.log("was deleted");
+        const resultC = await readChats2(currentUser);
+        setChatList(resultC);
+      } else {
+        console.log("Something went wrong");
+      }
+    }
+  }
 
   function handleNewChat() {
     navigate("/Chat");
@@ -214,7 +228,11 @@ export default function Home() {
         </div>
         <div className="chatOverview">
           <div className="chat">
-            <ChatList chatList={chatList} currentUser={currentUser} />
+            <ChatList
+              chatList={chatList}
+              currentUser={currentUser}
+              deleteChat={handleDeleteChat}
+            />
           </div>
           <div className="newChats">
             <div className="newChat">
