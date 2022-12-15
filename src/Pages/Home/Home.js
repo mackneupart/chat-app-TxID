@@ -226,7 +226,7 @@ export default function Home() {
             <Button text="Log out" click={logOut} />
           </div>
         </div>
-        <div className="chatOverview">
+        <div className="chat-overview">
           <div className="chat">
             <ChatList
               chatList={chatList}
@@ -234,13 +234,13 @@ export default function Home() {
               deleteChat={handleDeleteChat}
             />
           </div>
-          <div className="newChats">
-            <div className="newChat">
-              <Button text="New Chat" click={addChat} />
-            </div>
-            <div className="newGroupChat">
-              <Button text="New Group Chat" click={addGroupChat} />
-            </div>
+        </div>
+        <div className="newChats">
+          <div className="newChat">
+            <Button text="New Chat" click={addChat} />
+          </div>
+          <div className="newGroupChat">
+            <Button text="New Group Chat" click={addGroupChat} />
           </div>
         </div>
       </div>

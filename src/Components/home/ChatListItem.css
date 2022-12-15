@@ -2,6 +2,11 @@
   transform: scale(1.05);
   cursor: pointer;
 }
+.chat-list-item-img-box{
+  background-color: var(--light-grey-900);
+  border-radius: 50%;
+}
+
 .delete-chat-button{
 display: flex;
 margin-left: auto;
