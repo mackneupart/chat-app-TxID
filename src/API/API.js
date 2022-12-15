@@ -41,9 +41,19 @@ export const deleteUser = async function (user) {
     await user.destroy();
     return true;
   } catch (error) {
-      console.log(
-        `Error when trying to delete the user and all of their chats and messages! ${error}`
-      );
+    console.log(
+      `Error when trying to delete the user and all of their chats and messages! ${error}`
+    );
+  }
+};
+export const deleteChat = async function (chat) {
+  try {
+    const messages = await getMessages(chat);
+    await Parse.Object.destroyAll(messages);
+    await chat.destroy();
+    return true;
+  } catch (error) {
+    console.log("error when deleting chat");
   }
 };
 
@@ -78,7 +88,6 @@ export const readChats = async function (currentUser) {
     console.log(`Error when trying to read chats! ${error}`);
   }
 };
-
 
 const getMessages = async function (chat) {
   try {

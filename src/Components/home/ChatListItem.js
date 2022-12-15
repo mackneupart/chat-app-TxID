@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./ChatListItem.css";
+import { deleteChat } from "../../API/API";
 
 const ChatListItem = ({ chat, currentUser }) => {
   const navigate = useNavigate();
@@ -20,13 +21,13 @@ const ChatListItem = ({ chat, currentUser }) => {
     });
   };
 
-  const deleteChat = () => {
-    alert("you pressed deleteChat");
+  const deleteThisChat = () => {
+    deleteChat(chat);
   };
 
   return (
     <div>
-      <button className="delete-chat-button" onClick={deleteChat}>
+      <button className="delete-chat-button" onClick={deleteThisChat}>
         X
       </button>
       <div className="chat-list-item-box" onClick={handleClick}>
