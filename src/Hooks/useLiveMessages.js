@@ -25,15 +25,19 @@ const useLiveMessages = (chat) => {
   const parseQuery = new Parse.Query("Message");
   /* parseQuery.containedIn("sender", [getCurrentUser(), otherUser.id]);
   parseQuery.containedIn("receiver", [getCurrentUser(), otherUser.id]); */
-  parseQuery.include("chat", chat);
+  parseQuery.equalTo("chat", chat)
+  parseQuery.include("chat");
   parseQuery.ascending("createdAt");
-  parseQuery.includeAll();
+  //parseQuery.includeAll();
 
   const { isLive, isLoading, isSyncing, results, count, error, reload } =
     useParseQuery(parseQuery, {
       enableLocalDatastore: true, // Enables cache in local datastore (default: true)
       enableLiveQuery: true, // Enables live query for real-time update (default: true)
     });
+
+  console.log(chat.id);
+  console.log(results);
 
   const messages = results;
 
