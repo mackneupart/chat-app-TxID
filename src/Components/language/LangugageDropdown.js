@@ -14,6 +14,14 @@ export default function LanguageDropdown({ setLanguage }) {
     setLangList((prevState) => [...prevState.filter((item, i) => i != index)]);
   }
 
+  function selectDropdown(value) {
+    setLangList((prevState) => [...prevState, value]);
+    //setSelected("")
+  }
+  function deleteItem(index) {
+    setLangList((prevState) => [...prevState.filter((item, i) => i != index)]);
+  }
+
   return (
     <div className="languageDropdown">
       <select
@@ -176,7 +184,7 @@ export default function LanguageDropdown({ setLanguage }) {
         <option value="yo">Yoruba - Èdè Yorùbá</option>
         <option value="zu">Zulu - isiZulu</option>
       </select>
-      <ul>
+      <ul className="selected-languages">
         {langList.map((item, index) => (
           <ListItem
             key={index}

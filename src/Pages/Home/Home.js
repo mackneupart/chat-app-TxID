@@ -12,6 +12,7 @@ import {
   readCurrentUser,
   readChats2,
   createChat2,
+  deleteUser
 } from "../../API/API";
 
 export default function Home() {
@@ -86,6 +87,22 @@ export default function Home() {
       }
     } catch (error) {
       console.log(`Error when trying to log out user! ${error}`);
+    }
+  };
+
+  const handleDelete = async function () {
+    const prompt =
+      "Are you sure you want to delete your account? Press OK to delete.";
+    if (window.confirm(prompt)) {
+      try {
+        await deleteUser(currentUser);
+        navigate("/");
+        alert(
+          "Your user was succesfully deleted. You're welcome back anytime!"
+        );
+      } catch (error) {
+        console.log(`Error when trying to delte user! ${error}`);
+      }
     }
   };
 
@@ -191,7 +208,7 @@ export default function Home() {
             </div>
           </div>
           <div className="user-buttons">
-            <Button text="Settings" click={settingAlert} />
+            <Button text="Delete profile" click={handleDelete} />
             <Button text="Log out" click={logOut} />
           </div>
         </div>
