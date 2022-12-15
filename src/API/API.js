@@ -1,3 +1,4 @@
+import { clear } from "@testing-library/user-event/dist/clear";
 import Parse from "parse";
 
 export const createUser = async function (
@@ -40,20 +41,19 @@ export const logIn = async function (username, password) {
 export const logOut = async function () {
   try {
     const succes = await Parse.User.logOut();
+    localStorage.clear();
     console.log(`Log out: ${succes}`);
   } catch (error) {
     console.log(`Error logging out! ${error}`);
   }
 };
 
-export const sendMessage = async function (
-  messageText,
-  chat
-) {
+export const sendMessage = async function (messageText, chat) {
   const Message = new Parse.Object("Message");
   try {
     Message.set("text", messageText);
     Message.set("chat", chat);
+    Message.set("sender", getCurrentUser().id);
     await Message.save();
     return true;
   } catch (error) {
@@ -108,8 +108,6 @@ export const deleteUser = async function (user) {
 };
 
 export const createChat = async function (otherUser) {
-  console.log("creating a new chat");
-  console.log(otherUser);
   const usersObjects = [getCurrentUser(), otherUser];
   try {
     let chat = new Parse.Object("Chat");

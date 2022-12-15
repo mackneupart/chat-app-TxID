@@ -14,20 +14,27 @@ export default function Message({ message }) {
     sender = message.get("chat").get("users")[1].get("username");
   } */
 
-  const sender = message.get("chat").get("users")[0].get("username");
+  const sender = message.get("sender");
   const content = message.get("text");
   const timestamp = formatDateToTime(message.get("createdAt"));
 
   const sentByMe = () => {
-    if (sender === getCurrentUser().get("username")) {
+    if (sender === getCurrentUser().id) {
       return true;
     }
     return false;
   };
 
+  const getAuthor = () => {
+    if (sender === message.get("chat").get("users")[0].id ) {
+      return message.get("chat").get("users")[0].get("username");
+    }
+    return message.get("chat").get("users")[1].get("username");
+  };
+
   return (
     <div className="message" type={sentByMe() ? "sent" : "received"}>
-      <div className="author">{sender}:</div>
+      <div className="author">{getAuthor()}</div>
       <div className="content" type={sentByMe() ? "sent" : "received"}>
         {content}
       </div>

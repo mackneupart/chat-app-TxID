@@ -62,8 +62,6 @@ export default function Home() {
     try {
       const otherUser = await getRandomUser();
       const chat = await createChat(otherUser);
-      console.log("a chat has been added. This is what is in the chat:")
-      console.log(chat);
       navigate("/Chat", {
         state: { otherUser: otherUser, chat: chat },
       });

@@ -36,9 +36,6 @@ const useLiveMessages = (chat) => {
       enableLiveQuery: true, // Enables live query for real-time update (default: true)
     });
 
-  console.log(chat.id);
-  console.log(results);
-
   const messages = results;
 
   return {
