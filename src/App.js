@@ -5,19 +5,20 @@ import Home from "./Pages/Home/Home";
 import SignIn from "./Pages/SignIn/SignIn.js";
 import SignUp from "./Pages/SignUp/SignUp";
 import PasswordReset from "./Pages/PasswordRequest.js/PasswordReset";
-import Chat from "./Pages/Chat/Chat"
+import Chat from "./Pages/Chat/Chat";
 import Parse from "parse";
+import { initializeParse } from "@parse/react";
 //import { createUser, readCatIcons } from "./API/API";
 
 const ParseAppID = process.env.REACT_APP_PARSE_APPLICATION_ID;
 const ParseHostURL = process.env.REACT_APP_PARSE_HOST_URL;
 const ParseJavaScriptKey = process.env.REACT_APP_PARSE_JAVASCRIPT_KEY;
-Parse.initialize(ParseAppID, ParseJavaScriptKey);
-Parse.serverURL = ParseHostURL;
+//Parse.initialize(ParseAppID, ParseJavaScriptKey);
+//Parse.serverURL = ParseHostURL;
 
+initializeParse(ParseHostURL, ParseAppID, ParseJavaScriptKey);
 
 // test();
-
 
 Parse.enableLocalDatastore();
 
