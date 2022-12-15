@@ -50,7 +50,7 @@ TO DO
   height: 80%; */
   align-self: center;
   justify-self: center;
-  background-color: var(--light-grey-900);
+  background-color: var(--light-grey-100);
   width: 40%;
 }
 
@@ -91,6 +91,9 @@ TO DO
   grid-row-start: 2;
   height: 100%;
   width: 100%;
+  overflow-y: scroll;
+  scrollbar-color: var(--blue-900) var(--purple-100);
+  scrollbar-width: thin;
   /*styling concerning its children*/
   display: grid;
   grid-template-columns: auto;

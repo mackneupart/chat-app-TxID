@@ -3,9 +3,9 @@
   row-gap: 10px;
   display: grid;
   row-gap: 10px;
-  overflow-y: scroll;
+  /* overflow-y: scroll;
   scrollbar-color: var(--blue-900) var(--purple-100);
-  scrollbar-width: thin;
+  scrollbar-width: thin; */
   max-height: 60vh;
 }
 
