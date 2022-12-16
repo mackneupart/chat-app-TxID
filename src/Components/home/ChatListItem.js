@@ -5,6 +5,7 @@ import "./ChatListItem.css";
 
 const ChatListItem = ({ chat }) => {
   const navigate = useNavigate();
+  console.log(chat.get("users"))
 
   var otherUser = {};
   if (chat.get("users2")[0].id === getCurrentUser().id) {

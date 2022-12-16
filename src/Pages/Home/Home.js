@@ -22,6 +22,8 @@ export default function Home() {
     const getAllChats = async () => {
       try {
         const resultC = await getChats();
+        console.log(resultC);
+        console.log(resultC.get("users"));
         setChatList(resultC);
       } catch (error) {
         console.log(`Error when trying to get all chats: ${error}`);
@@ -57,6 +59,7 @@ export default function Home() {
     try {
       const otherUser = await getRandomUser();
       const chat = await createChat(otherUser);
+      console.log(chat);
       navigate("/Chat", {
         state: { otherUser: otherUser, chat: chat },
       });

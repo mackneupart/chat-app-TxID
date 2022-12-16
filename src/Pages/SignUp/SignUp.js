@@ -23,23 +23,13 @@ export default function SignUp() {
       try {
         const result = await readCatIcons();
         setCatIcons(result);
+        setUserPic(result[0]);
       } catch (error) {
         console.log(`Error when trying to read cat icons: ${error}`);
       }
     };
     getCatIcons();
   }, []);
-
-  useEffect(() => {
-    console.log("this is catIcons");
-    console.log(catIcons);
-    if (catIcons) {
-      console.log("Set profile pic to ", catIcons[0].get("name"));
-      const defaultIcon = catIcons[0];
-      setUserPic(defaultIcon);
-      console.log(defaultIcon);
-    }
-  }, [catIcons]);
 
   function makeProfileSelection() {
     try {
@@ -137,6 +127,7 @@ export default function SignUp() {
             />
             <input
               value={password}
+              onChange={(event) => setPassword(event.target.value)}
               placeholder="Password"
               size="large"
               type="password"

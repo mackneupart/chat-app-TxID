@@ -7,6 +7,7 @@ import "./Chat.css";
 export default function Chat() {
   const { state } = useLocation();
   const otherUser = state.otherUser;
+  console.log(state)
   const chat = state.chat;
   const navigate = useNavigate();
 
