@@ -47,18 +47,6 @@ export const deleteUser = async function (user) {
   }
 };
 
-export async function deleteChat(chat) {
-  try {
-    //remember to also delete messages of the chat
-    //let messages = await getMessages(chat);
-    //await Parse.Object.destroyAll(messages);
-    const success = chat.destroy();
-    return success;
-  } catch (error) {
-    return false;
-  }
-}
-
 export const createChat = async function (user1, user2) {
   console.log("creating a new chat");
 
@@ -352,3 +340,14 @@ import API from
 
 API.user.create()
  */
+export async function deleteChat(chat) {
+  try {
+    //remember to also delete messages of the chat
+    //let messages = await getMessages(chat);
+    //await Parse.Object.destroyAll(messages);
+    const success = chat.destroy();
+    return success;
+  } catch (error) {
+    return false;
+  }
+}
