@@ -67,17 +67,29 @@ export default function SignUp() {
   }
 
   const handleSubmit = async function () {
-    await createUser(
-      username,
-      password,
-      email,
-      nativeLanguage,
-      targetLanguage,
-      userPic
-    );
-    console.log("user created. navigating to home");
-    navigate("/home");
+    if (checkPassword()) {
+      await createUser(
+        username,
+        password,
+        email,
+        nativeLanguage,
+        targetLanguage,
+        userPic
+      );
+      console.log("user created. navigating to home");
+      navigate("/home");
+    } else {
+      alert("Your password does not match");
+    }
   };
+
+  function checkPassword() {
+    if (password === repeatPassword) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   return (
     <div className="sign-up-page">
@@ -116,9 +128,9 @@ export default function SignUp() {
             <div>
               <label>What languages do you want to learn?</label>
             </div>
-            <div>
+            {/* <div>
               <label>What are your interests:</label>
-            </div>
+            </div> */}
           </div>
           <div className="profile-info-inputs">
             <input
@@ -134,12 +146,6 @@ export default function SignUp() {
               placeholder="email"
               size="large"
               className="form_input"
-            />
-            <input
-              value={password}
-              placeholder="Password"
-              size="large"
-              type="password"
             />
             <input
               value={password}
@@ -163,7 +169,7 @@ export default function SignUp() {
               className="dropdown"
               setLanguage={setTargetLanguage}
             />
-            <InterestList />
+            {/* <InterestList /> */}
           </div>
         </div>
         <div className="submit-button">
