@@ -1,6 +1,8 @@
 import { useNavigate, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import ChatBox from "../../Components/ChatBox/ChatBox";
 import ChatSidebar from "../../Components/ChatSidebar/ChatSidebar";
+import { getCurrentUser } from "../../API/API";
 import "./Chat.css";
 //import { getCurrentUser } from "../../API/API";
 
@@ -9,6 +11,8 @@ export default function Chat() {
   const otherUser = state.otherUser;
   const chat = state.chat;
   const navigate = useNavigate();
+
+  //TODO get to SignIn if not loged in
 
   const goHome = function () {
     navigate(

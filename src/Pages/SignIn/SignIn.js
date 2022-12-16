@@ -13,7 +13,6 @@ function SignIn() {
   const handleLogIn = async () => {
     try {
       await logIn(username, password);
-      console.log(getCurrentUser())
       if(getCurrentUser() !== null){
         setUsername("");
         setPassword("");

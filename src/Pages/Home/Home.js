@@ -18,7 +18,12 @@ import {
 export default function Home() {
   const navigate = useNavigate();
   const [chatList, setChatList] = useState([]);
-
+  useEffect(() =>{
+    if(getCurrentUser() === null){
+      navigate("/")
+    }
+  })
+  
   useEffect(() => {
     const getAllChats = async () => {
       try {
