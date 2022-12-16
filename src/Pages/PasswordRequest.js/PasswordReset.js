@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Parse from "parse";
 import "../../DesignSystem/grid.css";
 import "./PasswordReset.css";
 import Button from "../../Components/Button/Button";
 
 export default function PasswordReset() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
 
   const checkEmail = async () => {
@@ -13,7 +15,7 @@ export default function PasswordReset() {
     try {
       const results = await query.equalTo("email", email);
       const result = await results.find();
-      if (result.length != 0) {
+      if (result.length !== 0) {
         console.log("email exists");
         doRequestPasswordReset();
         setEmail("");
@@ -42,10 +44,17 @@ export default function PasswordReset() {
       return false;
     }
   };
+
+  function goBack() {
+    navigate("/");
+  }
   return (
     <div>
       <div className="password-reset">
         <div className="purple-box">
+          <p className="go-back" onClick={goBack}>
+            back
+          </p>
           <div className="heading-top">
             <img
               className="header-logo"
