@@ -252,7 +252,7 @@ export async function deleteChat(chat) {
     //remember to also delete messages of the chat
     //let messages = await getMessages(chat);
     //await Parse.Object.destroyAll(messages);
-    const success = chat.destroy();
+    const success = await chat.destroy();
     return success;
   } catch (error) {
     return false;

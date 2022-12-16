@@ -19,8 +19,7 @@ export default function ChatBox({ chat }) {
                 <div
                   key={message.id}
                   className={
-                    message.get("sender").id ===
-                    getCurrentUser().id
+                    message.get("sender").id === getCurrentUser().id
                       ? "message_sent"
                       : "message_received"
                   }
