@@ -24,6 +24,27 @@ export const createUser = async function (
   }
 };
 
+export const logIn = async function (username, password) {
+  try {
+    const loggedInUser = await Parse.User.logIn(username, password);
+    console.log(
+      `Success! User ${loggedInUser.get(
+        "username"
+      )} has successfully signed in!`
+    );
+  } catch (error) {
+    console.log(`Error logging in! ${error}`);
+  }
+};
+export const logOut = async function () {
+  try {
+    const succes = await Parse.User.logOut();
+    console.log(`Log out: ${succes}`);
+  } catch (error) {
+    console.log(`Error logging out! ${error}`);
+  }
+};
+
 export const sendMessage = async function (messageText, chat) {
   const Message = new Parse.Object("Message");
   try {
@@ -78,9 +99,14 @@ export const deleteUser = async function (user) {
       let messages = await messagesForChat(chat);
       await Parse.Object.destroyAll(messages);
     }
-    return chats;
+    await Parse.Object.destroyAll(chats);
+    await user.destroy();
+    console.log("messages and chats should have been deleted");
+    return true;
   } catch (error) {
-    console.log(`Error when trying to read chats! ${error}`);
+    console.log(
+      `Error when trying to delete the user and all of their chats and messages! ${error}`
+    );
   }
 };
 
