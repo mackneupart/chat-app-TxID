@@ -115,7 +115,7 @@ export const createChat = async function (otherUser) {
   try {
     const chat = new Parse.Object("Chat");
     let usersRelation = chat.relation("users");
-    usersRelation.add(users2Objects);
+    usersRelation.add(usersObjects);
     await chat.save();
     console.log("new chat created");
     return chat;
@@ -126,20 +126,29 @@ export const createChat = async function (otherUser) {
 
 export const getChats = async function () {
   try {
-    /* const Chat = new Parse.Object("Chat");
-    const usersRelation = Chat.relation("users");
-    const chatQuery = usersRelation.query(); */
-    //const chats = await chatQuery.find();
-    /* chatQuery.equalTo("users", getCurrentUser());
-    chatQuery.include("users");
-     */
-    chatQuery.equalTo("users2", getCurrentUser());
     const chatQuery = new Parse.Query("Chat");
-    chatQuery.includeAll("users2");
+    chatQuery.equalTo("users", getCurrentUser());
+    chatQuery.includeAll("users");
     const chats = await chatQuery.find();
     return chats;
   } catch (error) {
     console.log(`Error when trying to read chats! ${error}`);
+  }
+};
+
+const getRelationObjects = async function (object, relationName) {
+  try {
+    return await object.relation(relationName).query().find();
+  } catch (error) {
+    console.log(`Error when getting relation objects! ${error}`);
+  }
+};
+
+export const getUserForChat = async function (chat) {
+  try {
+    return await getRelationObjects(chat, "users");
+  } catch (error) {
+    console.log(`Error when trying to get users belonging to chat! ${error}`);
   }
 };
 
