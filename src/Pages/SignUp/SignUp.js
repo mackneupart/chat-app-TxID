@@ -128,9 +128,6 @@ export default function SignUp() {
             <div>
               <label>What languages do you want to learn?</label>
             </div>
-            {/* <div>
-              <label>What are your interests:</label>
-            </div> */}
           </div>
           <div className="profile-info-inputs">
             <input
@@ -169,7 +166,6 @@ export default function SignUp() {
               className="dropdown"
               setLanguage={setTargetLanguage}
             />
-            {/* <InterestList /> */}
           </div>
         </div>
         <div className="submit-button">
