@@ -1,6 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+
+/**
+ * THIS IS OLD CODE FROM BACK WHEN WE HARD CODED STUFF
+ *
+ */
+
 const ChatListGroupItem = (props) => {
   return (
     <Link to="/">

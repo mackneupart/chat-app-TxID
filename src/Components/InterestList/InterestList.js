@@ -1,6 +1,5 @@
 import { useState } from "react";
 import ListItem from "../ListItem/ListItem";
-import TextInput from "../text/TextInput";
 import "./InterestList.css";
 
 //TODO: not reload on enter
@@ -26,7 +25,7 @@ const InterestList = () => {
   
   return (
     <div>
-      <TextInput handleNewItem={handleNewItem} />
+      <input type="text" handleNewItem={handleNewItem} />
       <ul>
         {interestList.map((item, index) => (
           <ListItem
