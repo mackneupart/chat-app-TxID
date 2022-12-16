@@ -11,6 +11,7 @@ export default function SignUp() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
   const [email, setEmail] = useState("");
   const [nativeLanguage, setNativeLanguage] = useState([]);
   const [targetLanguage, setTargetLanguage] = useState([]);
@@ -143,6 +144,13 @@ export default function SignUp() {
             <input
               value={password}
               onChange={(event) => setPassword(event.target.value)}
+              placeholder="Password"
+              size="large"
+              type="password"
+            />
+            <input
+              value={repeatPassword}
+              onChange={(event) => setRepeatPassword(event.target.value)}
               placeholder="Repeat Password"
               size="large"
               type="password"

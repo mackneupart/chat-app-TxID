@@ -24,29 +24,6 @@ export const createUser = async function (
   }
 };
 
-export const logIn = async function (username, password) {
-  try {
-    const loggedInUser = await Parse.User.logIn(username, password);
-    console.log(
-      `Success! User ${loggedInUser.get(
-        "username"
-      )} has successfully signed in!`
-    );
-  } catch (error) {
-    console.log(`Error logging in! ${error}`);
-  }
-};
-
-export const logOut = async function () {
-  try {
-    const succes = await Parse.User.logOut();
-    localStorage.clear();
-    console.log(`Log out: ${succes}`);
-  } catch (error) {
-    console.log(`Error logging out! ${error}`);
-  }
-};
-
 export const sendMessage = async function (messageText, chat) {
   const Message = new Parse.Object("Message");
   try {
@@ -88,7 +65,12 @@ const messagesForChat = async function (chat) {
   }
 };
 
-// cascading delete - doesn't seem to exist for parse
+/* This version of deleteUser() will delete the user and also
+delete all of their messages and chats.
+From a usability viewpoint, maybe it would be better to
+move the messages to a 'deleted user' account, so the
+other users can still read old messages. /cema
+ */
 export const deleteUser = async function (user) {
   try {
     let chats = await getChats(user);
@@ -96,14 +78,9 @@ export const deleteUser = async function (user) {
       let messages = await messagesForChat(chat);
       await Parse.Object.destroyAll(messages);
     }
-    await Parse.Object.destroyAll(chats);
-    await user.destroy();
-    console.log("messages and chats should have been deleted");
-    return true;
+    return chats;
   } catch (error) {
-    console.log(
-      `Error when trying to delete the user and all of their chats and messages! ${error}`
-    );
+    console.log(`Error when trying to read chats! ${error}`);
   }
 };
 
