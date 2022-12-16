@@ -1,41 +1,62 @@
+import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import ChatBox from "../../Components/ChatBox/ChatBox";
 import ChatSidebar from "../../Components/ChatSidebar/ChatSidebar";
+import { getCurrentUser, getUsersInChat } from "../../API/API";
 import "./Chat.css";
-//import { getCurrentUser } from "../../API/API";
 
 export default function Chat() {
   const { state } = useLocation();
-  const otherUser = state.otherUser;
-  console.log(state)
   const chat = state.chat;
   const navigate = useNavigate();
 
-  const goHome = function () {
-    navigate(
-      "/home" /* {
+  const [users, setUsers] = useState();
+
+  useEffect(() => {
+    const getUsers = async function () {
+      const u = await getUsersInChat(chat);
+      setUsers(u);
+    };
+    getUsers();
+  }, [chat]);
+
+  if (users) {
+    var otherUser = {};
+    if (users[0].id === getCurrentUser().id) {
+      otherUser = users[1];
+    } else {
+      otherUser = users[0];
+    }
+
+    const goHome = function () {
+      navigate(
+        "/home" /* {
       state: {currentUser : currentUser },
       // The navigation to and from Home needs fixing, screen goes blank but works on refresh. /cema
     } */
-    );
-  };
+      );
+    };
 
-  return (
-    <div className="chat-page">
-      <img
-        className="home-icon"
-        src="./Icons/home.png"
-        alt="Home icon"
-        onClick={goHome}
-      />
-      <div className="chat-partner">
-        {/*  <img className="partner-pic" src={otherUser.get("profilePicture").get("catPNG")._url}/>  */}
-        <header className="partner-name">{otherUser.get("username")}</header>
+    return (
+      <div className="chat-page">
+        <img
+          className="home-icon"
+          src="./Icons/home.png"
+          alt="Home icon"
+          onClick={goHome}
+        />
+        <div className="chat-partner">
+          <img
+            className="partner-pic"
+            src={otherUser.get("profilePicture").get("catPNG")._url}
+          />
+          <header className="partner-name">{otherUser.get("username")}</header>
+        </div>
+        <div className="chat-sidebar">
+          <ChatSidebar />
+        </div>
+        <ChatBox chat={chat} />
       </div>
-      <div className="chat-sidebar">
-        <ChatSidebar />
-      </div>
-      <ChatBox chat={chat} />
-    </div>
-  );
+    );
+  }
 }

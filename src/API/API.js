@@ -110,7 +110,8 @@ export const deleteUser = async function (user) {
   }
 };
 
-export const createChat = async function (otherUser) {
+export const createChat = async function () {
+  const otherUser = await getRandomUser();
   const usersObjects = [getCurrentUser(), otherUser];
   try {
     const chat = new Parse.Object("Chat");
@@ -144,7 +145,7 @@ const getRelationObjects = async function (object, relationName) {
   }
 };
 
-export const getUserForChat = async function (chat) {
+export const getUsersInChat = async function (chat) {
   try {
     return await getRelationObjects(chat, "users");
   } catch (error) {

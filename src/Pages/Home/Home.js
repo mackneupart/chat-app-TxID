@@ -6,7 +6,6 @@ import Button from "../../Components/Button/Button";
 import { useNavigate } from "react-router-dom";
 //import errorKitten from "../../DesignSystem/errorKitten.jpg";
 import {
-  getRandomUser,
   logOut,
   getCurrentUser,
   getChats,
@@ -22,8 +21,8 @@ export default function Home() {
     const getAllChats = async () => {
       try {
         const resultC = await getChats();
-        console.log(getCurrentUser().get("profilePicture"));
-        console.log(getCurrentUser().profilePicture);
+        getCurrentUser().get("profilePicture").fetch();
+        console.log(getCurrentUser().get("profilePicture").get("catPNG")._url);
         setChatList(resultC);
       } catch (error) {
         console.log(`Error when trying to get all chats: ${error}`);
@@ -57,12 +56,11 @@ export default function Home() {
 
   const addChat = async function () {
     try {
-      const otherUser = await getRandomUser();
-      const chat = await createChat(otherUser);
+      const chat = await createChat();
       console.log(chat);
-      /* navigate("/Chat", {
-        state: { otherUser: otherUser, chat: chat },
-      }); */
+      navigate("/Chat", {
+        state: { chat: chat },
+      });
     } catch (error) {
       console.log(`Error when trying to get random user user: ${error}`);
     }
