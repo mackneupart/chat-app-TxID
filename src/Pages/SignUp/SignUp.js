@@ -47,6 +47,7 @@ export default function SignUp() {
         <>
           {catIcons.map((catIcon) => (
             <img
+              key={catIcon.id}
               alt={catIcon.get("name")}
               src={catIcon.get("catPNG")._url}
               onClick={() => handleSelect(catIcon)}
@@ -60,36 +61,23 @@ export default function SignUp() {
   }
 
   function handleSelect(catIcon) {
-    //change profile picture to selected picture
     setUserPic(catIcon);
     const profPic = document.getElementById("ProfilePicture");
     profPic.src = catIcon.get("catPNG")._url;
   }
 
-  function handleSubmit() {
-    if (checkPassword()) {
-      if (
-        createUser(
-          username,
-          password,
-          email,
-          nativeLanguage,
-          targetLanguage,
-          userPic
-        )
-      ) {
-        console.log("user created. navigating to home");
-        navigate("/home");
-      }
-    } else {
-      alert("your password does not match");
-    }
-  }
-
-  function checkPassword() {
-    if (repeatPassword === password) return true;
-    return false;
-  }
+  const handleSubmit = async function () {
+    await createUser(
+      username,
+      password,
+      email,
+      nativeLanguage,
+      targetLanguage,
+      userPic
+    );
+    console.log("user created. navigating to home");
+    navigate("/home");
+  };
 
   return (
     <div className="sign-up-page">
@@ -149,6 +137,12 @@ export default function SignUp() {
             />
             <input
               value={password}
+              placeholder="Password"
+              size="large"
+              type="password"
+            />
+            <input
+              value={password}
               onChange={(event) => setPassword(event.target.value)}
               placeholder="Password"
               size="large"
@@ -172,12 +166,6 @@ export default function SignUp() {
             <InterestList />
           </div>
         </div>
-
-        {/** TODO password control*/}
-
-        {/**repeat passwotd */}
-
-        {/**TODO: show different Languages /intersts after selection */}
         <div className="submit-button">
           <Button text="Sign Up" click={handleSubmit} />
         </div>
