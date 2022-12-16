@@ -7,29 +7,19 @@ const formatDateToTime = (date) => {
 };
 
 export default function Message({ message }) {
-  /* var sender = "";
-  if (message.get("chat").get("users")[0].id === getCurrentUser().id) {
-    sender = message.get("chat").get("users")[0].get("username");
-  } else {
-    sender = message.get("chat").get("users")[1].get("username");
-  } */
-
   const sender = message.get("sender");
   const content = message.get("text");
   const timestamp = formatDateToTime(message.get("createdAt"));
 
   const sentByMe = () => {
-    if (sender === getCurrentUser().id) {
+    if (sender.id === getCurrentUser().id) {
       return true;
     }
     return false;
   };
 
   const getAuthor = () => {
-    if (sender === message.get("chat").get("users")[0].id ) {
-      return message.get("chat").get("users")[0].get("username");
-    }
-    return message.get("chat").get("users")[1].get("username");
+    return sender.get("username");
   };
 
   return (

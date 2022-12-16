@@ -1,4 +1,3 @@
-import { clear } from "@testing-library/user-event/dist/clear";
 import Parse from "parse";
 
 export const createUser = async function (
@@ -53,7 +52,7 @@ export const sendMessage = async function (messageText, chat) {
   try {
     Message.set("text", messageText);
     Message.set("chat", chat);
-    Message.set("sender", getCurrentUser().id);
+    Message.set("sender", getCurrentUser());
     await Message.save();
     return true;
   } catch (error) {
@@ -80,6 +79,7 @@ const messagesForChat = async function (chat) {
   try {
     const messageQuery = new Parse.Query("Message");
     messageQuery.equalTo("chat", chat);
+    messageQuery.include("sender");
     return messageQuery.find();
   } catch (error) {
     console.log(
@@ -112,7 +112,7 @@ export const createChat = async function (otherUser) {
   try {
     let chat = new Parse.Object("Chat");
     for (var user of usersObjects) {
-      chat.add("users", user);
+      chat.add("users2", user);
     }
     await chat.save();
     console.log("new chat created");
@@ -125,8 +125,8 @@ export const createChat = async function (otherUser) {
 export const getChats = async function () {
   try {
     const parseQuery = new Parse.Query("Chat");
-    parseQuery.equalTo("users", getCurrentUser());
-    parseQuery.include("users");
+    parseQuery.equalTo("users2", getCurrentUser());
+    parseQuery.include("users2");
     const chats = await parseQuery.find();
     return chats;
   } catch (error) {
@@ -157,7 +157,6 @@ const getAllUsers = async function () {
   usersQuery.include("profilePicture");
   try {
     const users = await usersQuery.find();
-    //console.log(users[0].get("profilePicture").get("catPNG"))
     return users;
   } catch (error) {
     console.log(`Error when trying to read all users: ${error.message}`);
@@ -194,7 +193,6 @@ export const getRandomUser = async function () {
         }
         return await allOtherUsers[newRanNum];
       }
-      console.log("the random user is different then the current:", result);
       return await result;
     }
   } catch (error) {

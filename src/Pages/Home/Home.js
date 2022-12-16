@@ -53,11 +53,6 @@ export default function Home() {
     }
   };
 
-  /*  function handleNewChat() {
-    navigate("/Chat");
-    // should also give props about which chat was clicked or if 'new chat' was clicked
-  } */
-
   const addChat = async function () {
     try {
       const otherUser = await getRandomUser();
@@ -69,35 +64,6 @@ export default function Home() {
       console.log(`Error when trying to get random user user: ${error}`);
     }
   };
-
-  function addGroupChat() {
-    setChatList([
-      ...chatList,
-      {
-        groupChat: [
-          {
-            id: Math.random().toString(),
-            username: "Kitty",
-            TL: "Spanish",
-            NL: "Danish",
-            image:
-              "https://th-thumbnailer.cdn-si-edu.com/bZAar59Bdm95b057iESytYmmAjI=/1400x1050/filters:focal(594x274:595x275)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/95/db/95db799b-fddf-4fde-91f3-77024442b92d/egypt_kitty_social.jpg",
-            interest: "Knitting",
-          },
-          {
-            id: Math.random().toString(),
-            username: "Kat",
-            TL: "Spanish",
-            NL: "Danish",
-            image:
-              "https://i.pinimg.com/originals/ed/08/bf/ed08bf6bff9e2e870d96b976c23829c8.jpg",
-
-            interest: "Knitting",
-          },
-        ],
-      },
-    ]);
-  }
 
   return (
     <div className="home-page background">
@@ -154,7 +120,7 @@ export default function Home() {
               <Button text="New Chat" click={addChat} />
             </div>
             <div className="newGroupChat">
-              <Button text="New Group Chat" click={addGroupChat} />
+              <Button text="New Group Chat" click={addChat} />
             </div>
           </div>
         </div>

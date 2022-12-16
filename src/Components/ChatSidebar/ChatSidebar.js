@@ -19,7 +19,6 @@ export default function ChatSidebar() {
     };
 
     getAllChats();
-    // console.log("chats in sidebar",chatList)
   }, []);
 
   return (

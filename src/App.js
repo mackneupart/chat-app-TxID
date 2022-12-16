@@ -1,4 +1,3 @@
-import "./App.css";
 import "./DesignSystem/colours.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home/Home";
@@ -8,21 +7,16 @@ import PasswordReset from "./Pages/PasswordRequest.js/PasswordReset";
 import Chat from "./Pages/Chat/Chat";
 import Parse from "parse";
 import { initializeParse } from "@parse/react";
-//import { createUser, readCatIcons } from "./API/API";
 
 const ParseAppID = process.env.REACT_APP_PARSE_APPLICATION_ID;
 const ParseHostURL = process.env.REACT_APP_PARSE_HOST_URL;
 const ParseJavaScriptKey = process.env.REACT_APP_PARSE_JAVASCRIPT_KEY;
-//Parse.initialize(ParseAppID, ParseJavaScriptKey);
-//Parse.serverURL = ParseHostURL;
 
 initializeParse(ParseHostURL, ParseAppID, ParseJavaScriptKey);
 
-// test();
-
 Parse.enableLocalDatastore();
 
-function App(props) {
+function App() {
   return (
     <BrowserRouter>
       <div className="App"></div>

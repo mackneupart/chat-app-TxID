@@ -46,6 +46,7 @@ export default function SignUp() {
         <>
           {catIcons.map((catIcon) => (
             <img
+              key={catIcon.id}
               alt={catIcon.get("name")}
               src={catIcon.get("catPNG")._url}
               onClick={() => handleSelect(catIcon)}
@@ -59,7 +60,6 @@ export default function SignUp() {
   }
 
   function handleSelect(catIcon) {
-    //change profile picture to selected picture
     setUserPic(catIcon);
     const profPic = document.getElementById("ProfilePicture");
     profPic.src = catIcon.get("catPNG")._url;
@@ -158,12 +158,6 @@ export default function SignUp() {
             <InterestList />
           </div>
         </div>
-
-        {/** TODO password control*/}
-
-        {/**repeat passwotd */}
-
-        {/**TODO: show different Languages /intersts after selection */}
         <div className="submit-button">
           <Button text="Sign Up" click={handleSubmit} />
         </div>

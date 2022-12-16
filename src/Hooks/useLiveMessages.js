@@ -23,8 +23,6 @@ const useLiveMessages = (chat) => {
   };
 
   const parseQuery = new Parse.Query("Message");
-  /* parseQuery.containedIn("sender", [getCurrentUser(), otherUser.id]);
-  parseQuery.containedIn("receiver", [getCurrentUser(), otherUser.id]); */
   parseQuery.equalTo("chat", chat)
   parseQuery.include("chat");
   parseQuery.ascending("createdAt");

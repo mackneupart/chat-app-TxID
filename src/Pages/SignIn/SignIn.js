@@ -13,7 +13,6 @@ function SignIn() {
   const handleLogIn = async () => {
     try {
       await logIn(username, password);
-      // Clear input fields
       setUsername("");
       setPassword("");
       navigate("/home");
@@ -51,7 +50,6 @@ function SignIn() {
 
               <img
                 src="./Icons/welcome-user-90.png"
-                width="30px"
                 className="input-logo"
                 alt="user icon"
               />
@@ -68,17 +66,14 @@ function SignIn() {
               />
               <img
                 src="./Icons/welcome-lock.png"
-                width="30px"
                 className="input-logo"
                 alt="icon of a lock to symbolise password field"
               />
             </div>
           </form>
-          {/* got a warning: The href attribute is required for an anchor to be keyboard accessible. Provide a valid, navigable address as the href value. */}
-          {/* we should properly make a proper fix */}
-          <a href="#/" className="forgot-pass" onClick={goToPasswordRequest}>
+          <div className="forgot-pass" onClick={goToPasswordRequest}>
             Forgot password?
-          </a>
+          </div>
           <div className="login-button">
             <Button text="Login" click={handleLogIn} />
           </div>

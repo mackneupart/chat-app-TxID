@@ -1,7 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import ChatBox from "../../Components/ChatBox/ChatBox";
 import ChatSidebar from "../../Components/ChatSidebar/ChatSidebar";
-//import Button from "../../Components/Button/Button";
 import "./Chat.css";
 //import { getCurrentUser } from "../../API/API";
 
@@ -30,14 +29,11 @@ export default function Chat() {
       />
       <div className="chat-partner">
         {/*  <img className="partner-pic" src={otherUser.get("profilePicture").get("catPNG")._url}/>  */}
-        {/* We should clean up  the functions for getting profile pic
-          in the API !!! /cema */}
         <header className="partner-name">{otherUser.get("username")}</header>
       </div>
       <div className="chat-sidebar">
         <ChatSidebar />
       </div>
-
       <ChatBox chat={chat} />
     </div>
   );
