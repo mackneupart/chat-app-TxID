@@ -110,10 +110,9 @@ export const deleteUser = async function (user) {
 export const createChat = async function (otherUser) {
   const usersObjects = [getCurrentUser(), otherUser];
   try {
-    let chat = new Parse.Object("Chat");
-    for (var user of usersObjects) {
-      chat.add("users", user);
-    }
+    const chat = new Parse.Object("Chat");
+    let usersRelation = chat.relation("users");
+    usersRelation.add(usersObjects);
     await chat.save();
     console.log("new chat created");
     return chat;
@@ -124,10 +123,17 @@ export const createChat = async function (otherUser) {
 
 export const getChats = async function () {
   try {
-    const parseQuery = new Parse.Query("Chat");
-    parseQuery.equalTo("users", getCurrentUser());
-    parseQuery.include("users");
-    const chats = await parseQuery.find();
+    /* const Chat = new Parse.Object("Chat");
+    const usersRelation = Chat.relation("users");
+    const chatQuery = usersRelation.query(); */
+    //const chats = await chatQuery.find();
+    /* chatQuery.equalTo("users", getCurrentUser());
+    chatQuery.include("users");
+     */
+    chatQuery.equalTo("users", getCurrentUser());
+    const chatQuery = new Parse.Query("Chat");
+    chatQuery.includeAll("users");
+    const chats = await chatQuery.find();
     return chats;
   } catch (error) {
     console.log(`Error when trying to read chats! ${error}`);
