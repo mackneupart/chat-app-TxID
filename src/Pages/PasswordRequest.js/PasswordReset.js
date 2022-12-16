@@ -1,12 +1,10 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Parse from "parse";
 import "../../DesignSystem/grid.css";
 import "./PasswordReset.css";
 import Button from "../../Components/Button/Button";
 
 export default function PasswordReset() {
-  const navigate = useNavigate();
   const [email, setEmail] = useState("");
 
   const checkEmail = async () => {
@@ -45,37 +43,31 @@ export default function PasswordReset() {
     }
   };
 
-  function goBack() {
-    navigate("/");
-  }
   return (
-    <div>
-      <div className="password-reset">
-        <div className="purple-box">
-          <p className="go-back" onClick={goBack}>
+    <div className="password-reset">
+      <div className="purple-box">
+        {/* <p className="go-back" onClick={goBack}>
             back
-          </p>
-          <div className="heading-top">
-            <img
-              className="header-logo"
-              src="./Icons/welcome-cat.png"
-              alt="cat mascot"
-            />
-            <h1 className="heading">Forgot your password?</h1>
-            <p>
-              Please enter your email to receive a request to reset your
-              password
-            </p>
-          </div>
-
-          <input
-            className="input"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            placeholder="Your account email"
+          </p> */}
+        <div className="heading-top">
+          <img
+            className="header-logo"
+            src="./Icons/welcome-cat.png"
+            alt="cat mascot"
           />
-          <Button text="Reset password" click={checkEmail} />
+          <h1 className="heading">Forgot your password?</h1>
+          <p>
+            Please enter your email to receive a request to reset your password
+          </p>
         </div>
+
+        <input
+          className="input"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          placeholder="Your account email"
+        />
+        <Button text="Reset password" click={checkEmail} />
       </div>
     </div>
   );
