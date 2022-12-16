@@ -1,4 +1,18 @@
 .chat-list-item-box:hover {
-  transform: scale(1.1);
+  transform: scale(1.02);
+  cursor: pointer;
+}
+.chat-list-item-img-box{
+  background-color: var(--light-grey-900);
+  border-radius: 50%;
+}
+
+.delete-chat-button{
+display: flex;
+margin-left: auto;
+border-radius: 5px;
+border: solid black 1px;
+}
+.delete-chat-button:hover{
   cursor: pointer;
 }

@@ -140,6 +140,10 @@ export const getChats = async function () {
 export const getCurrentUser = () => {
   return Parse.User.current();
 };
+// Above function could be refactored to this:
+/* export function getCurrentUser(){
+  return Parse.User.current()
+} */
 
 /* export const getProfilePicture = async function () {
   try {
@@ -213,3 +217,44 @@ export const readCatIcons = async () => {
     console.log(`Error when trying to get cat icons! ${error}`);
   }
 };
+
+/*  const GetIcons = async function () {
+  try {
+    const result = await ReadCatIcons();
+    console.log("this is result");
+    console.log(result);
+    var icons = {};
+    var count = 0;
+    for (let icon in result) {
+      let key = `icon${count}`;
+      let n = icon.get("name");
+      let s = icon.get("catPNG")._url;
+      let obj = { [key]: { name: n, source: s } };
+      icons = { ...icons, obj };
+    }
+    console.log("this is icons");
+    console.log(icons);
+    return icons;
+  } catch (error) {
+    console.log("Error in getting Icons: " + error);
+  }
+}; */
+
+/* export default {user: {create: CreateUser, delete: DeleteUserInfo}, chat: {create: CreateChat}}
+
+
+import API from 
+
+API.user.create()
+ */
+export async function deleteChat(chat) {
+  try {
+    //remember to also delete messages of the chat
+    //let messages = await getMessages(chat);
+    //await Parse.Object.destroyAll(messages);
+    const success = chat.destroy();
+    return success;
+  } catch (error) {
+    return false;
+  }
+}

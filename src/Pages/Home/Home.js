@@ -12,6 +12,7 @@ import {
   getChats,
   createChat,
   deleteUser,
+  deleteChat,
 } from "../../API/API";
 
 export default function Home() {
@@ -52,6 +53,19 @@ export default function Home() {
       alert("User not deleted.");
     }
   };
+  async function handleDeleteChat(chat) {
+    const prompt = `Are you sure you want to delete chat?`;
+    if (window.confirm(prompt)) {
+      const success = await deleteChat(chat);
+      if (success) {
+        console.log("was deleted");
+        const resultC = await getChats(getCurrentUser());
+        setChatList(resultC);
+      } else {
+        console.log("Something went wrong");
+      }
+    }
+  }
 
   const addChat = async function () {
     try {
@@ -63,6 +77,10 @@ export default function Home() {
     } catch (error) {
       console.log(`Error when trying to get random user user: ${error}`);
     }
+  };
+
+  const addGroupChat = async function () {
+    alert("group chat was pressed");
   };
 
   return (
@@ -111,17 +129,21 @@ export default function Home() {
             <Button text="Log out" click={handleLogOut} />
           </div>
         </div>
-        <div className="chatOverview">
+        <div className="chat-overview">
           <div className="chat">
-            {chatList && <ChatList chatList={chatList} />}
+            {chatList.length !== 0 ? (
+              <ChatList chatList={chatList} deleteChat={handleDeleteChat} />
+            ) : (
+              <div className="no-chat">you currently have no active chats</div>
+            )}
           </div>
-          <div className="newChats">
-            <div className="newChat">
-              <Button text="New Chat" click={addChat} />
-            </div>
-            <div className="newGroupChat">
-              <Button text="New Group Chat" click={addChat} />
-            </div>
+        </div>
+        <div className="newChats">
+          <div className="newChat">
+            <Button text="New Chat" click={addChat} />
+          </div>
+          <div className="newGroupChat">
+            <Button text="New Group Chat" click={addGroupChat} />
           </div>
         </div>
       </div>
