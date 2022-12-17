@@ -14,8 +14,8 @@ export const createUser = async function (
     User.set("username", username);
     User.set("password", password);
     User.set("email", email);
-    User.set("nativeLanguage", nativeLanguage);
-    User.set("targetLanguage", targetLanguage);
+    User.set("nativeLangs", nativeLanguage);
+    User.set("targetLangs", targetLanguage);
     User.set("profilePicture", profilePicture);
     await User.signUp();
     return true;
