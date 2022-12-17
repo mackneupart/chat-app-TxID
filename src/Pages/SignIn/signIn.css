@@ -30,8 +30,8 @@ TO DO
         bottom          20%
     
     */
-  grid-template-rows: 20% 10% 15% 10% 5% 10% 10% 20%;
-  align-items: center;
+    grid-template-rows: 20% 10% 15% 10% 5% 8% 6% 26%;
+    align-items: center;
   justify-items: center;
 }
 
