@@ -211,7 +211,7 @@ export const getRandomUser = async function () {
   }
 };
 
-export const readCatIcons = async () => {
+export const getCatIcons = async () => {
   try {
     const queryIcons = new Parse.Query("CatIcons");
     const result = await queryIcons.find();

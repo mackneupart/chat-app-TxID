@@ -5,7 +5,7 @@ import "../../DesignSystem/grid.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../Components/Button/Button";
-import { createUser, readCatIcons } from "../../API/API";
+import { createUser, getCatIcons } from "../../API/API";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ export default function SignUp() {
   useEffect(() => {
     const getCatIcons = async () => {
       try {
-        const result = await readCatIcons();
+        const result = await getCatIcons();
         setCatIcons(result);
         setUserPic(result[0]);
       } catch (error) {
