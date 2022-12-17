@@ -20,7 +20,7 @@ export default function LanguageDropdown({showChosen}) { // what would be better
         // setLanguages(await getLanguages()), resten i API
     },[])
 
-    function addToList(language){
+    function addToChosen(language){
         setChosenLanguages(prevState => [...prevState, language])
     }
     
@@ -30,7 +30,7 @@ export default function LanguageDropdown({showChosen}) { // what would be better
 
     return(
         <div className='languageDropdown'>
-        <select id="languages" name="languages" value = {selected} onChange={(e) => addToList(e.target.selectedOptions[0].text)}>
+        <select id="languages" name="languages" value = {selected} onChange={(e) => addToChosen(e.target.selectedOptions[0].text)}>
             <option>Select Language</option>
             {languageOptions.map((language) => <option key={language.id} value={language.get("objectId")}>{language.get("name")}</option>)}
         </select>
