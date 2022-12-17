@@ -22,8 +22,7 @@ export default function ChatListItem({ chat, deleteChat }) {
     } else {
       otherUser = users[0];
     }
-    //otherUser.get("profilePicture").fetch();
-    //maybe try with another if statement here, in order to force it to wait until fetch is done
+    
     const otherUserImage = otherUser.get("profilePicture").get("catPNG")._url;
     const language1 = chat.get("Language1");
     const language2 = chat.get("Language2");

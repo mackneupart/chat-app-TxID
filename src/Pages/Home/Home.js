@@ -22,8 +22,7 @@ export default function Home() {
     const getAllChats = async () => {
       try {
         const resultC = await getChats();
-        await getCurrentUser().get("profilePicture").fetch();
-        //console.log(getCurrentUser().get("profilePicture").get("catPNG")._url);
+        await getCurrentUser().get("profilePicture").fetch(); //needed in order to be able to get profile picture later
         setChatList(resultC);
       } catch (error) {
         console.log(`Error when trying to get all chats: ${error}`);
