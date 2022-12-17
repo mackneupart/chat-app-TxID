@@ -11,13 +11,14 @@
     margin: 2%;
 }
 
-.chat-list{
+.chat-list-scroll{
     grid-row-start: 2;
     padding: 1%;
     overflow-y: scroll;
     scrollbar-color: var(--blue-900) var(--purple-100);
     scrollbar-width: thin;
 }
+
 .language-radio{
     /* display: grid; */
     grid-row-start: 3;

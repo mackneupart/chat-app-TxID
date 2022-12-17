@@ -1,5 +1,5 @@
 import LanguageDropdown from "../../Components/language/LangugageDropdown";
-import InterestList from "../../Components/InterestList/InterestList";
+//import InterestList from "../../Components/InterestList/InterestList";
 import "./SignUp.css";
 import "../../DesignSystem/grid.css";
 import { useEffect, useState } from "react";
@@ -57,17 +57,29 @@ export default function SignUp() {
   }
 
   const handleSubmit = async function () {
-    await createUser(
-      username,
-      password,
-      email,
-      nativeLanguage,
-      targetLanguage,
-      userPic
-    );
-    console.log("user created. navigating to home");
-    navigate("/home");
+    if (checkPassword()) {
+      await createUser(
+        username,
+        password,
+        email,
+        nativeLanguage,
+        targetLanguage,
+        userPic
+      );
+      console.log("user created. navigating to home");
+      navigate("/home");
+    } else {
+      alert("Your password does not match");
+    }
   };
+
+  function checkPassword() {
+    if (password === repeatPassword) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   return (
     <div className="sign-up-page">
@@ -105,9 +117,6 @@ export default function SignUp() {
             </div>
             <div>
               <label>What languages do you want to learn?</label>
-            </div>
-            <div>
-              <label>What are your interests:</label>
             </div>
           </div>
           <div className="profile-info-inputs">
@@ -154,7 +163,6 @@ export default function SignUp() {
               className="dropdown"
               setLanguage={setTargetLanguage}
             />
-            <InterestList />
           </div>
         </div>
         <div className="submit-button">

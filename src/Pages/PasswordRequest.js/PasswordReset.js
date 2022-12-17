@@ -13,7 +13,7 @@ export default function PasswordReset() {
     try {
       const results = await query.equalTo("email", email);
       const result = await results.find();
-      if (result.length != 0) {
+      if (result.length !== 0) {
         console.log("email exists");
         doRequestPasswordReset();
         setEmail("");
@@ -42,31 +42,32 @@ export default function PasswordReset() {
       return false;
     }
   };
-  return (
-    <div>
-      <div className="password-reset">
-        <div className="purple-box">
-          <div className="heading-top">
-            <img
-              className="header-logo"
-              src="./Icons/welcome-cat.png"
-              alt="cat mascot"
-            />
-            <h1 className="heading">Forgot your password?</h1>
-            <p>
-              Please enter your email to receive a request to reset your
-              password
-            </p>
-          </div>
 
-          <input
-            className="input"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            placeholder="Your account email"
+  return (
+    <div className="password-reset">
+      <div className="purple-box">
+        {/* <p className="go-back" onClick={goBack}>
+            back
+          </p> */}
+        <div className="heading-top">
+          <img
+            className="header-logo"
+            src="./Icons/welcome-cat.png"
+            alt="cat mascot"
           />
-          <Button text="Reset password" click={checkEmail} />
+          <h1 className="heading">Forgot your password?</h1>
+          <p>
+            Please enter your email to receive a request to reset your password
+          </p>
         </div>
+
+        <input
+          className="input"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          placeholder="Your account email"
+        />
+        <Button text="Reset password" click={checkEmail} />
       </div>
     </div>
   );
