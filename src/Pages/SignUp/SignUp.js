@@ -13,8 +13,8 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [nativeLanguage, setNativeLanguage] = useState([]);
-  const [targetLanguage, setTargetLanguage] = useState([]);
+  const [nativeLangs, setNativeLangs] = useState([]);
+  const [targetLangs, setTargetLangs] = useState([]);
   const [catIcons, setCatIcons] = useState(null);
   const [userPic, setUserPic] = useState(null);
 
@@ -62,8 +62,8 @@ export default function SignUp() {
         username,
         password,
         email,
-        nativeLanguage,
-        targetLanguage,
+        nativeLangs,
+        targetLangs,
         userPic
       );
       console.log("user created. navigating to home");
@@ -157,11 +157,11 @@ export default function SignUp() {
             />
             <LanguageDropdown
               className="dropdown"
-              showChosen={setNativeLanguage}
+              showChosen={setNativeLangs}
             />
             <LanguageDropdown
               className="dropdown"
-              showChosen={setTargetLanguage}
+              showChosen={setTargetLangs}
             />
           </div>
         </div>

@@ -4,8 +4,8 @@ export const createUser = async function (
   username,
   password,
   email,
-  nativeLanguage,
-  targetLanguage,
+  nativeLangs,
+  targetLangs,
   profilePicture
 ) {
   console.log("Creating new user");
@@ -14,8 +14,8 @@ export const createUser = async function (
     User.set("username", username);
     User.set("password", password);
     User.set("email", email);
-    User.set("nativeLangs", nativeLanguage);
-    User.set("targetLangs", targetLanguage);
+    User.set("nativeLangs", nativeLangs);
+    User.set("targetLangs", targetLangs);
     User.set("profilePicture", profilePicture);
     await User.signUp();
     return true;
