@@ -19,7 +19,7 @@ export default function SignUp() {
   const [userPic, setUserPic] = useState(null);
 
   useEffect(() => {
-    const getCatIcons = async () => {
+    const getIcons = async () => {
       try {
         const result = await getCatIcons();
         setCatIcons(result);
@@ -28,7 +28,7 @@ export default function SignUp() {
         console.log(`Error when trying to read cat icons: ${error}`);
       }
     };
-    getCatIcons();
+    getIcons();
   }, []);
 
   function makeProfileSelection() {
