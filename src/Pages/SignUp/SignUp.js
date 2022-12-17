@@ -142,13 +142,6 @@ export default function SignUp() {
               type="password"
             />
             <input
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              placeholder="Password"
-              size="large"
-              type="password"
-            />
-            <input
               value={repeatPassword}
               onChange={(event) => setRepeatPassword(event.target.value)}
               placeholder="Repeat Password"
