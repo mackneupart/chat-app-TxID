@@ -36,6 +36,7 @@ export const logIn = async function (username, password) {
     console.log(`Error logging in! ${error}`);
   }
 };
+
 export const logOut = async function () {
   try {
     const succes = await Parse.User.logOut();
@@ -110,13 +111,13 @@ export const deleteUser = async function (user) {
   }
 };
 
-export const createChat = async function (otherUser) {
+export const createChat = async function () {
+  const otherUser = await getRandomUser();
   const usersObjects = [getCurrentUser(), otherUser];
   try {
-    let chat = new Parse.Object("Chat");
-    for (var user of usersObjects) {
-      chat.add("users2", user);
-    }
+    const chat = new Parse.Object("Chat");
+    let usersRelation = chat.relation("users");
+    usersRelation.add(usersObjects);
     await chat.save();
     console.log("new chat created");
     return chat;
@@ -127,37 +128,39 @@ export const createChat = async function (otherUser) {
 
 export const getChats = async function () {
   try {
-    const parseQuery = new Parse.Query("Chat");
-    parseQuery.equalTo("users2", getCurrentUser());
-    parseQuery.include("users2");
-    const chats = await parseQuery.find();
+    const chatQuery = new Parse.Query("Chat");
+    chatQuery.equalTo("users", getCurrentUser());
+    chatQuery.includeAll("users");
+    const chats = await chatQuery.find();
     return chats;
   } catch (error) {
     console.log(`Error when trying to read chats! ${error}`);
   }
 };
 
+const getRelationObjects = async function (object, relationName) {
+  try {
+    return await object.relation(relationName).query().find();
+  } catch (error) {
+    console.log(`Error when getting relation objects! ${error}`);
+  }
+};
+
+export const getUsersInChat = async function (chat) {
+  try {
+    const users = await getRelationObjects(chat, "users");
+    for (let user of users) {
+      await user.get("profilePicture").fetch(); //needed to get pictures later on
+    }
+    return users;
+  } catch (error) {
+    console.log(`Error when trying to get users belonging to chat! ${error}`);
+  }
+};
+
 export const getCurrentUser = () => {
   return Parse.User.current();
 };
-// Above function could be refactored to this:
-/* export function getCurrentUser(){
-  return Parse.User.current()
-} */
-
-/* export const getProfilePicture = async function () {
-  try {
-    const user = getCurrentUser();
-    const icon = user.get("profilePicture");
-    const iconId = icon.id;
-    const query = new Parse.Query("CatIcons");
-    query.equalTo("objectId", iconId);
-    const result = await query.find();
-    return result;
-  } catch (error) {
-    console.log(`Error when trying to get user profile picture! ${error}`);
-  }
-}; */
 
 const getAllUsers = async function () {
   const usersQuery = new Parse.Query("User");
@@ -208,7 +211,7 @@ export const getRandomUser = async function () {
   }
 };
 
-export const readCatIcons = async () => {
+export const getCatIcons = async () => {
   try {
     const queryIcons = new Parse.Query("CatIcons");
     const result = await queryIcons.find();
@@ -218,40 +221,10 @@ export const readCatIcons = async () => {
   }
 };
 
-/*  const GetIcons = async function () {
-  try {
-    const result = await ReadCatIcons();
-    console.log("this is result");
-    console.log(result);
-    var icons = {};
-    var count = 0;
-    for (let icon in result) {
-      let key = `icon${count}`;
-      let n = icon.get("name");
-      let s = icon.get("catPNG")._url;
-      let obj = { [key]: { name: n, source: s } };
-      icons = { ...icons, obj };
-    }
-    console.log("this is icons");
-    console.log(icons);
-    return icons;
-  } catch (error) {
-    console.log("Error in getting Icons: " + error);
-  }
-}; */
-
-/* export default {user: {create: CreateUser, delete: DeleteUserInfo}, chat: {create: CreateChat}}
-
-
-import API from 
-
-API.user.create()
- */
 export async function deleteChat(chat) {
   try {
-    //remember to also delete messages of the chat
-    //let messages = await getMessages(chat);
-    //await Parse.Object.destroyAll(messages);
+    let messages = await getMessages(chat);
+    await Parse.Object.destroyAll(messages);
     const success = await chat.destroy();
     return success;
   } catch (error) {
