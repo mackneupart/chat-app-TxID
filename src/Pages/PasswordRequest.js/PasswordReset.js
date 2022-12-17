@@ -1,11 +1,14 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Parse from "parse";
 import "../../DesignSystem/grid.css";
 import "./PasswordReset.css";
 import Button from "../../Components/Button/Button";
+import { Navigate } from "react-router-dom";
 
 export default function PasswordReset() {
   const [email, setEmail] = useState("");
+  const navigate = useNavigate();
 
   const checkEmail = async () => {
     const query = new Parse.Query("User");
@@ -43,12 +46,19 @@ export default function PasswordReset() {
     }
   };
 
+  function goBack() {
+    navigate("/");
+  }
+
   return (
     <div className="password-reset">
       <div className="purple-box">
-        {/* <p className="go-back" onClick={goBack}>
-            back
-          </p> */}
+        <img
+          src="./Icons/go-back-arrow.png"
+          className="go-back"
+          alt="user icon"
+          onClick={goBack}
+        />
         <div className="heading-top">
           <img
             className="header-logo"
