@@ -2,21 +2,21 @@ import { useEffect, useState } from 'react';
 import ListItem from '../ListItem/ListItem';
 import Parse from "parse";
 
-export default function LanguageDropdown({showChosen}) {
-    const [selected, setSelected] = useState("");
+export default function LanguageDropdown({showChosen}) { // what would be better name than 'showChosen'? Change here and in SignUp. /cema
+    const [selected, setSelected] = useState(""); // I still do not understand 'selected'. /cema
     const [chosenLanguages, setChosenLanguages] = useState([]);
-    const [languages, setLanguages] = useState([]);
+    const [languageOptions, setLanguageOptions] = useState([]);
 
     useEffect(() => {
-        const getLanguages = async function () {
+        const getLanguageOptions = async function () {
             const languageQuery = new Parse.Query("Language");
             languageQuery.ascending("name");
             languageQuery.includeAll();
             let languages = await languageQuery.find();
-            setLanguages(languages);
+            setLanguageOptions(languages);
             return languages;
         }
-        getLanguages()
+        getLanguageOptions()
         // setLanguages(await getLanguages()), resten i API
     },[])
 
@@ -32,13 +32,13 @@ export default function LanguageDropdown({showChosen}) {
         <div className='languageDropdown'>
         <select id="languages" name="languages" value = {selected} onChange={(e) => selectDropdown(e.target.selectedOptions[0].text)}>
             <option>Select Language</option>
-            {languages.map((language) => <option key={language.id} value={language.get("objectId")}>{language.get("name")}</option>)}
+            {languageOptions.map((language) => <option key={language.id} value={language.get("objectId")}>{language.get("name")}</option>)}
         </select>
         <ul>{chosenLanguages.map((item, index) => 
                 <ListItem key = {index} item ={item} index = {index} deleteItem = {deleteItem} />
             )}
             {showChosen(chosenLanguages)}
-            {/* maybe put in useeffect */}
+            {/* ^^ put in useeffect */}
             
         </ul>
         </div>
