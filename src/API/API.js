@@ -111,19 +111,32 @@ export const deleteUser = async function (user) {
   }
 };
 
-export const createChat = async function () {
-  const otherUser = await getRandomUser();
-  const usersObjects = [getCurrentUser(), otherUser];
+const createChatHelper = async function (users) {
   try {
     const chat = new Parse.Object("Chat");
     let usersRelation = chat.relation("users");
-    usersRelation.add(usersObjects);
+    usersRelation.add(users);
     await chat.save();
     console.log("new chat created");
     return chat;
   } catch (error) {
     console.log(`Error when trying to create a new chat! ${error}`);
   }
+};
+
+export const createChat = async function () {
+  const otherUser = await getRandomUser();
+  const usersObjects = [getCurrentUser(), otherUser];
+  await createChatHelper(usersObjects);
+  return true;
+};
+
+export const createGroupChat = async function () {
+  const user1 = await getRandomUser();
+  const user2 = await getRandomUser();
+  const usersObjects = [getCurrentUser(), user1, user2];
+  await createChatHelper(usersObjects);
+  return true;
 };
 
 export const getChats = async function () {
