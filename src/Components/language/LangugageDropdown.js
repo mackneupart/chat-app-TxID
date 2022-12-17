@@ -20,8 +20,8 @@ export default function LanguageDropdown({showChosen}) { // what would be better
         // setLanguages(await getLanguages()), resten i API
     },[])
 
-    function selectDropdown(value){
-        setChosenLanguages(prevState => [...prevState, value])
+    function addToList(language){
+        setChosenLanguages(prevState => [...prevState, language])
     }
     
     function deleteItem(index){
@@ -30,12 +30,12 @@ export default function LanguageDropdown({showChosen}) { // what would be better
 
     return(
         <div className='languageDropdown'>
-        <select id="languages" name="languages" value = {selected} onChange={(e) => selectDropdown(e.target.selectedOptions[0].text)}>
+        <select id="languages" name="languages" value = {selected} onChange={(e) => addToList(e.target.selectedOptions[0].text)}>
             <option>Select Language</option>
             {languageOptions.map((language) => <option key={language.id} value={language.get("objectId")}>{language.get("name")}</option>)}
         </select>
-        <ul>{chosenLanguages.map((item, index) => 
-                <ListItem key = {index} item ={item} index = {index} deleteItem = {deleteItem} />
+        <ul>{chosenLanguages.map((language, index) => 
+                <ListItem key={index} item={language} index={index} deleteItem={deleteItem} />
             )}
             {showChosen(chosenLanguages)}
             {/* ^^ put in useeffect */}
