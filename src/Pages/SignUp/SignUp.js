@@ -1,11 +1,11 @@
 import LanguageDropdown from "../../Components/language/LangugageDropdown";
-import InterestList from "../../Components/InterestList/InterestList";
+//import InterestList from "../../Components/InterestList/InterestList";
 import "./SignUp.css";
 import "../../DesignSystem/grid.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../Components/Button/Button";
-import { createUser, readCatIcons } from "../../API/API";
+import { createUser, getCatIcons } from "../../API/API";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -21,25 +21,15 @@ export default function SignUp() {
   useEffect(() => {
     const getCatIcons = async () => {
       try {
-        const result = await readCatIcons();
+        const result = await getCatIcons();
         setCatIcons(result);
+        setUserPic(result[0]);
       } catch (error) {
         console.log(`Error when trying to read cat icons: ${error}`);
       }
     };
     getCatIcons();
   }, []);
-
-  useEffect(() => {
-    console.log("this is catIcons");
-    console.log(catIcons);
-    if (catIcons) {
-      console.log("Set profile pic to ", catIcons[0].get("name"));
-      const defaultIcon = catIcons[0];
-      setUserPic(defaultIcon);
-      console.log(defaultIcon);
-    }
-  }, [catIcons]);
 
   function makeProfileSelection() {
     try {
@@ -143,6 +133,13 @@ export default function SignUp() {
               placeholder="email"
               size="large"
               className="form_input"
+            />
+            <input
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              placeholder="Password"
+              size="large"
+              type="password"
             />
             <input
               value={password}
