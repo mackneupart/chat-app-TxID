@@ -147,7 +147,11 @@ const getRelationObjects = async function (object, relationName) {
 
 export const getUsersInChat = async function (chat) {
   try {
-    return await getRelationObjects(chat, "users");
+    const users = await getRelationObjects(chat, "users");
+    for (let user of users) {
+      await user.get("profilePicture").fetch();
+    }
+    return users;
   } catch (error) {
     console.log(`Error when trying to get users belonging to chat! ${error}`);
   }

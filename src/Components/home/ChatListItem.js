@@ -22,7 +22,8 @@ export default function ChatListItem({ chat }) {
     } else {
       otherUser = users[0];
     }
-    otherUser.get("profilePicture").fetch();
+    //otherUser.get("profilePicture").fetch();
+    //maybe try with another if statement here, in order to force it to wait until fetch is done
     const otherUserImage = otherUser.get("profilePicture").get("catPNG")._url;
     const language1 = chat.get("Language1");
     const language2 = chat.get("Language2");
@@ -36,7 +37,7 @@ export default function ChatListItem({ chat }) {
     return (
       <div className="chat-list-item-box" onClick={handleClick}>
         <div className="chat-list-item-img-box">
-          <img className="chat-list-item-img" src={otherUserImage} />
+          <img className="chat-list-item-img" src={otherUserImage} alt="Other users profile icon"/>
         </div>
         <div className="chat-list-item-info">
           <div className="chat-list-item-info-name">

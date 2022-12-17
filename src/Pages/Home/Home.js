@@ -4,7 +4,7 @@ import "../../DesignSystem/grid.css";
 import ChatList from "../../Components/home/ChatList";
 import Button from "../../Components/Button/Button";
 import { useNavigate } from "react-router-dom";
-//import errorKitten from "../../DesignSystem/errorKitten.jpg";
+import errorKitten from "../../DesignSystem/errorKitten.jpg";
 import {
   logOut,
   getCurrentUser,
@@ -21,8 +21,8 @@ export default function Home() {
     const getAllChats = async () => {
       try {
         const resultC = await getChats();
-        getCurrentUser().get("profilePicture").fetch();
-        console.log(getCurrentUser().get("profilePicture").get("catPNG")._url);
+        await getCurrentUser().get("profilePicture").fetch();
+        //console.log(getCurrentUser().get("profilePicture").get("catPNG")._url);
         setChatList(resultC);
       } catch (error) {
         console.log(`Error when trying to get all chats: ${error}`);
@@ -71,7 +71,7 @@ export default function Home() {
       <div className="home-box purple-box">
         <div className="userBox white-box">
           <div className="userImage">
-            {/* <img
+            <img
               className="circle"
               src={
                 getCurrentUser()
@@ -79,7 +79,7 @@ export default function Home() {
                   : errorKitten
               }
               alt="the users profile pic"
-            /> */}
+            />
           </div>
           <div className="userInfo">
             <div className="userInfoDetail">Username</div>
