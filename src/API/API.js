@@ -127,16 +127,14 @@ const createChatHelper = async function (users) {
 export const createChat = async function () {
   const otherUser = await getRandomUser();
   const usersObjects = [getCurrentUser(), otherUser];
-  await createChatHelper(usersObjects);
-  return true;
+  return await createChatHelper(usersObjects);
 };
 
 export const createGroupChat = async function () {
   const user1 = await getRandomUser();
   const user2 = await getRandomUser();
   const usersObjects = [getCurrentUser(), user1, user2];
-  await createChatHelper(usersObjects);
-  return true;
+  return await createChatHelper(usersObjects);
 };
 
 export const getChats = async function () {

@@ -12,9 +12,10 @@ import {
   createChat,
   deleteUser,
   deleteChat,
+  createGroupChat,
 } from "../../API/API";
 
-export default function Home () {
+export default function Home() {
   const navigate = useNavigate();
   const [chatList, setChatList] = useState([]);
   const [userPicture, setUserPicture] = useState();
@@ -42,7 +43,7 @@ export default function Home () {
       navigate("/");
     };
 
-    const handleDelete = async function () {
+    const handleDeleteUser = async function () {
       const prompt =
         "Are you sure you want to delete your account? Press OK to delete.";
       if (window.confirm(prompt)) {
@@ -59,12 +60,13 @@ export default function Home () {
         alert("User not deleted.");
       }
     };
+
     async function handleDeleteChat(chat) {
       const prompt = `Are you sure you want to delete chat?`;
       if (window.confirm(prompt)) {
         const success = await deleteChat(chat);
         if (success) {
-          console.log("was deleted");
+          console.log("chat was deleted");
           const resultC = await getChats(getCurrentUser());
           setChatList(resultC);
         } else {
@@ -76,31 +78,33 @@ export default function Home () {
     const addChat = async function () {
       try {
         const chat = await createChat();
-        console.log(chat);
         navigate("/Chat", {
           state: { chat: chat },
         });
       } catch (error) {
-        console.log(`Error when trying to get random user user: ${error}`);
+        console.log(`Error when adding a new chat: ${error}`);
       }
     };
 
     const addGroupChat = async function () {
-      alert("group chat was pressed");
+      try {
+        const chat = await createGroupChat();
+        navigate("/Chat", {
+          state: { chat: chat },
+        });
+      } catch (error) {
+        console.log(`Error when adding a new group chat: ${error}`);
+      }
     };
 
-    return (
-      <div className="home-page background">
-        <div className="home-box purple-box">
+    const renderContent = () => {
+      return (
+        <>
           <div className="userBox white-box">
             <div className="userImage">
               <img
                 className="circle"
-                src={
-                  getCurrentUser()
-                    ? userPicture
-                    : errorKitten
-                }
+                src={getCurrentUser() ? userPicture : errorKitten}
                 alt="the users profile pic"
               />
             </div>
@@ -131,7 +135,7 @@ export default function Home () {
               </div>
             </div>
             <div className="user-buttons">
-              <Button text="Delete profile" click={handleDelete} />
+              <Button text="Delete profile" click={handleDeleteUser} />
               <Button text="Log out" click={handleLogOut} />
             </div>
           </div>
@@ -154,9 +158,14 @@ export default function Home () {
               <Button text="New Group Chat" click={addGroupChat} />
             </div>
           </div>
-        </div>
+        </>
+      );
+    };
+
+    return (
+      <div className="home-page background">
+        <div className="home-box purple-box">{chatList && renderContent()}</div>
       </div>
     );
   }
-};
-
+}
