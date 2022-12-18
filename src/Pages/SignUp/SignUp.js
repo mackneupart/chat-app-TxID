@@ -121,13 +121,6 @@ export default function SignUp() {
           </div>
           <div className="profile-info-inputs">
             <input
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-              placeholder="Username"
-              size="large"
-              className="form_input"
-            />
-            <input
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               placeholder="email"
