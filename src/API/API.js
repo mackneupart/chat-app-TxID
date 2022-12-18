@@ -14,13 +14,25 @@ export const createUser = async function (
     User.set("username", username);
     User.set("password", password);
     User.set("email", email);
-    User.set("nativeLangs", nativeLangs);
-    User.set("targetLangs", targetLangs);
     User.set("profilePicture", profilePicture);
+    const nativeLangsRelation = User.relation("nativeLangs");
+    nativeLangsRelation.add(await getLanguagesFromIDs(nativeLangs));
+    const targetLangsRelation = User.relation("targetLangs");
+    targetLangsRelation.add(await getLanguagesFromIDs(targetLangs));
     await User.signUp();
     return true;
   } catch (error) {
     alert(`Error when trying to create a new user! ${error}`);
+  }
+};
+
+const getLanguagesFromIDs = async function (ids) {
+  const languageQuery = new Parse.Query("Language");
+  try {
+    languageQuery.containedIn("objectId", ids);
+    return await languageQuery.find();
+  } catch (error) {
+    console.log(`Error while getting language from ID: ${error.message}`);
   }
 };
 
@@ -258,6 +270,17 @@ const matchUsersOnLanguages = async function () {
     console.log(
       `Error when trying to match users on language: ${error.message}`
     );
+  }
+};
+
+export const getLanguages = async function () {
+  try {
+    const languageQuery = new Parse.Query("Language");
+    languageQuery.ascending("name");
+    languageQuery.includeAll();
+    return await languageQuery.find();
+  } catch (error) {
+    console.log(`Error while getting language options: ${error.message}`);
   }
 };
 

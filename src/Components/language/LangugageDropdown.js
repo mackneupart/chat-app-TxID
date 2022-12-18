@@ -1,46 +1,65 @@
-import { useEffect, useState } from 'react';
-import ListItem from '../ListItem/ListItem';
-import Parse from "parse";
+import { useEffect, useState } from "react";
+import ListItem from "../ListItem/ListItem";
+import { getLanguages } from "../../API/API";
 
-export default function LanguageDropdown({showChosen}) { // what would be better name than 'showChosen'? Change here and in SignUp. /cema
-    const [selected, setSelected] = useState(""); // I still do not understand 'selected'. /cema
-    const [chosenLanguages, setChosenLanguages] = useState([]);
-    const [languageOptions, setLanguageOptions] = useState([]);
+export default function LanguageDropdown({ showChosen }) {
+  // what would be better name than 'showChosen'? Change here and in SignUp. /cema
+  const [selected, setSelected] = useState(""); // I still do not understand 'selected'. /cema
+  const [chosenLanguagesName, setChosenLanguagesName] = useState([]);
+  const [languageOptions, setLanguageOptions] = useState([]);
+  const [chosenLanguagesID, setChosenLanguagesID] = useState([]);
 
-    useEffect(() => {
-        const getLanguageOptions = async function () {
-            const languageQuery = new Parse.Query("Language");
-            languageQuery.ascending("name");
-            languageQuery.includeAll();
-            let languages = await languageQuery.find();
-            setLanguageOptions(languages);
-            return languages;
-        }
-        getLanguageOptions()
-        // setLanguages(await getLanguages()), resten i API
-    },[])
+  useEffect(() => {
+    const getLanguagesOptions = async function () {
+      setLanguageOptions(await getLanguages());
+    };
+    getLanguagesOptions();
+  }, []);
 
-    function addToChosen(language){
-        setChosenLanguages(prevState => [...prevState, language])
+  useEffect(() => {
+    if (chosenLanguagesName) {
+      showChosen(chosenLanguagesID);
+      console.log(chosenLanguagesName);
+      console.log(chosenLanguagesID);
     }
-    
-    function deleteItem(index){
-        setChosenLanguages(prevState => [...prevState.filter((item, i ) => i != index)])
-    }
+  }, [chosenLanguagesID]);
 
-    return(
-        <div className='languageDropdown'>
-        <select id="languages" name="languages" value = {selected} onChange={(e) => addToChosen(e.target.selectedOptions[0].text)}>
-            <option>Select Language</option>
-            {languageOptions.map((language) => <option key={language.id} value={language.get("objectId")}>{language.get("name")}</option>)}
-        </select>
-        <ul>{chosenLanguages.map((language, index) => 
-                <ListItem key={index} item={language} index={index} deleteItem={deleteItem} />
-            )}
-            {showChosen(chosenLanguages)}
-            {/* ^^ put in useeffect */}
-            
-        </ul>
-        </div>
-    );
+  function addToChosen(language) {
+    setChosenLanguagesID((prevState) => [...prevState, language.value]);
+    setChosenLanguagesName((prevState) => [...prevState, language.text]);
+  }
+
+  function deleteItem(index) {
+    setChosenLanguagesName((prevState) => [
+      ...prevState.filter((item, i) => i !== index),
+    ]);
+  }
+
+  return (
+    <div className="languageDropdown">
+      <select
+        id="languages"
+        name="languages"
+        value={selected}
+        onChange={(e) => addToChosen(e.target.selectedOptions[0])}
+      >
+        <option>Select Language</option>
+        {languageOptions.map((language) => (
+          <option key={language.id} value={language.id}>
+            {language.get("name")}
+          </option>
+        ))}
+      </select>
+      <ul>
+        {chosenLanguagesName.map((language, index) => (
+          <ListItem
+            key={language.id}
+            item={language}
+            index={index}
+            deleteItem={deleteItem}
+          />
+        ))}
+      </ul>
+    </div>
+  );
 }
