@@ -197,7 +197,7 @@ const getRandomNumber = async function (allUsers) {
   }
 };
 
-export const getRandomUser = async function () {
+const getRandomUser = async function () {
   try {
     const allUsers = await getAllUsers();
     const ranNum = await getRandomNumber(allUsers);
@@ -219,6 +219,45 @@ export const getRandomUser = async function () {
   } catch (error) {
     console.log(`Error when trying to get a random user: ${error.message}`);
     return false;
+  }
+};
+
+const getNonMatchedUsers = async function () {
+  const currentUser = getCurrentUser();
+  const targetLanguages = await getRelationObjects(currentUser, "targetLangs");
+  const nativeLanguages = await getRelationObjects(currentUser, "nativeLangs");
+  const chats = await getChats();
+  const n = new Set();
+  for (let chat of chats) {
+    const users = await getUsersInChat(chat);
+    for (let user of users) {
+      n.add(user.get("username"));
+    }
+  }
+  const names = [...n];
+  try {
+    const usersQuery = new Parse.Query("User");
+    usersQuery.notContainedIn("username", names);
+    usersQuery.containedIn("targetLangs", targetLanguages);
+    usersQuery.containedIn("nativeLangs", nativeLanguages);
+    return await usersQuery.find();
+  } catch (error) {
+    console.log(
+      `Error when trying to get all non matched users: ${error.message}`
+    );
+  }
+};
+
+const matchUsersOnLanguages = async function () {
+  const nonMatchedUsers = await getNonMatchedUsers();
+  const currentUser = getCurrentUser();
+  const targetLanguages = await getRelationObjects(currentUser, "targetLangs");
+  const nativeLanguages = await getRelationObjects(currentUser, "nativeLangs");
+  try {
+  } catch (error) {
+    console.log(
+      `Error when trying to match users on language: ${error.message}`
+    );
   }
 };
 
