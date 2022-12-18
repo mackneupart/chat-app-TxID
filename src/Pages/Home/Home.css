@@ -22,7 +22,7 @@ TO DO
   grid-template-rows: 10% 80% 10%;
 } 
 
- .userBox {
+ .user-box {
  /* background-color: white;
   grid-column-start: 2;
   grid-row-start: 2;*/
@@ -34,7 +34,7 @@ TO DO
   border-radius: 5px;
 } 
 
-.userImage {
+.user-image {
 /*   align-self: center;
   justify-self: center; */
   /*styling concerning its children*/
@@ -54,14 +54,14 @@ TO DO
 }
 
 
-.userInfo {
+.user-info {
   grid-row-start: 4;
   /*styling concerning its children*/
   display: grid;
   grid-template-columns: 55% 2% 55%;
 }
 
-.userInfoDetail {
+.user-info-detail {
   display: flex;
   justify-content: right;
   align-items: right;
@@ -75,7 +75,7 @@ TO DO
 
 }
 
-.userInfoPlaceholder {
+.user-info-placeholder {
   display: flex;
   justify-content: left;
   align-items: left;
@@ -109,7 +109,7 @@ TO DO
   padding:5%;
 }
 
-.newChats {
+.new-chats {
   grid-column-start: 4;
   grid-row-start: 3;
   /*styling concerning its children*/
