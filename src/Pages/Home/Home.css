@@ -66,10 +66,13 @@ TO DO
   justify-content: right;
   align-items: right;
   grid-column-start: 1;
-  font-size: 1.2vw;
+  font-size: 22px;
   font-weight: 500;
   overflow: hidden;
   white-space: nowrap;
+  font-weight: 200;
+
+
 }
 
 .userInfoPlaceholder {
@@ -78,7 +81,7 @@ TO DO
   align-items: left;
   max-width: 78%;
   grid-column-start: 3;
-  font-size: 1.2vw;
+  font-size: 22px;
 }
 
 .user-buttons {

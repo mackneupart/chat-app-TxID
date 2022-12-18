@@ -2,13 +2,13 @@
   margin-right: auto;
   margin-left: auto;
   background-color: var(--blue-500);
-  height: 42px;
-  width: 122px;
+  height: 5vh;
+  width: 12vh;
   border-radius: 10px;
   cursor: pointer;
   color: white;
   font-weight: bold;
   text-decoration: none;
-  size: 160px;
+  size: 2vh;
 }
 
