@@ -32,16 +32,14 @@ TO DO
   justify-content: center;
   grid-template-rows: 5% 40% 5% 25% 5% 15% 5%;
   border-radius: 5px;
-  width: 100%;
 } 
 
 .userImage {
-  grid-row-start: 2;
 /*   align-self: center;
   justify-self: center; */
   /*styling concerning its children*/
   display: grid;
- /*  grid-template-columns: 10% auto 10%; */
+  grid-row-start: 2;
 }
 
 .circle {
@@ -78,15 +76,16 @@ TO DO
   display: flex;
   justify-content: left;
   align-items: left;
+  max-width: 78%;
   grid-column-start: 3;
   font-size: 1.2vw;
 }
 
 .user-buttons {
+  display: grid;
+  grid-column-start: 1;
   grid-row-start: 6;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  grid-template-columns: auto 1% auto;
 }
 
 .chat-overview {
