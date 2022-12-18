@@ -24,11 +24,13 @@ padding: 5%;
   margin-top: 5px;
   font-size: 28px;
   text-decoration: none;
+  font-weight:200;
 }
 
 .chat-list-item-img-box {
 
   padding: 5%;
+  max-width: 100px;
 
   
 }

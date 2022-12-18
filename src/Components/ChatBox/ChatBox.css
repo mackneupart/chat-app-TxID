@@ -31,8 +31,11 @@
     padding: 1%;
     /* styling for children */
     display: grid;
-    grid-template-columns: 70% 30%;
+    grid-template-columns: 60% 20% 40%;
     grid-template-rows: 50% 50%;
+}
+.cat-icon{
+    width:30%;
 }
 .input-form{
     grid-row-start: 1;
@@ -47,10 +50,7 @@
    scrollbar-width: thin;
    
 }
-.send-btn{
-    grid-column-start: 2;
-    margin: 1%;
-}
+
 .server-info{
     grid-column-start: 2;
     font-size: 70%;

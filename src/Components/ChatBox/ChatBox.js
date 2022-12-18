@@ -53,6 +53,15 @@ export default function ChatBox({ chat }) {
             placeholder={"Your message..."}
           ></textarea>
         </form>
+
+        <Button className="send-btn" text="Send" click={handle.send} />
+
+        <img
+          key="iconCat"
+          className="cat-icon"
+          src="../Icons/welcome-cat.png"
+          alt="welcome-cat-icon"
+        />
         <div className="server-info">
           {status.isLoading && <p>{"Loading…"}</p>}
           {status.isSyncing && <p>{"Syncing…"}</p>}
@@ -61,7 +70,6 @@ export default function ChatBox({ chat }) {
           {count && <p>{`Count: ${count}`}</p>}
         </div>
       </div>
-      <Button className="send-btn" text="Send" click={handle.send} />
     </div>
   );
 }
