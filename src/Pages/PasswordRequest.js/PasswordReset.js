@@ -54,7 +54,7 @@ export default function PasswordReset() {
     <div className="password-reset">
       <div className="purple-box">
         <img
-          src="./Icons/go-back-arrow.png"
+          src="./Icons/go-back.png"
           className="go-back"
           alt="user icon"
           onClick={goBack}
