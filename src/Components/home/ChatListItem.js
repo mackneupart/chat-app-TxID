@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { getCurrentUser, getUsersInChat } from "../../API/API";
 import "./ChatListItem.css";
 
 export default function ChatListItem({ chat, deleteChat }) {
   const navigate = useNavigate();
+  const location = useLocation();
   const [users, setUsers] = useState();
 
   useEffect(() => {
@@ -40,9 +41,16 @@ export default function ChatListItem({ chat, deleteChat }) {
 
     return (
       <div>
-        <button className="delete-chat-button" onClick={handleDeleteChat}>
-          X
-        </button>
+        <div className="delete-chat">
+          {location.pathname === "/home" ? (
+            <button className="delete-chat-button" onClick={handleDeleteChat}>
+              X
+            </button>
+          ) : (
+            ""
+          )}
+        </div>
+
         <div className="chat-list-item-box" onClick={handleClick}>
           <div className="chat-list-item-img-box">
             {images.map((image) => {
