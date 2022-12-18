@@ -21,11 +21,13 @@ export default function Chat() {
   }, [chat]);
 
   if (users) {
-    var otherUser = {};
-    if (users[0].id === getCurrentUser().id) {
-      otherUser = users[1];
-    } else {
-      otherUser = users[0];
+    var otherUsers = [];
+    var images = [];
+    for (var user of users) {
+      if (user.id !== getCurrentUser().id) {
+        images.push(user.get("profilePicture").get("catPNG")._url);
+        otherUsers.push(user);
+      }
     }
 
     const goHome = function () {
@@ -40,17 +42,30 @@ export default function Chat() {
     return (
       <div className="chat-page">
         <img
+          key={chat.id}
           className="home-icon"
           src="./Icons/home.png"
           alt="Home icon"
           onClick={goHome}
         />
         <div className="chat-partner">
-          <img
-            className="partner-pic"
-            src={otherUser.get("profilePicture").get("catPNG")._url}
-          />
-          <header className="partner-name">{otherUser.get("username")}</header>
+          {images.map((image) => {
+            return (
+              <img
+                key={image.id}
+                className="partner-pic"
+                src={image}
+                alt="Other users profile icon"
+              />
+            );
+          })}
+          {otherUsers.map((otherUser) => {
+            return (
+              <header key={otherUser.id} className="partner-name">
+                {otherUser.get("username")}
+              </header>
+            );
+          })}
         </div>
         <div className="chat-sidebar">
           <ChatSidebar />
