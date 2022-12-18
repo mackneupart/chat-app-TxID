@@ -32,6 +32,7 @@ TO DO
   justify-content: center;
   grid-template-rows: 5% 40% 5% 25% 5% 15% 5%;
   border-radius: 5px;
+  width: 100%;
 } 
 
 .userImage {
@@ -59,7 +60,7 @@ TO DO
   grid-row-start: 4;
   /*styling concerning its children*/
   display: grid;
-  grid-template-columns: 49% 2% 49%;
+  grid-template-columns: 55% 2% 55%;
 }
 
 .userInfoDetail {
@@ -69,6 +70,8 @@ TO DO
   grid-column-start: 1;
   font-size: 1.2vw;
   font-weight: 500;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .userInfoPlaceholder {
