@@ -6,10 +6,9 @@
   width: 122px;
   border-radius: 10px;
   cursor: pointer;
-}
-.button-text {
   color: white;
   font-weight: bold;
   text-decoration: none;
   size: 160px;
 }
+
