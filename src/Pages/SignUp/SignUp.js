@@ -1,5 +1,4 @@
 import LanguageDropdown from "../../Components/LanguageDropdown/LangugageDropdown";
-//import InterestList from "../../Components/InterestList/InterestList";
 import "./SignUp.css";
 import "../../DesignSystem/grid.css";
 import { useEffect, useState } from "react";
@@ -58,7 +57,7 @@ export default function SignUp() {
 
   const handleSubmit = async function () {
     if (checkPassword()) {
-      if(isNotEmpty(nativeLangs) && isNotEmpty(targetLangs)){
+      if (isNotEmpty(nativeLangs) && isNotEmpty(targetLangs)) {
         const newUser = await createUser(
           username,
           password,
@@ -67,12 +66,10 @@ export default function SignUp() {
           targetLangs,
           userPic
         );
-        if (newUser){
-          console.log("user created. navigating to home");
+        if (newUser) {
           navigate("/home");
         }
-
-      }else{
+      } else {
         alert("You need at least one native and target language.");
       }
     } else {
@@ -80,12 +77,13 @@ export default function SignUp() {
     }
   };
 
-  function isNotEmpty(variable){
-    if (variable === null || variable === "" || variable.length === 0){
-      return false
+  function isNotEmpty(variable) {
+    if (variable === null || variable === "" || variable.length === 0) {
+      return false;
     }
-    return true
+    return true;
   }
+
   function checkPassword() {
     if (password === repeatPassword) {
       return true;
@@ -103,13 +101,11 @@ export default function SignUp() {
           alt="Profile"
           src={catIcons !== null ? catIcons[0].get("catPNG")._url : "altText"}
         />
-
         <h3>Select a profile picture:</h3>
         <div className="picture-box">
           <div className="picture-selection">{makeProfileSelection()}</div>
         </div>
       </div>
-
       <div className="profile-info-box">
         <div className="user-inputs">
           <div className="profile-info-labels">
@@ -134,7 +130,7 @@ export default function SignUp() {
           </div>
 
           <div className="profile-info-inputs">
-          <input
+            <input
               value={username}
               onChange={(event) => setUsername(event.target.value)}
               placeholder="Username"

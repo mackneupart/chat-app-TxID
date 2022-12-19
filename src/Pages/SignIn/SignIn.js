@@ -13,17 +13,15 @@ function SignIn() {
   const handleLogIn = async () => {
     try {
       await logIn(username, password);
-      if(getCurrentUser() !== null){
+      if (getCurrentUser() !== null) {
         setUsername("");
         setPassword("");
         navigate("/home");
+      } else {
+        navigate("/");
       }
-      else{
-        navigate("/")
-      }
-      
     } catch (error) {
-      alert(`Error! ${error.message}`);
+      alert(`Error while logging in! ${error.message}`);
     }
   };
 
@@ -53,7 +51,6 @@ function SignIn() {
                 placeholder="Username"
                 required
               />
-
               <img
                 src="./Icons/welcome-user-90.png"
                 className="input-logo"

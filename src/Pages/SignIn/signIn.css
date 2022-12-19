@@ -9,7 +9,6 @@
 .sign-in-box {
   /*styling concerning its children*/
   /*
-
     figuring out grid
         top             20%
         logo            10%
@@ -21,32 +20,28 @@
         logIn           10%
         signUp          10%
         bottom          20%
-    
     */
-    grid-template-rows: 20% 10% 15% 10% 5% 8% 6% 26%;
-    align-items: center;
+  grid-template-rows: 20% 10% 15% 10% 5% 8% 6% 26%;
+  align-items: center;
   justify-items: center;
   row-gap: 2%;
 }
 
 .header-logo {
   grid-row-start: 2;
-  /* logo is taking up 10% of the vh and 40% of the vw */
   width: calc(0.3 * 20vw);
-  height:auto;
+  height: auto;
   margin-bottom: 10%;
-  /*height: calc(0.4 * 20vh);*/
 }
 .header-welcome {
   grid-row-start: 3;
   font-size: calc(0.4 * 15vw);
-  color: white; 
+  color: white;
   text-shadow: 2px 2px black;
   margin-block: 0;
-  padding:0;
+  padding: 0;
   margin-bottom: 10%;
 }
-
 
 .inputs {
   grid-row-start: 4;
@@ -60,13 +55,12 @@
 
 .input-container {
   display: flex;
-  
 }
 
 .input-field {
   border-radius: 2px;
   width: calc(0.4 * 50vw);
-  height:inherit;
+  height: inherit;
   margin-left: auto;
 }
 
@@ -82,7 +76,7 @@
   justify-self: center;
   text-decoration: underline;
 }
-.forgot-pass:hover{
+.forgot-pass:hover {
   cursor: pointer;
 }
 
@@ -99,4 +93,3 @@
   align-items: center;
   justify-content: center;
 }
-

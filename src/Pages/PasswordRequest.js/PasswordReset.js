@@ -1,48 +1,21 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Parse from "parse";
 import "../../DesignSystem/grid.css";
 import "./PasswordReset.css";
 import Button from "../../Components/Button/Button";
-import { Navigate } from "react-router-dom";
+import { passwordReset } from "../../API/API";
 
 export default function PasswordReset() {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
-  const checkEmail = async () => {
-    const query = new Parse.Query("User");
-    // Returns unique emails
-    try {
-      const results = await query.equalTo("email", email);
-      const result = await results.find();
-      if (result.length !== 0) {
-        console.log("email exists");
-        doRequestPasswordReset();
-        setEmail("");
-      } else {
-        alert("No user with this email exists");
-      }
-    } catch (error) {
-      console.log("error in checkEmail", error);
-    }
-  };
-
-  //should be moved to API-page
-  const doRequestPasswordReset = async function () {
-    // Note that this value come from state variables linked to your text input
-    const emailValue = email;
-    try {
-      //TODO: make a function which checks if emailValue === already existing email
-      await Parse.User.requestPasswordReset(emailValue);
-      alert(
-        `Success! Please check ${emailValue} to proceed with password reset.`
-      );
-      return true;
-    } catch (error) {
-      // Error can be caused by lack of Internet connection
-      alert(`Error! ${error}`);
-      return false;
+  const handlePasswordReset = async function () {
+    const reset = await passwordReset(email);
+    if (reset) {
+      setEmail("");
+      alert(`Success! Please check ${email} to proceed with password reset.`);
+    } else {
+      alert("No user with this email exists");
     }
   };
 
@@ -77,7 +50,7 @@ export default function PasswordReset() {
           onChange={(event) => setEmail(event.target.value)}
           placeholder="Your account email"
         />
-        <Button text="Reset password" click={checkEmail} />
+        <Button text="Reset password" click={handlePasswordReset} />
       </div>
     </div>
   );

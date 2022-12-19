@@ -20,15 +20,15 @@ export default function Home() {
   const navigate = useNavigate();
   const [chatList, setChatList] = useState([]);
   const [userPicture, setUserPicture] = useState();
-  const [targetL, setTargetL] = useState({});
-  const [nativeL, setNativeL] = useState({});
+  const [targetLanguages, setTargetLanguages] = useState({});
+  const [nativeLanguages, setNativeLanguages] = useState({});
 
-  useEffect(() =>{
-    if(getCurrentUser() === null){
-      navigate("/")
+  useEffect(() => {
+    if (getCurrentUser() === null) {
+      navigate("/");
     }
-  })
-  
+  });
+
   useEffect(() => {
     const getAllChats = async () => {
       try {
@@ -42,32 +42,30 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const getData = async function () {
+    const getUserData = async function () {
       try {
-        await getCurrentUser().get("profilePicture").fetch(); //needed in order to be able to get profile picture later
+        await getCurrentUser().get("profilePicture").fetch();
         const picture = getCurrentUser()
           .get("profilePicture")
           .get("catPNG")._url;
         setUserPicture(picture);
-        const resultT = await getChosenLanguages(
+        const resultTarget = await getChosenLanguages(
           getCurrentUser(),
           "targetLangs"
         );
-        const resultN = await getChosenLanguages(
+        const resultNative = await getChosenLanguages(
           getCurrentUser(),
           "nativeLangs"
         );
-        console.log(resultT);
-        console.log(resultN);
-        setTargetL(resultT);
-        setNativeL(resultN);
+        setTargetLanguages(resultTarget);
+        setNativeLanguages(resultNative);
       } catch (error) {
         console.log(
           `Error when trying to get data for the home page: ${error}`
         );
       }
     };
-    getData();
+    getUserData();
   }, []);
 
   if (chatList) {
@@ -89,21 +87,18 @@ export default function Home() {
         } catch (error) {
           console.log(`Error when trying to delte user! ${error}`);
         }
-      } else {
-        alert("User not deleted.");
       }
     };
 
     async function handleDeleteChat(chat) {
-      const prompt = `Are you sure you want to delete chat?`;
+      const prompt = `Are you sure you want to delete this chat?`;
       if (window.confirm(prompt)) {
-        const success = await deleteChat(chat);
-        if (success) {
-          console.log("chat was deleted");
+        const deletedChat = await deleteChat(chat);
+        if (deletedChat) {
           const resultC = await getChats(getCurrentUser());
           setChatList(resultC);
         } else {
-          console.log("Something went wrong");
+          alert("The chat wasn't deleted. Try Again ;)")
         }
       }
     }
@@ -138,7 +133,7 @@ export default function Home() {
       }
     };
 
-    const renderLang = (langType) => {
+    const renderLanguages = (langType) => {
       var str = "";
       var separator = "";
       for (var key in langType) {
@@ -169,11 +164,11 @@ export default function Home() {
               </div>
               <div className="user-info-detail">Target Language</div>
               <div className="user-info-placeholder">
-                {targetL && renderLang(targetL)}
+                {targetLanguages && renderLanguages(targetLanguages)}
               </div>
               <div className="user-info-detail">Native Language</div>
               <div className="user-info-placeholder">
-                {nativeL && renderLang(nativeL)}
+                {nativeLanguages && renderLanguages(nativeLanguages)}
               </div>
             </div>
             <div className="user-buttons">
@@ -187,7 +182,7 @@ export default function Home() {
                 <ChatList chatList={chatList} deleteChat={handleDeleteChat} />
               ) : (
                 <div className="no-chat">
-                  you currently have no active chats
+                  You currently have no active chats. Press 'Add chat' to match with another language learner.
                 </div>
               )}
             </div>

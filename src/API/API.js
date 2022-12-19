@@ -147,7 +147,6 @@ export const createGroupChat = async function () {
   return false;
 };
 
-
 //this function should be split out into several functions along with the other very similar functions
 const findCommonLanguages = async function (users) {
   var numberOfUsers = 0;
@@ -213,7 +212,7 @@ export const getChats = async function () {
   try {
     const chatQuery = new Parse.Query("Chat");
     chatQuery.equalTo("users", getCurrentUser());
-    chatQuery.includeAll("users"); 
+    chatQuery.includeAll("users");
     return await chatQuery.find();
   } catch (error) {
     console.log(`Error when trying to read chats! ${error}`);
@@ -334,3 +333,28 @@ export async function deleteChat(chat) {
     return false;
   }
 }
+
+const passwordResetHelper = async function (email) {
+  try {
+    await Parse.User.requestPasswordReset(email);
+    return true;
+  } catch (error) {
+    console.log(`Error when trying to reset password! ${error}`);
+    return false;
+  }
+};
+
+export const passwordReset = async (email) => {
+  const query = new Parse.Query("User");
+  try {
+    const results = query.equalTo("email", email);
+    const result = await results.find();
+    if (result.length !== 0) {
+      return passwordResetHelper(email);
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.log("Error resetting password", error);
+  }
+};

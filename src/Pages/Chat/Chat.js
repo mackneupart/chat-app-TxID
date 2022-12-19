@@ -31,9 +31,7 @@ export default function Chat() {
     }
 
     const goHome = function () {
-      navigate(
-        "/home"
-      );
+      navigate("/home");
     };
 
     return (
@@ -65,7 +63,7 @@ export default function Chat() {
           })}
         </div>
         <div className="chat-sidebar">
-          <ChatSidebar chat={chat}/>
+          <ChatSidebar chat={chat} />
         </div>
         <ChatBox chat={chat} />
       </div>
