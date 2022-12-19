@@ -169,9 +169,13 @@ const getRelationObjects = async function (object, relationName) {
   }
 };
 
+export const getChosenLanguages = async function (user, languageType) {
+  return await getRelationObjects(user, languageType);
+};
+
 export const getUsersInChat = async function (chat) {
+  const users = await getRelationObjects(chat, "users");
   try {
-    const users = await getRelationObjects(chat, "users");
     for (let user of users) {
       await user.get("profilePicture").fetch(); //needed to get pictures later on
     }
