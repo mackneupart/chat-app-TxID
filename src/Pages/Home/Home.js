@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css";
 import "../../DesignSystem/grid.css";
-import ChatList from "../../Components/home/ChatList";
+import ChatList from "../../Components/ChatList/ChatList";
 import Button from "../../Components/Button/Button";
 import { useNavigate } from "react-router-dom";
 import errorKitten from "../../DesignSystem/errorKitten.jpg";

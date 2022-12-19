@@ -1,4 +1,4 @@
-import LanguageDropdown from "../../Components/language/LangugageDropdown";
+import LanguageDropdown from "../../Components/LanguageDropdown/LangugageDropdown";
 //import InterestList from "../../Components/InterestList/InterestList";
 import "./SignUp.css";
 import "../../DesignSystem/grid.css";

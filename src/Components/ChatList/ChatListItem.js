@@ -43,7 +43,7 @@ export default function ChatListItem({ chat, deleteChat }) {
       if (language2) {
         return (
           <>
-            {language1} / {language2}
+            {language1}/ {language2}
           </>
         );
       }

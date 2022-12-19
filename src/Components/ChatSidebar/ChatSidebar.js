@@ -1,5 +1,5 @@
 import "./ChatSidebar.css";
-import ChatList from "../home/ChatList";
+import ChatList from "../ChatList/ChatList";
 import { useEffect, useState } from "react";
 import { getChats, getCurrentUser } from "../../API/API";
 

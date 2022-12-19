@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../Components/Button/Button";
-import "./signIn.css";
+import "./SignIn.css";
 import "../../DesignSystem/grid.css";
 import { getCurrentUser, logIn } from "../../API/API";
 

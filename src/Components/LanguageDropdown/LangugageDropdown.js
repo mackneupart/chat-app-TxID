@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ListItem from "../ListItem/ListItem";
+import ListItem from "./ListItem/ListItem";
 import { getLanguages } from "../../API/API";
 import "./LanguageDropdown.css";
 
