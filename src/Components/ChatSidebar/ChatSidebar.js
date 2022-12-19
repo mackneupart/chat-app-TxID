@@ -3,9 +3,9 @@ import ChatList from "../home/ChatList";
 import { useEffect, useState } from "react";
 import { getChats, getCurrentUser } from "../../API/API";
 
-export default function ChatSidebar() {
-  const language1 = "Danish"; //currentChat language 1
-  const language2 = "Spanish"; // currentChat language 2
+export default function ChatSidebar({ chat }) {
+  const language1 = chat.get("language1"); //currentChat language 1
+  const language2 = chat.get("language2"); // currentChat language 2
   const [chatList, setChatList] = useState([]);
 
   useEffect(() => {

@@ -4,8 +4,8 @@ export const createUser = async function (
   username,
   password,
   email,
-  nativeLanguage,
-  targetLanguage,
+  nativeLangs,
+  targetLangs,
   profilePicture
 ) {
   console.log("Creating new user");
@@ -14,13 +14,25 @@ export const createUser = async function (
     User.set("username", username);
     User.set("password", password);
     User.set("email", email);
-    User.set("nativeLanguage", nativeLanguage);
-    User.set("targetLanguage", targetLanguage);
     User.set("profilePicture", profilePicture);
+    const nativeLangsRelation = User.relation("nativeLangs");
+    nativeLangsRelation.add(await getLanguagesFromIDs(nativeLangs));
+    const targetLangsRelation = User.relation("targetLangs");
+    targetLangsRelation.add(await getLanguagesFromIDs(targetLangs));
     await User.signUp();
     return true;
   } catch (error) {
     alert(`Error when trying to create a new user! ${error}`);
+  }
+};
+
+const getLanguagesFromIDs = async function (ids) {
+  const languageQuery = new Parse.Query("Language");
+  try {
+    languageQuery.containedIn("objectId", ids);
+    return await languageQuery.find();
+  } catch (error) {
+    console.log(`Error while getting language from ID: ${error.message}`);
   }
 };
 
@@ -112,8 +124,13 @@ export const deleteUser = async function (user) {
 };
 
 const createChatHelper = async function (users) {
+  const [lan1, lan2] = await findDuplicateLanguages(users);
+  console.log(lan1[0]);
+  console.log(lan2[0]);
   try {
     const chat = new Parse.Object("Chat");
+    chat.set("language1", lan1[0]);
+    chat.set("language2", lan2[0]);
     let usersRelation = chat.relation("users");
     usersRelation.add(users);
     await chat.save();
@@ -125,9 +142,55 @@ const createChatHelper = async function (users) {
 };
 
 export const createChat = async function () {
-  const otherUser = await getRandomUser();
-  const usersObjects = [getCurrentUser(), otherUser];
-  return await createChatHelper(usersObjects);
+  const otherUser = await getNonMatchedUsers();
+  if (otherUser.length > 0) {
+    console.log(otherUser);
+    console.log(otherUser[0]);
+    const usersObjects = [getCurrentUser(), otherUser[0]];
+    return await createChatHelper(usersObjects);
+  }
+  return false;
+};
+
+const findDuplicateLanguages = async function (users) {
+  var numberOfUsers = 0;
+  for (var user in users) {
+    numberOfUsers = numberOfUsers + 1;
+  }
+  var targetToMatch = [];
+  var nativeToMatch = [];
+  const target = await getChosenLanguages(users[0], "targetLangs");
+  for (let key in target) {
+    targetToMatch.push(target[key].get("name"));
+  }
+  const native = await getChosenLanguages(users[0], "nativeLangs");
+  for (let key in native) {
+    nativeToMatch.push(native[key].get("name"));
+  }
+
+  var duplicateT = [];
+  var duplicateN = [];
+  var i = numberOfUsers - 1;
+  while (i > 0) {
+    var arrayT = [];
+    var arrayN = [];
+
+    var t = await getChosenLanguages(users[i], "targetLangs");
+    for (let key in t) {
+      arrayT.push(t[key].get("name"));
+    }
+    var n = await getChosenLanguages(users[i], "nativeLangs");
+    for (let key in n) {
+      arrayN.push(n[key].get("name"));
+    }
+
+    duplicateT.push(targetToMatch.filter((e) => arrayN.includes(e)));
+    duplicateN.push(nativeToMatch.filter((e) => arrayT.includes(e)));
+
+    i = i - 1;
+  }
+
+  return [duplicateT[0], duplicateN[0]];
 };
 
 export const createGroupChat = async function () {
@@ -157,9 +220,13 @@ const getRelationObjects = async function (object, relationName) {
   }
 };
 
+export const getChosenLanguages = async function (user, languageType) {
+  return await getRelationObjects(user, languageType);
+};
+
 export const getUsersInChat = async function (chat) {
+  const users = await getRelationObjects(chat, "users");
   try {
-    const users = await getRelationObjects(chat, "users");
     for (let user of users) {
       await user.get("profilePicture").fetch(); //needed to get pictures later on
     }
@@ -197,7 +264,7 @@ const getRandomNumber = async function (allUsers) {
   }
 };
 
-export const getRandomUser = async function () {
+const getRandomUser = async function () {
   try {
     const allUsers = await getAllUsers();
     const ranNum = await getRandomNumber(allUsers);
@@ -219,6 +286,47 @@ export const getRandomUser = async function () {
   } catch (error) {
     console.log(`Error when trying to get a random user: ${error.message}`);
     return false;
+  }
+};
+
+const getNonMatchedUsers = async function () {
+  const currentUser = getCurrentUser();
+  const targetLanguages = await getRelationObjects(currentUser, "targetLangs");
+  const nativeLanguages = await getRelationObjects(currentUser, "nativeLangs");
+  const chats = await getChats();
+  const n = new Set();
+  for (let chat of chats) {
+    const users = await getUsersInChat(chat);
+    for (let user of users) {
+      n.add(user.get("username"));
+    }
+  }
+  const names = [...n];
+  try {
+    const usersQuery = new Parse.Query("User");
+    usersQuery.notContainedIn("username", names);
+    for (let key in targetLanguages) {
+      usersQuery.equalTo("nativeLangs", targetLanguages[key]);
+    }
+    for (let key in nativeLanguages) {
+      usersQuery.equalTo("targetLangs", nativeLanguages[key]);
+    }
+    return await usersQuery.find();
+  } catch (error) {
+    console.log(
+      `Error when trying to get all non matched users: ${error.message}`
+    );
+  }
+};
+
+export const getLanguages = async function () {
+  try {
+    const languageQuery = new Parse.Query("Language");
+    languageQuery.ascending("name");
+    languageQuery.includeAll();
+    return await languageQuery.find();
+  } catch (error) {
+    console.log(`Error while getting language options: ${error.message}`);
   }
 };
 

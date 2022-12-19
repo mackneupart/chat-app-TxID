@@ -13,28 +13,55 @@ import {
   deleteUser,
   deleteChat,
   createGroupChat,
+  getChosenLanguages,
 } from "../../API/API";
 
 export default function Home() {
   const navigate = useNavigate();
   const [chatList, setChatList] = useState([]);
   const [userPicture, setUserPicture] = useState();
+  const [targetL, setTargetL] = useState({});
+  const [nativeL, setNativeL] = useState({});
 
   useEffect(() => {
     const getAllChats = async () => {
       try {
         const resultC = await getChats();
-        await getCurrentUser().get("profilePicture").fetch(); //needed in order to be able to get profile picture later
-        const picture = getCurrentUser()
-          .get("profilePicture")
-          .get("catPNG")._url;
         setChatList(resultC);
-        setUserPicture(picture);
       } catch (error) {
         console.log(`Error when trying to get all chats: ${error}`);
       }
     };
     getAllChats();
+  }, []);
+
+  useEffect(() => {
+    const getData = async function () {
+      try {
+        await getCurrentUser().get("profilePicture").fetch(); //needed in order to be able to get profile picture later
+        const picture = getCurrentUser()
+          .get("profilePicture")
+          .get("catPNG")._url;
+        setUserPicture(picture);
+        const resultT = await getChosenLanguages(
+          getCurrentUser(),
+          "targetLangs"
+        );
+        const resultN = await getChosenLanguages(
+          getCurrentUser(),
+          "nativeLangs"
+        );
+        console.log(resultT);
+        console.log(resultN);
+        setTargetL(resultT);
+        setNativeL(resultN);
+      } catch (error) {
+        console.log(
+          `Error when trying to get data for the home page: ${error}`
+        );
+      }
+    };
+    getData();
   }, []);
 
   if (chatList) {
@@ -78,9 +105,13 @@ export default function Home() {
     const addChat = async function () {
       try {
         const chat = await createChat();
-        navigate("/Chat", {
-          state: { chat: chat },
-        });
+        if (chat) {
+          navigate("/Chat", {
+            state: { chat: chat },
+          });
+        } else {
+          alert(`You have matched with all available users :D `);
+        }
       } catch (error) {
         console.log(`Error when adding a new chat: ${error}`);
       }
@@ -89,12 +120,25 @@ export default function Home() {
     const addGroupChat = async function () {
       try {
         const chat = await createGroupChat();
-        navigate("/Chat", {
-          state: { chat: chat },
-        });
+        if (chat) {
+          navigate("/Chat", {
+            state: { chat: chat },
+          });
+        } else {
+          alert(`You have matched with all available users :D `);
+        }
       } catch (error) {
         console.log(`Error when adding a new group chat: ${error}`);
       }
+    };
+
+    const renderLang = (langType) => {
+      var str = "";
+      for (var key in langType) {
+        const test = langType[key];
+        str = str + test.get("name") + ", ";
+      }
+      return str;
     };
 
     const renderContent = () => {
@@ -123,15 +167,11 @@ export default function Home() {
               </div>
               <div className="user-info-detail">Target Language</div>
               <div className="user-info-placeholder">
-                {getCurrentUser() !== null
-                  ? getCurrentUser().get("targetLanguage")
-                  : "not working"}
+                {targetL && renderLang(targetL)}
               </div>
               <div className="user-info-detail">Native Language</div>
-              <div className="user-info-placeholder">
-                {getCurrentUser() !== null
-                  ? getCurrentUser().get("nativeLanguage")
-                  : "not working"}
+              <div className="userInfoPlaceholder">
+                {nativeL && renderLang(nativeL)}
               </div>
             </div>
             <div className="user-buttons">
