@@ -98,7 +98,7 @@ export default function Home() {
           const resultC = await getChats(getCurrentUser());
           setChatList(resultC);
         } else {
-          alert("The chat wasn't deleted. Try Again ;)")
+          alert("The chat wasn't deleted. Try Again ;)");
         }
       }
     }
@@ -182,7 +182,16 @@ export default function Home() {
                 <ChatList chatList={chatList} deleteChat={handleDeleteChat} />
               ) : (
                 <div className="no-chat">
-                  You currently have no active chats. Press 'Add chat' to match with another language learner.
+                  <p>You currently have no active chats.</p>
+                  <p>
+                    Press 'New Chat' to match with a language learner who wants
+                    to learn your native language, and speaks your target
+                    language.
+                  </p>
+                  <p>
+                    Pres 'New Group Chat' to chat with other learners who share
+                    your target language.
+                  </p>
                 </div>
               )}
             </div>
