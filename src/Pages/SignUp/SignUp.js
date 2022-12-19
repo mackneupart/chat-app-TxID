@@ -58,7 +58,7 @@ export default function SignUp() {
 
   const handleSubmit = async function () {
     if (checkPassword()) {
-      await createUser(
+      const newUser = await createUser(
         username,
         password,
         email,
@@ -66,8 +66,10 @@ export default function SignUp() {
         targetLangs,
         userPic
       );
-      console.log("user created. navigating to home");
-      navigate("/home");
+      if (newUser) {
+        console.log("user created. navigating to home");
+        navigate("/home");
+      }
     } else {
       alert("Your password does not match");
     }

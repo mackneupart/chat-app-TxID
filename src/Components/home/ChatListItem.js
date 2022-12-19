@@ -7,11 +7,14 @@ export default function ChatListItem({ chat, deleteChat }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [users, setUsers] = useState();
+  const [language2, setLanguage2] = useState();
+  const language1 = chat.get("language1");
 
   useEffect(() => {
     const getUsers = async function () {
       const u = await getUsersInChat(chat);
       setUsers(u);
+      setLanguage2(chat.get("language2"));
     };
     getUsers();
   }, [chat]);
@@ -26,9 +29,6 @@ export default function ChatListItem({ chat, deleteChat }) {
       }
     }
 
-    const language1 = chat.get("language1");
-    const language2 = chat.get("language2");
-
     const handleClick = () => {
       navigate("/Chat", {
         state: { chat: chat },
@@ -38,6 +38,17 @@ export default function ChatListItem({ chat, deleteChat }) {
     function handleDeleteChat() {
       deleteChat(chat);
     }
+
+    const renderLanguages = () => {
+      if (language2) {
+        return (
+          <>
+            {language1} / {language2}
+          </>
+        );
+      }
+      return <>{language1}</>;
+    };
 
     return (
       <div>
@@ -73,7 +84,7 @@ export default function ChatListItem({ chat, deleteChat }) {
               );
             })}
             <div className="chat-list-item-info-language">
-              {language1} / {language2}
+              {renderLanguages()}
             </div>
           </div>
         </div>
