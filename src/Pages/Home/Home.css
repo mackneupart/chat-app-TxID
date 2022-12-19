@@ -22,7 +22,7 @@ TO DO
   grid-template-rows: 10% 80% 10%;
 } 
 
- .userBox {
+ .user-box {
  /* background-color: white;
   grid-column-start: 2;
   grid-row-start: 2;*/
@@ -34,13 +34,12 @@ TO DO
   border-radius: 5px;
 } 
 
-.userImage {
-  grid-row-start: 2;
+.user-image {
 /*   align-self: center;
   justify-self: center; */
   /*styling concerning its children*/
   display: grid;
- /*  grid-template-columns: 10% auto 10%; */
+  grid-row-start: 2;
 }
 
 .circle {
@@ -55,35 +54,41 @@ TO DO
 }
 
 
-.userInfo {
+.user-info {
   grid-row-start: 4;
   /*styling concerning its children*/
   display: grid;
-  grid-template-columns: 49% 2% 49%;
+  grid-template-columns: 55% 2% 55%;
 }
 
-.userInfoDetail {
+.user-info-detail {
   display: flex;
   justify-content: right;
   align-items: right;
   grid-column-start: 1;
-  font-size: 1.2vw;
+  font-size: 22px;
   font-weight: 500;
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: 200;
+
+
 }
 
-.userInfoPlaceholder {
+.user-info-placeholder {
   display: flex;
   justify-content: left;
   align-items: left;
+  max-width: 78%;
   grid-column-start: 3;
-  font-size: 1.2vw;
+  font-size: 22px;
 }
 
 .user-buttons {
+  display: grid;
+  grid-column-start: 1;
   grid-row-start: 6;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  grid-template-columns: auto 1% auto;
 }
 
 .chat-overview {
@@ -104,7 +109,7 @@ TO DO
   padding:5%;
 }
 
-.newChats {
+.new-chats {
   grid-column-start: 4;
   grid-row-start: 3;
   /*styling concerning its children*/

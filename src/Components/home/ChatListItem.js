@@ -1,51 +1,83 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { getCurrentUser } from "../../API/API";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { getCurrentUser, getUsersInChat } from "../../API/API";
 import "./ChatListItem.css";
 
-const ChatListItem = ({ chat, deleteChat }) => {
+export default function ChatListItem({ chat, deleteChat }) {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [users, setUsers] = useState();
 
-  var otherUser = {};
-  if (chat.get("users2")[0].id === getCurrentUser().id) {
-    otherUser = chat.get("users2")[1];
-  } else {
-    otherUser = chat.get("users2")[0];
-  }
-  // const otherUserImage = otherUser.get("profilePicture").get("catPNG")._url;
-  const language1 = chat.get("Language1");
-  const language2 = chat.get("Language2");
+  useEffect(() => {
+    const getUsers = async function () {
+      const u = await getUsersInChat(chat);
+      setUsers(u);
+    };
+    getUsers();
+  }, [chat]);
 
-  const handleClick = () => {
-    navigate("/Chat", {
-      state: { otherUser: otherUser, chat: chat },
-    });
-  };
+  if (users) {
+    var otherUsers = [];
+    var images = [];
+    for (var user of users) {
+      if (user.id !== getCurrentUser().id) {
+        images.push(user.get("profilePicture").get("catPNG")._url);
+        otherUsers.push(user);
+      }
+    }
 
-  function handleDeleteChat() {
-    deleteChat(chat);
-  }
+    const language1 = chat.get("language1");
+    const language2 = chat.get("language2");
 
-  return (
-    <div>
-      <button className="delete-chat-button" onClick={handleDeleteChat}>
-        X
-      </button>
-      <div className="chat-list-item-box" onClick={handleClick}>
-        <div className="chat-list-item-img-box">
-          {/* <img className="chat-list-item-img" src={otherUserImage} /> */}
+    const handleClick = () => {
+      navigate("/Chat", {
+        state: { chat: chat },
+      });
+    };
+
+    function handleDeleteChat() {
+      deleteChat(chat);
+    }
+
+    return (
+      <div>
+        <div className="delete-chat">
+          {location.pathname === "/home" ? (
+            <button className="delete-chat-button" onClick={handleDeleteChat}>
+              X
+            </button>
+          ) : (
+            ""
+          )}
         </div>
-        <div className="chat-list-item-info">
-          <div className="chat-list-item-info-name">
-            {otherUser.get("username")}
+
+        <div className="chat-list-item-box" onClick={handleClick}>
+          <div className="chat-list-item-img-box">
+            {images.map((image) => {
+              return (
+                <img
+                  key={image.id}
+                  className="chat-list-item-img"
+                  src={image}
+                  alt="Other users profile icon"
+                />
+              );
+            })}
           </div>
-          <div className="chat-list-item-info-language">
-            {language1} / {language2}
+          <div className="chat-list-item-info">
+            {otherUsers.map((otherUser) => {
+              return (
+                <div key={otherUser.id} className="chat-list-item-info-name">
+                  {otherUser.get("username")}
+                </div>
+              );
+            })}
+            <div className="chat-list-item-info-language">
+              {language1} / {language2}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
-};
-
-export default ChatListItem;
+    );
+  }
+}

@@ -1,11 +1,11 @@
 import LanguageDropdown from "../../Components/language/LangugageDropdown";
-import InterestList from "../../Components/InterestList/InterestList";
+//import InterestList from "../../Components/InterestList/InterestList";
 import "./SignUp.css";
 import "../../DesignSystem/grid.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../Components/Button/Button";
-import { createUser, readCatIcons } from "../../API/API";
+import { createUser, getCatIcons } from "../../API/API";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -13,33 +13,23 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [nativeLanguage, setNativeLanguage] = useState([]);
-  const [targetLanguage, setTargetLanguage] = useState([]);
+  const [nativeLangs, setNativeLangs] = useState([]);
+  const [targetLangs, setTargetLangs] = useState([]);
   const [catIcons, setCatIcons] = useState(null);
   const [userPic, setUserPic] = useState(null);
 
   useEffect(() => {
-    const getCatIcons = async () => {
+    const getIcons = async () => {
       try {
-        const result = await readCatIcons();
+        const result = await getCatIcons();
         setCatIcons(result);
+        setUserPic(result[0]);
       } catch (error) {
         console.log(`Error when trying to read cat icons: ${error}`);
       }
     };
-    getCatIcons();
+    getIcons();
   }, []);
-
-  useEffect(() => {
-    console.log("this is catIcons");
-    console.log(catIcons);
-    if (catIcons) {
-      console.log("Set profile pic to ", catIcons[0].get("name"));
-      const defaultIcon = catIcons[0];
-      setUserPic(defaultIcon);
-      console.log(defaultIcon);
-    }
-  }, [catIcons]);
 
   function makeProfileSelection() {
     try {
@@ -67,17 +57,29 @@ export default function SignUp() {
   }
 
   const handleSubmit = async function () {
-    await createUser(
-      username,
-      password,
-      email,
-      nativeLanguage,
-      targetLanguage,
-      userPic
-    );
-    console.log("user created. navigating to home");
-    navigate("/home");
+    if (checkPassword()) {
+      await createUser(
+        username,
+        password,
+        email,
+        nativeLangs,
+        targetLangs,
+        userPic
+      );
+      console.log("user created. navigating to home");
+      navigate("/home");
+    } else {
+      alert("Your password does not match");
+    }
   };
+
+  function checkPassword() {
+    if (password === repeatPassword) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   return (
     <div className="sign-up-page">
@@ -116,30 +118,14 @@ export default function SignUp() {
             <div>
               <label>What languages do you want to learn?</label>
             </div>
-            <div>
-              <label>What are your interests:</label>
-            </div>
           </div>
           <div className="profile-info-inputs">
-            <input
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-              placeholder="Username"
-              size="large"
-              className="form_input"
-            />
             <input
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               placeholder="email"
               size="large"
               className="form_input"
-            />
-            <input
-              value={password}
-              placeholder="Password"
-              size="large"
-              type="password"
             />
             <input
               value={password}
@@ -157,13 +143,12 @@ export default function SignUp() {
             />
             <LanguageDropdown
               className="dropdown"
-              setLanguage={setNativeLanguage}
+              showChosen={setNativeLangs}
             />
             <LanguageDropdown
               className="dropdown"
-              setLanguage={setTargetLanguage}
+              showChosen={setTargetLangs}
             />
-            <InterestList />
           </div>
         </div>
         <div className="submit-button">
