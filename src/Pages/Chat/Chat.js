@@ -32,10 +32,7 @@ export default function Chat() {
 
     const goHome = function () {
       navigate(
-        "/home" /* {
-      state: {currentUser : currentUser },
-      // The navigation to and from Home needs fixing, screen goes blank but works on refresh. /cema
-    } */
+        "/home"
       );
     };
 

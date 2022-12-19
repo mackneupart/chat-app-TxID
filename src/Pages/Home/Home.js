@@ -23,6 +23,12 @@ export default function Home() {
   const [targetL, setTargetL] = useState({});
   const [nativeL, setNativeL] = useState({});
 
+  useEffect(() =>{
+    if(getCurrentUser() === null){
+      navigate("/")
+    }
+  })
+  
   useEffect(() => {
     const getAllChats = async () => {
       try {
@@ -134,9 +140,11 @@ export default function Home() {
 
     const renderLang = (langType) => {
       var str = "";
+      var separator = "";
       for (var key in langType) {
-        const test = langType[key];
-        str = str + test.get("name") + ", ";
+        const lang = langType[key];
+        str = str + separator + lang.get("name");
+        separator = ", ";
       }
       return str;
     };
