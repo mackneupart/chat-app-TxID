@@ -1,6 +1,6 @@
 import "./ListItem.css";
 
-function ListItem({ item, index, deleteItem }) {
+export default function ListItem({ item, index, deleteItem }) {
   return (
     <li className="item">
       {item}
@@ -10,5 +10,3 @@ function ListItem({ item, index, deleteItem }) {
     </li>
   );
 }
-
-export default ListItem;

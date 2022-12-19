@@ -2,7 +2,7 @@ import React from "react";
 import ChatListItem from "./ChatListItem";
 import "./ChatList.css";
 
-const ChatList = ({ chatList, deleteChat }) => {
+export default function ChatList({ chatList, deleteChat }) {
   return (
     <div>
       {chatList.map((chat) => {
@@ -12,6 +12,4 @@ const ChatList = ({ chatList, deleteChat }) => {
       })}
     </div>
   );
-};
-
-export default ChatList;
+}

@@ -3,7 +3,7 @@ import { useParseQuery } from "@parse/react";
 import { useState } from "react";
 import { sendMessage } from "./API";
 
-const LiveMessagesAPI = (chat) => {
+export default function LiveMessagesAPI(chat) {
   const [messageInput, setMessageInput] = useState("");
 
   const handleSend = async () => {
@@ -23,7 +23,7 @@ const LiveMessagesAPI = (chat) => {
   };
 
   const parseQuery = new Parse.Query("Message");
-  parseQuery.equalTo("chat", chat)
+  parseQuery.equalTo("chat", chat);
   parseQuery.include("chat");
   parseQuery.ascending("createdAt");
 
@@ -44,6 +44,4 @@ const LiveMessagesAPI = (chat) => {
     error,
     reload,
   };
-};
-
-export default LiveMessagesAPI;
+}

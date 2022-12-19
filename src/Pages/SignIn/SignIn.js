@@ -5,7 +5,7 @@ import "./SignIn.css";
 import "../../DesignSystem/grid.css";
 import { getCurrentUser, logIn } from "../../API/API";
 
-function SignIn() {
+export default function SignIn() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -88,5 +88,3 @@ function SignIn() {
     </div>
   );
 }
-
-export default SignIn;
