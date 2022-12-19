@@ -1,9 +1,8 @@
 .languageDropdown > select{
-    height: 3em;
+    height: 2em;
     width: 100%;
 }
 .list-item{
     margin-top:0px;
     padding: 0px;
-    height: 100%;
 }
