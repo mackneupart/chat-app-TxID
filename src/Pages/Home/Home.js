@@ -106,9 +106,14 @@ export default function Home() {
     const addChat = async function () {
       try {
         const chat = await createChat();
-        navigate("/Chat", {
-          state: { chat: chat },
-        });
+        if(chat) {
+          navigate("/Chat", {
+            state: { chat: chat },
+          });
+        } else {
+        alert(`You have matched with all available users :D `)
+        }
+        
       } catch (error) {
         console.log(`Error when adding a new chat: ${error}`);
       }

@@ -143,10 +143,13 @@ const createChatHelper = async function (users) {
 
 export const createChat = async function () {
   const otherUser = await getNonMatchedUsers();
-  console.log(otherUser);
-  console.log(otherUser[0]);
-  const usersObjects = [getCurrentUser(), otherUser[0]];
-  return await createChatHelper(usersObjects);
+  if (otherUser.length > 0) {
+    console.log(otherUser);
+    console.log(otherUser[0]);
+    const usersObjects = [getCurrentUser(), otherUser[0]];
+    return await createChatHelper(usersObjects);
+  }
+  return false;
 };
 
 const findDuplicateLanguages = async function (users) {
