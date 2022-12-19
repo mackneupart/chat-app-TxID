@@ -142,13 +142,6 @@ export default function SignUp() {
               className="form_input"
             />
             <input
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-              placeholder="username"
-              size="large"
-              className="form_input"
-            />
-            <input
               value={email}
               onChange={(event) => setEmail(event.target.value)}
               placeholder="email"
