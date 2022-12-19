@@ -68,7 +68,7 @@ export default function Chat() {
           })}
         </div>
         <div className="chat-sidebar">
-          <ChatSidebar />
+          <ChatSidebar chat={chat}/>
         </div>
         <ChatBox chat={chat} />
       </div>
