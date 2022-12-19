@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ListItem from "../ListItem/ListItem";
 import { getLanguages } from "../../API/API";
+import "./LanguageDropdown.css";
 
 export default function LanguageDropdown({ showChosen }) {
   // what would be better name than 'showChosen'? Change here and in SignUp. /cema
@@ -32,8 +33,8 @@ export default function LanguageDropdown({ showChosen }) {
       ...prevState.filter((item, i) => i !== index),
     ]);
     setChosenLanguagesID((prevState) => [
-        ...prevState.filter((item, i) => i !== index),
-      ]);
+      ...prevState.filter((item, i) => i !== index),
+    ]);
   }
 
   return (
@@ -44,14 +45,14 @@ export default function LanguageDropdown({ showChosen }) {
         value={selected}
         onChange={(e) => addToChosen(e.target.selectedOptions[0])}
       >
-        <option>Select Language</option>
+        <option>select language</option>
         {languageOptions.map((language) => (
           <option key={language.id} value={language.id}>
             {language.get("name")}
           </option>
         ))}
       </select>
-      <ul>
+      <ul className="list-item">
         {chosenLanguagesName.map((language, index) => (
           <ListItem
             key={language.id}
