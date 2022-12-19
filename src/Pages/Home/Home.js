@@ -159,12 +159,6 @@ export default function Home() {
                   ? getCurrentUser().get("username")
                   : "not working"}
               </div>
-              <div className="user-info-detail">Email</div>
-              <div className="user-info-placeholder">
-                {getCurrentUser() !== null
-                  ? getCurrentUser().get("email")
-                  : "not working"}
-              </div>
               <div className="user-info-detail">Target Language</div>
               <div className="user-info-placeholder">
                 {targetL && renderLang(targetL)}
