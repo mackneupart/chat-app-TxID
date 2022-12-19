@@ -126,17 +126,25 @@ export default function SignUp() {
               <label>Repeat password: </label>
             </div>
             <div>
-              <label>What is your native Language</label>
+              <label>What is your native language</label>
             </div>
             <div>
               <label>What languages do you want to learn?</label>
             </div>
           </div>
+
           <div className="profile-info-inputs">
           <input
               value={username}
               onChange={(event) => setUsername(event.target.value)}
               placeholder="Username"
+              size="large"
+              className="form_input"
+            />
+            <input
+              value={username}
+              onChange={(event) => setUsername(event.target.value)}
+              placeholder="username"
               size="large"
               className="form_input"
             />
@@ -150,14 +158,14 @@ export default function SignUp() {
             <input
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              placeholder="Password"
+              placeholder="password"
               size="large"
               type="password"
             />
             <input
               value={repeatPassword}
               onChange={(event) => setRepeatPassword(event.target.value)}
-              placeholder="Repeat Password"
+              placeholder="repeat password"
               size="large"
               type="password"
             />
