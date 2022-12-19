@@ -170,7 +170,7 @@ export default function Home() {
                 {targetL && renderLang(targetL)}
               </div>
               <div className="user-info-detail">Native Language</div>
-              <div className="userInfoPlaceholder">
+              <div className="user-info-placeholder">
                 {nativeL && renderLang(nativeL)}
               </div>
             </div>
