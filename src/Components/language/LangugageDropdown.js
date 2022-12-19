@@ -33,6 +33,9 @@ export default function LanguageDropdown({ showChosen }) {
     setChosenLanguagesName((prevState) => [
       ...prevState.filter((item, i) => i !== index),
     ]);
+    setChosenLanguagesID((prevState) => [
+        ...prevState.filter((item, i) => i !== index),
+      ]);
   }
 
   return (
