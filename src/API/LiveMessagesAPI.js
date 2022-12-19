@@ -1,9 +1,9 @@
 import Parse from "parse";
 import { useParseQuery } from "@parse/react";
 import { useState } from "react";
-import { sendMessage } from "../API/API";
+import { sendMessage } from "./API";
 
-const useLiveMessages = (chat) => {
+const LiveMessagesAPI = (chat) => {
   const [messageInput, setMessageInput] = useState("");
 
   const handleSend = async () => {
@@ -26,7 +26,6 @@ const useLiveMessages = (chat) => {
   parseQuery.equalTo("chat", chat)
   parseQuery.include("chat");
   parseQuery.ascending("createdAt");
-  //parseQuery.includeAll();
 
   const { isLive, isLoading, isSyncing, results, count, error, reload } =
     useParseQuery(parseQuery, {
@@ -47,4 +46,4 @@ const useLiveMessages = (chat) => {
   };
 };
 
-export default useLiveMessages;
+export default LiveMessagesAPI;

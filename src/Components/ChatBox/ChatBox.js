@@ -2,13 +2,13 @@ import Message from "../Message/Message";
 import Button from "../Button/Button";
 import "../Button/Button.css";
 import "./ChatBox.css";
-import useLiveMessages from "../../Hooks/useLiveMessages";
+import LiveMessagesAPI from "../../API/LiveMessagesAPI";
 import { getCurrentUser } from "../../API/API";
 import { useRef, useEffect } from "react";
 
 export default function ChatBox({ chat }) {
   const { messageInput, handle, status, messages, count, error, reload } =
-    useLiveMessages(chat);
+    LiveMessagesAPI(chat);
 
   const onEnterPress = (e) => {
     if (e.keyCode == 13 && e.shiftKey == false) {
