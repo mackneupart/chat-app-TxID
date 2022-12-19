@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../../Components/Button/Button";
 import "./signIn.css";
 import "../../DesignSystem/grid.css";
-import { logIn } from "../../API/API";
+import { getCurrentUser, logIn } from "../../API/API";
 
 function SignIn() {
   const navigate = useNavigate();
@@ -13,9 +13,15 @@ function SignIn() {
   const handleLogIn = async () => {
     try {
       await logIn(username, password);
-      setUsername("");
-      setPassword("");
-      navigate("/home");
+      if(getCurrentUser() !== null){
+        setUsername("");
+        setPassword("");
+        navigate("/home");
+      }
+      else{
+        navigate("/")
+      }
+      
     } catch (error) {
       alert(`Error! ${error.message}`);
     }

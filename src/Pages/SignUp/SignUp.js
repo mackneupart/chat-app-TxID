@@ -58,21 +58,34 @@ export default function SignUp() {
 
   const handleSubmit = async function () {
     if (checkPassword()) {
-      await createUser(
-        username,
-        password,
-        email,
-        nativeLangs,
-        targetLangs,
-        userPic
-      );
-      console.log("user created. navigating to home");
-      navigate("/home");
+      if(isNotEmpty(nativeLangs) && isNotEmpty(targetLangs)){
+        const newUser = await createUser(
+          username,
+          password,
+          email,
+          nativeLangs,
+          targetLangs,
+          userPic
+        );
+        if (newUser){
+          console.log("user created. navigating to home");
+          navigate("/home");
+        }
+
+      }else{
+        alert("You need at least one native and target language.");
+      }
     } else {
       alert("Your password does not match");
     }
   };
 
+  function isNotEmpty(variable){
+    if (variable === null || variable === "" || variable.length === 0){
+      return false
+    }
+    return true
+  }
   function checkPassword() {
     if (password === repeatPassword) {
       return true;
@@ -120,6 +133,13 @@ export default function SignUp() {
             </div>
           </div>
           <div className="profile-info-inputs">
+          <input
+              value={username}
+              onChange={(event) => setUsername(event.target.value)}
+              placeholder="Username"
+              size="large"
+              className="form_input"
+            />
             <input
               value={email}
               onChange={(event) => setEmail(event.target.value)}

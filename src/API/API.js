@@ -46,6 +46,7 @@ export const logIn = async function (username, password) {
     );
   } catch (error) {
     console.log(`Error logging in! ${error}`);
+    alert(error + "\nPlease enter a valid Username and Password!")
   }
 };
 

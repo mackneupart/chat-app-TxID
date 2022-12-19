@@ -23,6 +23,12 @@ export default function Home() {
   const [targetL, setTargetL] = useState({});
   const [nativeL, setNativeL] = useState({});
 
+  useEffect(() =>{
+    if(getCurrentUser() === null){
+      navigate("/")
+    }
+  })
+  
   useEffect(() => {
     const getAllChats = async () => {
       try {
