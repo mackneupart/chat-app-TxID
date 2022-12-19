@@ -100,8 +100,8 @@ input {
     display: grid;
 }
 
-.dropdown {
-    width: 100%;
+.dropdown{
+  width: 300px;
 }
 
 .submit-button {
