@@ -35,3 +35,8 @@
 .partner-pic {
     width: 7%;
 }
+
+.partner-name{
+    margin-right: 1%;
+    font-weight: bold;
+}

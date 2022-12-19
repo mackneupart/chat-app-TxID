@@ -144,33 +144,33 @@ export default function Home() {
     const renderContent = () => {
       return (
         <>
-          <div className="userBox white-box">
-            <div className="userImage">
+          <div className="user-box white-box">
+            <div className="user-image">
               <img
                 className="circle"
                 src={getCurrentUser() ? userPicture : errorKitten}
                 alt="the users profile pic"
               />
             </div>
-            <div className="userInfo">
-              <div className="userInfoDetail">Username</div>
-              <div className="userInfoPlaceholder">
+            <div className="user-info">
+              <div className="user-info-detail">Username</div>
+              <div className="user-info-placeholder">
                 {getCurrentUser() !== null
                   ? getCurrentUser().get("username")
                   : "not working"}
               </div>
-              <div className="userInfoDetail">Email</div>
-              <div className="userInfoPlaceholder">
+              <div className="user-info-detail">Email</div>
+              <div className="user-info-placeholder">
                 {getCurrentUser() !== null
                   ? getCurrentUser().get("email")
                   : "not working"}
               </div>
-              <div className="userInfoDetail">Target Language</div>
-              <div className="userInfoPlaceholder">
+              <div className="user-info-detail">Target Language</div>
+              <div className="user-info-placeholder">
                 {targetL && renderLang(targetL)}
               </div>
-              <div className="userInfoDetail">Native Language</div>
-              <div className="userInfoPlaceholder">
+              <div className="user-info-detail">Native Language</div>
+              <div className="user-info-placeholder">
                 {nativeL && renderLang(nativeL)}
               </div>
             </div>
@@ -190,11 +190,11 @@ export default function Home() {
               )}
             </div>
           </div>
-          <div className="newChats">
-            <div className="newChat">
+          <div className="new-chats">
+            <div className="new-chat">
               <Button text="New Chat" click={addChat} />
             </div>
-            <div className="newGroupChat">
+            <div className="new-group-chat">
               <Button text="New Group Chat" click={addGroupChat} />
             </div>
           </div>

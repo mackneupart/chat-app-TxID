@@ -342,7 +342,7 @@ export const getCatIcons = async () => {
 
 export async function deleteChat(chat) {
   try {
-    let messages = await getMessages(chat);
+    let messages = await messagesForChat(chat);
     await Parse.Object.destroyAll(messages);
     const success = await chat.destroy();
     return success;
