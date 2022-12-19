@@ -7,6 +7,8 @@
 .threat{
     height: inherit;
     overflow-y: scroll;
+    scrollbar-color: var(--blue-900) transparent;
+    scrollbar-width: thin;
 }
 
 .message-list {
@@ -15,7 +17,6 @@
 .message-list > .message_sent{
     justify-self: right;
     max-width: 75%;
-    
 }
 .message-list > .message_received{
     justify-self: left;

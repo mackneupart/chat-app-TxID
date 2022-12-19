@@ -89,11 +89,10 @@ TO DO
 }
 
 .user-buttons {
-
   grid-column-start: 2;
   grid-row-start: 6;
   /*styling concerning its children*/
-  display:flex;
+  display: flex;
   justify-content: space-around;
   /* display: grid;
   grid-auto-flow: column;
@@ -106,6 +105,8 @@ TO DO
   height: 100%;
   width: 100%;
   overflow-y: scroll;
+  scrollbar-color: var(--blue-900) transparent;
+    scrollbar-width: thin;
   /*styling concerning its children*/
   display: grid;
   grid-template-columns: auto;

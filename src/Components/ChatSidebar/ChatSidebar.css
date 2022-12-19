@@ -16,6 +16,8 @@
     grid-row-start: 2;
     padding: 1%;
     overflow-y: scroll;
+    scrollbar-color: var(--blue-900) transparent;
+    scrollbar-width: thin;
 }
 
 .language-radio{
