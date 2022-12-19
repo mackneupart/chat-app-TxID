@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useEffect } from "react";
 import ChatBox from "../../Components/ChatBox/ChatBox";
 import ChatSidebar from "../../Components/ChatSidebar/ChatSidebar";
 import { getCurrentUser, getUsersInChat } from "../../API/API";
