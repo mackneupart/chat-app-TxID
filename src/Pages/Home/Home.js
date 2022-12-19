@@ -152,7 +152,7 @@ export default function Home() {
     const renderContent = () => {
       return (
         <>
-          <div className="user-box white-box">
+          <div className="user-box">
             <div className="user-image">
               <img
                 className="circle"

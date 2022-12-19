@@ -4,48 +4,55 @@ TO DO
   smartphone size: same as with tablet, but also remove the background, so the purple box fills out the whole screen
 */
 
- .home-page {
+.home-page {
   height: 100vh;
-  /*styling concerning its children*/ 
+  /*styling concerning its children*/
   display: grid;
   grid-template-columns: 10% 80% 10%;
   grid-template-rows: 10% 80% 10%;
-} 
+}
 
- .home-box {
+.home-box {
   /*grid-row-start: 2;
   grid-column-start: 2;
   background-color: var(--purple-900);
-  /*styling concerning its children*/ 
+  /*styling concerning its children*/
   /*display: grid;*/
   grid-template-columns: 10% 35% 10% 35% 10%;
   grid-template-rows: 10% 80% 10%;
-} 
+}
 
- .user-box {
- /* background-color: white;
+.user-box {
+  /* background-color: white;
   grid-column-start: 2;
   grid-row-start: 2;*/
-  /*styling concerning its children*/ 
-  /*display: grid; */
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  grid-column-start: 2;
+  grid-row-start: 2;
+  /*styling concerning its children*/
+  display: grid;
   align-items: center;
   justify-content: center;
+  grid-template-columns: 0% 100% 0%;
   grid-template-rows: 5% 40% 5% 25% 5% 15% 5%;
   border-radius: 5px;
-} 
+}
 
 .user-image {
-/*   align-self: center;
+  /*   align-self: center;
   justify-self: center; */
   /*styling concerning its children*/
   display: grid;
+  grid-column-start: 2;
   grid-row-start: 2;
 }
 
 .circle {
   /* grid-column-start: 2; */
   border-radius: 50%;
- /*  width: 80%;
+  /*  width: 80%;
   height: 80%; */
   align-self: center;
   justify-self: center;
@@ -53,9 +60,9 @@ TO DO
   width: 40%;
 }
 
-
 .user-info {
   grid-row-start: 4;
+  grid-column-start: 2;
   /*styling concerning its children*/
   display: grid;
   grid-template-columns: 55% 2% 55%;
@@ -68,11 +75,8 @@ TO DO
   grid-column-start: 1;
   font-size: 22px;
   font-weight: 500;
-  overflow: hidden;
   white-space: nowrap;
   font-weight: 200;
-
-
 }
 
 .user-info-placeholder {
@@ -85,10 +89,15 @@ TO DO
 }
 
 .user-buttons {
-  display: grid;
-  grid-column-start: 1;
+
+  grid-column-start: 2;
   grid-row-start: 6;
-  grid-template-columns: auto 1% auto;
+  /*styling concerning its children*/
+  display:flex;
+  justify-content: space-around;
+  /* display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: 10px; */
 }
 
 .chat-overview {
@@ -97,8 +106,6 @@ TO DO
   height: 100%;
   width: 100%;
   overflow-y: scroll;
-  scrollbar-color: var(--blue-900) var(--purple-100);
-  scrollbar-width: thin;
   /*styling concerning its children*/
   display: grid;
   grid-template-columns: auto;
@@ -106,7 +113,7 @@ TO DO
   row-gap: 10px;
   background-color: var(--purple-600);
   border-radius: 5px;
-  padding:5%;
+  padding: 5%;
 }
 
 .new-chats {
@@ -115,13 +122,10 @@ TO DO
   /*styling concerning its children*/
   display: grid;
   grid-template-columns: auto 30% auto;
-  
 }
-.no-chat{
- text-align: center;
-margin-top: 50%;
-font-weight: 600;
-font-size: larger;
-  }
-
-
+.no-chat {
+  text-align: center;
+  margin-top: 50%;
+  font-weight: 600;
+  font-size: larger;
+}

@@ -2,15 +2,11 @@
     background-color: var(--purple-900);
     display: grid;
     grid-template-rows: 80% 20%;
-    
-    
-    
+    box-shadow: 6px 4px var(--light-grey-900);
 }
 .threat{
     height: inherit;
     overflow-y: scroll;
-    scrollbar-color: var(--blue-900) var(--purple-900);
-    scrollbar-width: thin;
 }
 
 .message-list {
@@ -24,8 +20,8 @@
 .message-list > .message_received{
     justify-self: left;
     max-width: 75%;
-    
 }
+
 .sending-messages{
     grid-row-start: 2;
     padding: 1%;
@@ -44,11 +40,8 @@
 .input-area{
    width: 100%;
    height: 100%;
-   
    overflow-y: scroll;
-   scrollbar-color: var(--blue-900) var(--purple-900);
-   scrollbar-width: thin;
-   
+   resize: none;
 }
 
 .server-info{

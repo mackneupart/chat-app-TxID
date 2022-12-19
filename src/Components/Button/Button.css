@@ -1,13 +1,11 @@
 .button-default {
-  margin-right: auto;
-  margin-left: auto;
+/*   margin-right: auto;
+  margin-left: auto; */
   background-color: var(--blue-500);
-  height: 5vh;
-  width: 12vh;
+  height: 42px;
+  width: 122px;
   border-radius: 10px;
   cursor: pointer;
   color: white;
-  white-space: normal;
-  word-wrap: break-word;
 }
 

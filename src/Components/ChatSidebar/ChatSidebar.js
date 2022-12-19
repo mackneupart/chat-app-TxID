@@ -26,7 +26,9 @@ export default function ChatSidebar({ chat }) {
   return (
     <div className="side-bar">
       {/* <input className="search" type="text" placeholder = "Search" onChange={searchChat} ></input> */}
-      <ChatList className="chat-list" chatList={chatList} />
+      <div className="chat-list-scroll">
+        <ChatList className="chat-list" chatList={chatList} />
+      </div>
 
       <div className="language-radio">
         <p>Currently you are writing in:</p>

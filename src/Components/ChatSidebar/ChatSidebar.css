@@ -4,6 +4,7 @@
     height: 100%;
     background-image: linear-gradient(to right, var(--purple-900) , var(--purple-100));
     padding: 5%;
+    box-shadow: 6px 4px var(--light-grey-900);
 }
 
 .search{
@@ -15,8 +16,6 @@
     grid-row-start: 2;
     padding: 1%;
     overflow-y: scroll;
-    scrollbar-color: var(--blue-900) var(--purple-100);
-    scrollbar-width: thin;
 }
 
 .language-radio{
@@ -29,5 +28,4 @@ input[type = "radio"]{
     border: none;
     margin: 0;
     display: inline;
-    
 }
