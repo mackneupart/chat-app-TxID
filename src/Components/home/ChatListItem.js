@@ -25,8 +25,8 @@ export default function ChatListItem({ chat, deleteChat }) {
       }
     }
 
-    const language1 = chat.get("Language1");
-    const language2 = chat.get("Language2");
+    const language1 = chat.get("language1");
+    const language2 = chat.get("language2");
 
     const handleClick = () => {
       navigate("/Chat", {

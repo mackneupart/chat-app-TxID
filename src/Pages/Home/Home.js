@@ -14,6 +14,7 @@ import {
   deleteChat,
   createGroupChat,
   getChosenLanguages,
+  
 } from "../../API/API";
 
 export default function Home() {
@@ -130,7 +131,7 @@ export default function Home() {
         const test = langType[key];
         str = str + test.get("name") + ", ";
       }
-      return str
+      return str;
     };
 
     const renderContent = () => {
