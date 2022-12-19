@@ -14,7 +14,6 @@ export default function ChatSidebar({ chat }) {
       try {
         const resultC = await getChats(getCurrentUser());
         setChatList(resultC);
-        setLanguage2(chat.get("language2"));
       } catch (error) {
         console.log(`Error when trying to get all chats: ${error}`);
       }
@@ -22,6 +21,10 @@ export default function ChatSidebar({ chat }) {
 
     getAllChats();
   }, []);
+
+  useEffect(() => {
+    setLanguage2(chat.get("language2"));
+  }, [chat]);
 
   return (
     <div className="side-bar">
