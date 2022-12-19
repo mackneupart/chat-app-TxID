@@ -19,8 +19,6 @@ export default function LanguageDropdown({ showChosen }) {
   useEffect(() => {
     if (chosenLanguagesName) {
       showChosen(chosenLanguagesID);
-      console.log(chosenLanguagesName);
-      console.log(chosenLanguagesID);
     }
   }, [chosenLanguagesID]);
 

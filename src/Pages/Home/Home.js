@@ -14,7 +14,6 @@ import {
   deleteChat,
   createGroupChat,
   getChosenLanguages,
-  
 } from "../../API/API";
 
 export default function Home() {
