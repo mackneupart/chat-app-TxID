@@ -4,7 +4,6 @@ import ChatBox from "../../Components/ChatBox/ChatBox";
 import ChatSidebar from "../../Components/ChatSidebar/ChatSidebar";
 import { getCurrentUser } from "../../API/API";
 import "./Chat.css";
-//import { getCurrentUser } from "../../API/API";
 
 export default function Chat() {
   const { state } = useLocation();
@@ -12,15 +11,10 @@ export default function Chat() {
   const chat = state.chat;
   const navigate = useNavigate();
 
-  //TODO get to SignIn if not loged in
+  //TODO go to SignIn if not loged in
 
   const goHome = function () {
-    navigate(
-      "/home" /* {
-      state: {currentUser : currentUser },
-      // The navigation to and from Home needs fixing, screen goes blank but works on refresh. /cema
-    } */
-    );
+    navigate("/home");
   };
 
   return (
