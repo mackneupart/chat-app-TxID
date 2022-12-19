@@ -12,7 +12,7 @@
 }
 
 .chat-list-item-info {
-padding: 5%;
+  padding: 5%;
 }
 
 .chat-list-item-info-name {
@@ -24,21 +24,15 @@ padding: 5%;
   margin-top: 5px;
   font-size: 28px;
   text-decoration: none;
-  font-weight:200;
+  font-weight: 200;
 }
 
 .chat-list-item-img-box {
-
   padding: 5%;
   max-width: 100px;
-
-  
 }
 
 .chat-list-item-img {
   width: 80px;
   height: 80px;
-} 
-
-
-
+}

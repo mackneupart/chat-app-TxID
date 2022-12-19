@@ -4,7 +4,6 @@ import "../Button/Button.css";
 import "./ChatBox.css";
 import LiveMessagesAPI from "../../API/LiveMessagesAPI";
 import { getCurrentUser } from "../../API/API";
-import { useRef, useEffect } from "react";
 
 export default function ChatBox({ chat }) {
   const { messageInput, handle, status, messages, count, error, reload } =

@@ -3,15 +3,15 @@
   cursor: pointer;
 }
 
-.delete-chat-button{
-display: flex;
-margin-left: auto;
-border-radius: 5px;
-border: solid black 1px;
+.delete-chat-button {
+  display: flex;
+  margin-left: auto;
+  border-radius: 5px;
+  border: solid black 1px;
 }
-.delete-chat{
+.delete-chat {
   margin-top: 5%;
 }
-.delete-chat-button:hover{
+.delete-chat-button:hover {
   cursor: pointer;
 }

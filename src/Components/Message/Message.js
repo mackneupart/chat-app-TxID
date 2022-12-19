@@ -1,12 +1,13 @@
 import { getCurrentUser } from "../../API/API";
 import "./Message.css";
 
-// Helper to format createdAt value on Message
 const formatDateToTime = (date) => {
-  function add_zero(number){
-    return(('0' + number).slice(-2))
+  function add_zero(number) {
+    return ("0" + number).slice(-2);
   }
-  return `${add_zero(date.getDate())}. ${date.toLocaleString('default', { month: 'short' })} ${add_zero(date.getHours())}:${add_zero(date.getMinutes())}`;
+  return `${add_zero(date.getDate())}. ${date.toLocaleString("default", {
+    month: "short",
+  })} ${add_zero(date.getHours())}:${add_zero(date.getMinutes())}`;
 };
 
 export default function Message({ message }) {

@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import { getChats, getCurrentUser } from "../../API/API";
 
 export default function ChatSidebar({ chat }) {
-  const language1 = chat.get("language1"); //currentChat language 1
-  //const language2 = chat.get("language2"); // currentChat language 2
+  const language1 = chat.get("language1");
   const [chatList, setChatList] = useState([]);
   const [language2, setLanguage2] = useState();
 
@@ -18,7 +17,6 @@ export default function ChatSidebar({ chat }) {
         console.log(`Error when trying to get all chats: ${error}`);
       }
     };
-
     getAllChats();
   }, []);
 
@@ -28,7 +26,6 @@ export default function ChatSidebar({ chat }) {
 
   return (
     <div className="side-bar">
-      {/* <input className="search" type="text" placeholder = "Search" onChange={searchChat} ></input> */}
       <div className="chat-list-scroll">
         <ChatList className="chat-list" chatList={chatList} />
       </div>

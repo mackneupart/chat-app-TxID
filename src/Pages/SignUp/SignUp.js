@@ -164,11 +164,11 @@ export default function SignUp() {
             />
             <LanguageDropdown
               className="dropdown"
-              showChosen={setNativeLangs}
+              setLanguages={setNativeLangs}
             />
             <LanguageDropdown
               className="dropdown"
-              showChosen={setTargetLangs}
+              setLanguages={setTargetLangs}
             />
           </div>
         </div>

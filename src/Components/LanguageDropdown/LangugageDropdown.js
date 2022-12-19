@@ -3,9 +3,7 @@ import ListItem from "./ListItem/ListItem";
 import { getLanguages } from "../../API/API";
 import "./LanguageDropdown.css";
 
-export default function LanguageDropdown({ showChosen }) {
-  // what would be better name than 'showChosen'? Change here and in SignUp. /cema
-  const [selected, setSelected] = useState(""); // I still do not understand 'selected'. /cema
+export default function LanguageDropdown({ setLanguages }) {
   const [chosenLanguagesName, setChosenLanguagesName] = useState([]);
   const [languageOptions, setLanguageOptions] = useState([]);
   const [chosenLanguagesID, setChosenLanguagesID] = useState([]);
@@ -19,7 +17,7 @@ export default function LanguageDropdown({ showChosen }) {
 
   useEffect(() => {
     if (chosenLanguagesName) {
-      showChosen(chosenLanguagesID);
+      setLanguages(chosenLanguagesID);
     }
   }, [chosenLanguagesID]);
 
@@ -42,7 +40,7 @@ export default function LanguageDropdown({ showChosen }) {
       <select
         id="languages"
         name="languages"
-        value={selected}
+        value=""
         onChange={(e) => addToChosen(e.target.selectedOptions[0])}
       >
         <option>select language</option>
