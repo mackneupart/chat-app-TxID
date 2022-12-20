@@ -10,7 +10,7 @@ export default function SignIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogIn = async () => {
+  async function handleLogIn() {
     try {
       await logIn(username, password);
       if (getCurrentUser() !== null) {
@@ -23,7 +23,7 @@ export default function SignIn() {
     } catch (error) {
       alert(`Error while logging in! ${error.message}`);
     }
-  };
+  }
 
   const goToPasswordRequest = () => {
     navigate("passwordReset");

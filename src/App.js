@@ -16,7 +16,7 @@ initializeParse(ParseHostURL, ParseAppID, ParseJavaScriptKey);
 
 Parse.enableLocalDatastore();
 
-function App() {
+export default function App() {
   return (
     <BrowserRouter>
       <div className="App"></div>
@@ -34,4 +34,4 @@ function App() {
   );
 }
 
-export default App;
+

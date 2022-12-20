@@ -18,15 +18,15 @@ export default function SignUp() {
   const [userPic, setUserPic] = useState(null);
 
   useEffect(() => {
-    const getIcons = async () => {
+    async function getIcons() {
       try {
-        const result = await getCatIcons();
-        setCatIcons(result);
-        setUserPic(result[0]);
+        const resultIcons = await getCatIcons();
+        setCatIcons(resultIcons);
+        setUserPic(resultIcons[0]);
       } catch (error) {
         console.log(`Error when trying to read cat icons: ${error}`);
       }
-    };
+    }
     getIcons();
   }, []);
 
@@ -55,7 +55,7 @@ export default function SignUp() {
     profPic.src = catIcon.get("catPNG")._url;
   }
 
-  const handleSubmit = async function () {
+  async function handleSubmit() {
     if (checkPassword()) {
       if (isNotEmpty(nativeLangs) && isNotEmpty(targetLangs)) {
         const newUser = await createUser(
@@ -75,7 +75,7 @@ export default function SignUp() {
     } else {
       alert("Your password does not match");
     }
-  };
+  }
 
   function isNotEmpty(variable) {
     if (variable === null || variable === "" || variable.length === 0) {

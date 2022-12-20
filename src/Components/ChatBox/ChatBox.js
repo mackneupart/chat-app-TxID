@@ -6,15 +6,15 @@ import LiveMessagesAPI from "../../API/LiveMessagesAPI";
 import { getCurrentUser } from "../../API/API";
 
 export default function ChatBox({ chat }) {
-  const { messageInput, handle, status, messages, count, error, reload } =
+  const { messageInput, handle, status, messages, count, error } =
     LiveMessagesAPI(chat);
 
-  const onEnterPress = (e) => {
-    if (e.keyCode == 13 && e.shiftKey == false) {
+  function onEnterPress(e) {
+    if (e.keyCode === 13 && e.shiftKey === false) {
       e.preventDefault();
       handle.send();
     }
-  };
+  }
 
   return (
     <div className="chat-box">

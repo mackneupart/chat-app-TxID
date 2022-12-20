@@ -9,7 +9,7 @@ export default function PasswordReset() {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
-  const handlePasswordReset = async function () {
+  async function handlePasswordReset() {
     const reset = await passwordReset(email);
     if (reset) {
       setEmail("");
@@ -17,7 +17,7 @@ export default function PasswordReset() {
     } else {
       alert("No user with this email exists");
     }
-  };
+  }
 
   function goBack() {
     navigate("/");

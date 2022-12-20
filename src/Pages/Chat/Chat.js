@@ -8,15 +8,14 @@ import "./Chat.css";
 export default function Chat() {
   const { state } = useLocation();
   const chat = state.chat;
+  const [users, setUsers] = useState();
   const navigate = useNavigate();
 
-  const [users, setUsers] = useState();
-
   useEffect(() => {
-    const getUsers = async function () {
-      const u = await getUsersInChat(chat);
-      setUsers(u);
-    };
+    async function getUsers() {
+      const resultUsers = await getUsersInChat(chat);
+      setUsers(resultUsers);
+    }
     getUsers();
   }, [chat]);
 
@@ -30,9 +29,9 @@ export default function Chat() {
       }
     }
 
-    const goHome = function () {
+    function goHome() {
       navigate("/home");
-    };
+    }
 
     return (
       <div className="chat-page">
@@ -44,10 +43,10 @@ export default function Chat() {
           onClick={goHome}
         />
         <div className="chat-partner">
-          {images.map((image) => {
+          {images.map((image, index) => {
             return (
               <img
-                key={image.id}
+                key={index}
                 className="partner-pic"
                 src={image}
                 alt="Other users profile icon"

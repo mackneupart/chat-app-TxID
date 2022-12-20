@@ -9,14 +9,14 @@ export default function ChatSidebar({ chat }) {
   const [language2, setLanguage2] = useState();
 
   useEffect(() => {
-    const getAllChats = async () => {
+    async function getAllChats() {
       try {
         const resultC = await getChats(getCurrentUser());
         setChatList(resultC);
       } catch (error) {
         console.log(`Error when trying to get all chats: ${error}`);
       }
-    };
+    }
     getAllChats();
   }, []);
 

@@ -11,11 +11,11 @@ export default function ChatListItem({ chat, deleteChat }) {
   const language1 = chat.get("language1");
 
   useEffect(() => {
-    const getUsers = async function () {
+    async function getUsers() {
       const u = await getUsersInChat(chat);
       setUsers(u);
       setLanguage2(chat.get("language2"));
-    };
+    }
     getUsers();
   }, [chat]);
 
@@ -29,17 +29,17 @@ export default function ChatListItem({ chat, deleteChat }) {
       }
     }
 
-    const handleClick = () => {
+    function handleClick() {
       navigate("/Chat", {
         state: { chat: chat },
       });
-    };
+    }
 
     function handleDeleteChat() {
       deleteChat(chat);
     }
 
-    const renderLanguages = () => {
+    function renderLanguages() {
       if (language2) {
         return (
           <>
@@ -48,7 +48,7 @@ export default function ChatListItem({ chat, deleteChat }) {
         );
       }
       return <>{language1}</>;
-    };
+    }
 
     return (
       <div>
@@ -64,10 +64,10 @@ export default function ChatListItem({ chat, deleteChat }) {
 
         <div className="chat-list-item-box" onClick={handleClick}>
           <div className="chat-list-item-img-box">
-            {images.map((image) => {
+            {images.map((image, index) => {
               return (
                 <img
-                  key={image.id}
+                  key={index}
                   className="chat-list-item-img"
                   src={image}
                   alt="Other users profile icon"

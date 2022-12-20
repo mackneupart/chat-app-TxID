@@ -9,9 +9,9 @@ export default function LanguageDropdown({ setLanguages }) {
   const [chosenLanguagesID, setChosenLanguagesID] = useState([]);
 
   useEffect(() => {
-    const getLanguagesOptions = async function () {
+    async function getLanguagesOptions() {
       setLanguageOptions(await getLanguages());
-    };
+    }
     getLanguagesOptions();
   }, []);
 
@@ -44,8 +44,8 @@ export default function LanguageDropdown({ setLanguages }) {
         onChange={(e) => addToChosen(e.target.selectedOptions[0])}
       >
         <option>select language</option>
-        {languageOptions.map((language) => (
-          <option key={language.id} value={language.id}>
+        {languageOptions.map((language, index) => (
+          <option key={language.id} value={language.id} index={index}>
             {language.get("name")}
           </option>
         ))}
