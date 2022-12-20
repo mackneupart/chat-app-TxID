@@ -30,19 +30,19 @@ export default function Home() {
   });
 
   useEffect(() => {
-    const getAllChats = async () => {
+    async function getAllChats() {
       try {
-        const resultC = await getChats();
-        setChatList(resultC);
+        const resultChats = await getChats();
+        setChatList(resultChats);
       } catch (error) {
         console.log(`Error when trying to get all chats: ${error}`);
       }
-    };
+    }
     getAllChats();
   }, []);
 
   useEffect(() => {
-    const getUserData = async function () {
+    async function getUserData() {
       try {
         await getCurrentUser().get("profilePicture").fetch();
         const picture = getCurrentUser()
@@ -64,17 +64,18 @@ export default function Home() {
           `Error when trying to get data for the home page: ${error}`
         );
       }
-    };
+    }
     getUserData();
   }, []);
 
   if (chatList) {
-    const handleLogOut = async function () {
-      await logOut();
-      navigate("/");
-    };
+    async function handleLogOut() {
+      if (await logOut()) {
+        navigate("/");
+      }
+    }
 
-    const handleDeleteUser = async function () {
+    async function handleDeleteUser() {
       const prompt =
         "Are you sure you want to delete your account? Press OK to delete.";
       if (window.confirm(prompt)) {
@@ -85,10 +86,13 @@ export default function Home() {
             "Your user was succesfully deleted. You're welcome back anytime!"
           );
         } catch (error) {
+          alert(
+            `Your user wasn't deleted properly. Please try again. ${error}`
+          );
           console.log(`Error when trying to delte user! ${error}`);
         }
       }
-    };
+    }
 
     async function handleDeleteChat(chat) {
       const prompt = `Are you sure you want to delete this chat?`;
@@ -103,7 +107,7 @@ export default function Home() {
       }
     }
 
-    const addChat = async function () {
+    async function addChat() {
       try {
         const chat = await createChat();
         if (chat) {
@@ -116,9 +120,9 @@ export default function Home() {
       } catch (error) {
         console.log(`Error when adding a new chat: ${error}`);
       }
-    };
+    }
 
-    const addGroupChat = async function () {
+    async function addGroupChat() {
       try {
         const chat = await createGroupChat();
         if (chat) {
@@ -131,20 +135,20 @@ export default function Home() {
       } catch (error) {
         console.log(`Error when adding a new group chat: ${error}`);
       }
-    };
+    }
 
-    const renderLanguages = (langType) => {
+    function renderLanguages(languageType) {
       var str = "";
       var separator = "";
-      for (var key in langType) {
-        const lang = langType[key];
+      for (var key in languageType) {
+        const lang = languageType[key];
         str = str + separator + lang.get("name");
         separator = ", ";
       }
       return str;
-    };
+    }
 
-    const renderContent = () => {
+    function renderContent() {
       return (
         <>
           <div className="user-box">
@@ -206,7 +210,7 @@ export default function Home() {
           </div>
         </>
       );
-    };
+    }
 
     return (
       <div className="home-page background">
