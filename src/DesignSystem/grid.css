@@ -1,17 +1,3 @@
-/*
-:root * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-:root html,
-body {
-  /*important to stay % and not use vh*/ /*
-  height: 100%;
-  width: 100%;
-} */
-
 html,
 body {
   box-sizing: border-box;
@@ -40,51 +26,10 @@ body {
 
 .white-box {
   height: 100%;
+  width: 100%;
   background-color: white;
   grid-column-start: 2;
   grid-row-start: 2;
   /*styling concerning its children*/
   display: grid;
-} 
-
-
-
-/**** css to decide start of the parent element ****/ /*
-.start-c-2-r-2 {
-  grid-column-start: 2;
-  grid-row-start: 2;
 }
-
-.start-r-4 {
-    grid-row-start: 4;
-}
-
-/**** css to decide the columns & rows of the child element ****/ /*
-.column-one-row-one,
-.home-page {
-  /*styling concerning its children*/ /*
-  display: grid;
-  grid-template-columns: 1fr 8fr 1fr;
-  grid-template-rows: 1fr 3fr 1fr;
-}
-
-.column-two-row-one,
-.box {
-  /*styling concerning its children*/ /*
-  display: grid;
-  grid-template-columns: 1fr 10fr 1fr 10fr 1fr;
-  grid-template-rows: 1fr 15fr 1fr;
-}
-
-.row-three,
-.user-box {
-  /*styling concerning its children*/ /*
-  display: grid;
-  align-items: center;
-  justify-content: center;
-  grid-template-rows: 1fr 5fr 1fr 3fr 1fr 2fr 1fr;
-}
-
-.small-box {
-}
- */

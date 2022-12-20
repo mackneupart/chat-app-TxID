@@ -1,22 +1,14 @@
-/*
-TO DO
-  tablet size: don't change anything
-  smartphone size: Remove the background, so the purple box fills out the whole screen
-*/
-
-
 .sign-in-page {
   height: 100vh;
   /*styling concerning its children*/
   display: grid;
   grid-template-columns: 30% 40% 30%;
-  grid-template-rows: 10% 80% 10%;
+  grid-template-rows: 5% 90% 5%;
 }
 
 .sign-in-box {
   /*styling concerning its children*/
   /*
-
     figuring out grid
         top             20%
         logo            10%
@@ -28,45 +20,35 @@ TO DO
         logIn           10%
         signUp          10%
         bottom          20%
-    
     */
-  grid-template-rows: 20% 10% 15% 10% 5% 10% 10% 20%;
+  grid-template-rows: 20% 10% 15% 10% 5% 8% 6% 26%;
   align-items: center;
   justify-items: center;
+  row-gap: 2%;
 }
-
-/* .header {
-  grid-row-start: 2;
-  /*styling concerning its children*//*
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-} */
 
 .header-logo {
   grid-row-start: 2;
-  /* logo is taking up 10% of the vh and 40% of the vw */
   width: calc(0.3 * 20vw);
-  height:auto;
-  /*height: calc(0.4 * 20vh);*/
+  height: auto;
+  margin-bottom: 10%;
 }
 .header-welcome {
   grid-row-start: 3;
   font-size: calc(0.4 * 15vw);
-  color: aliceblue; /*************need to change this color**********/
+  color: white;
   text-shadow: 2px 2px black;
   margin-block: 0;
-  padding:0;
+  padding: 0;
+  margin-bottom: 10%;
 }
-
 
 .inputs {
   grid-row-start: 4;
   /*styling concerning its children*/
   display: grid;
   grid-template-rows: 45% 45%;
-  grid-row-gap: 10%;
+  grid-row-gap: 30%;
   align-items: center;
   justify-content: center;
 }
@@ -76,23 +58,26 @@ TO DO
 }
 
 .input-field {
-  border-radius: 10%;
+  border-radius: 2px;
   width: calc(0.4 * 50vw);
+  height: inherit;
   margin-left: auto;
 }
 
 .input-logo {
+  width: 30px;
   margin-right: auto;
 }
 
 .forgot-pass {
-  /* margin-right: auto;
-    margin-left: auto;
-    margin-bottom: 10px;
-    max-width: max-content; */
   grid-row-start: 5;
+  margin-top: 3%;
   align-self: center;
   justify-self: center;
+  text-decoration: underline;
+}
+.forgot-pass:hover {
+  cursor: pointer;
 }
 
 .login-button {
@@ -107,11 +92,4 @@ TO DO
   /*styling concerning its children*/
   align-items: center;
   justify-content: center;
-}
-
-.error {
-  margin-right: auto;
-  margin-left: auto;
-  max-width: max-content;
-  color: red;
 }

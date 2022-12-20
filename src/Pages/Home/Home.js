@@ -1,214 +1,231 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css";
 import "../../DesignSystem/grid.css";
-import ChatList from "../../Components/home/ChatList";
+import ChatList from "../../Components/ChatList/ChatList";
 import Button from "../../Components/Button/Button";
 import { useNavigate } from "react-router-dom";
 import errorKitten from "../../DesignSystem/errorKitten.jpg";
 import {
-  getProfilePicture,
-  getRandomUser,
-  logOutUser,
-  readCurrentUser,
-  readChats2,
-  createChat2,
+  logOut,
+  getCurrentUser,
+  getChats,
+  createChat,
+  deleteUser,
+  deleteChat,
+  createGroupChat,
+  getChosenLanguages,
 } from "../../API/API";
 
 export default function Home() {
   const navigate = useNavigate();
   const [chatList, setChatList] = useState([]);
-  const [currentUser, setCurrentUser] = useState(null);
-  const [userPic, setUserPic] = useState(null);
-  const [otherUser, setOtherUser] = useState();
-  const [chats, setChats] = useState();
+  const [userPicture, setUserPicture] = useState();
+  const [targetLanguages, setTargetLanguages] = useState({});
+  const [nativeLanguages, setNativeLanguages] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    /**
-     * create a variable to manage when the userdata should be changed
-     * should be made when the settings page/button has been created
-     */
-    const getCurrentUser = async () => {
-      try {
-        const resultU = await readCurrentUser();
-        const resultP = await getProfilePicture();
-        const resultR = await getRandomUser();
-
-        setCurrentUser(resultU);
-        setUserPic(resultP[0]);
-        setOtherUser(resultR);
-      } catch (error) {
-        console.log(`Error when trying to read current user: ${error}`);
-      }
-    };
-    getCurrentUser();
-  }, []); //right now it will only render once. When settings have been implementet, change this
+    if (getCurrentUser() === null) {
+      navigate("/");
+    }
+  });
 
   useEffect(() => {
-    const getAllChats = async () => {
+    async function getAllChats() {
       try {
-        if (currentUser) {
-          console.log("this is random user");
-          console.log(otherUser);
-          const resultC = await readChats2(currentUser);
-          setChats(resultC);
-          setChatList(resultC);
-        }
+        const resultChats = await getChats();
+        setChatList(resultChats);
       } catch (error) {
         console.log(`Error when trying to get all chats: ${error}`);
       }
-    };
-
+    }
     getAllChats();
-  }, [currentUser]);
+  }, []);
 
-  /*   useEffect(() => {
-    if (chats) {
-      console.log("this is resultC - users2");
-      console.log(chats[0]);
-      console.log(chats[0].get("users2")[0].get("username"));
-      //console.log(chats[0].relation("usersObjects"));
+  useEffect(() => {
+    async function getUserData() {
+      try {
+        await getCurrentUser().get("profilePicture").fetch();
+        const picture = getCurrentUser()
+          .get("profilePicture")
+          .get("catPNG")._url;
+        setUserPicture(picture);
+        const resultTarget = await getChosenLanguages(
+          getCurrentUser(),
+          "targetLangs"
+        );
+        const resultNative = await getChosenLanguages(
+          getCurrentUser(),
+          "nativeLangs"
+        );
+        setTargetLanguages(resultTarget);
+        setNativeLanguages(resultNative);
+      } catch (error) {
+        console.log(
+          `Error when trying to get data for the home page: ${error}`
+        );
+      }
     }
-  }, [chats]); */
+    getUserData();
+  }, []);
 
-  const getRanUser = async () => {
-    try {
-      setOtherUser(await getRandomUser());
-    } catch (error) {
-      console.log(`Error when trying to get random user user: ${error}`);
-    }
-  };
-
-  const logOut = async function () {
-    try {
-      if (logOutUser()) {
-        setCurrentUser(null);
+  if (chatList) {
+    async function handleLogOut() {
+      if (await logOut()) {
         navigate("/");
       }
-    } catch (error) {
-      console.log(`Error when trying to log out user! ${error}`);
     }
-  };
 
-  function handleNewChat() {
-    navigate("/Chat");
-    // should also give props about which chat was clicked or if 'new chat' was clicked
-  }
+    async function handleDeleteUser() {
+      const prompt =
+        "Are you sure you want to delete your account? Press OK to delete.";
+      if (window.confirm(prompt)) {
+        try {
+          await deleteUser(getCurrentUser());
+          navigate("/");
+          alert(
+            "Your user was succesfully deleted. You're welcome back anytime!"
+          );
+        } catch (error) {
+          alert(
+            `Your user wasn't deleted properly. Please try again. ${error}`
+          );
+          console.log(`Error when trying to delte user! ${error}`);
+        }
+      }
+    }
 
-  function addChat() {
-    getRanUser();
-    console.log("this is random users state: ", otherUser);
-    console.log("this is random users id: ", otherUser.id);
+    async function handleDeleteChat(chat) {
+      const prompt = `Are you sure you want to delete this chat?`;
+      if (window.confirm(prompt)) {
+        const deletedChat = await deleteChat(chat);
+        if (deletedChat) {
+          const resultC = await getChats(getCurrentUser());
+          setChatList(resultC);
+        } else {
+          alert("The chat wasn't deleted. Try Again ;)");
+        }
+      }
+    }
 
-    console.log("addchat clicked and entered");
-    /*  setChatList([
-      ...chatList,
-      {
-        chat: [
-          {
-            id: randomUser.id,
-            username: randomUser.get("username"),
-            TL: randomUser.get("targetLanguage"),
-            NL: randomUser.get("nativeLanguage"),
-            image: userPic.get("catPNG")._url,
-          },
-        ],
-      },
-    ]); */
+    async function addChat() {
+      try {
+        setLoading(true);
+        const chat = await createChat();
+        setLoading(false);
+        if (chat) {
+          navigate("/Chat", {
+            state: { chat: chat },
+          });
+        } else {
+          alert(`You have matched with all available users :D `);
+        }
+      } catch (error) {
+        console.log(`Error when adding a new chat: ${error}`);
+      }
+    }
 
-    createChat2(currentUser, otherUser);
+    async function addGroupChat() {
+      try {
+        const chat = await createGroupChat();
+        if (chat) {
+          navigate("/Chat", {
+            state: { chat: chat },
+          });
+        } else {
+          alert(`You have matched with all available users :D `);
+        }
+      } catch (error) {
+        console.log(`Error when adding a new group chat: ${error}`);
+      }
+    }
 
-    navigate("/Chat", {
-      state: { otherUser: otherUser, currentUser: currentUser },
-    });
-  }
+    function renderLanguages(languageType) {
+      var str = "";
+      var separator = "";
+      for (var key in languageType) {
+        const lang = languageType[key];
+        str = str + separator + lang.get("name");
+        separator = ", ";
+      }
+      return str;
+    }
 
-  function addGroupChat() {
-    setChatList([
-      ...chatList,
-      {
-        groupChat: [
-          {
-            id: Math.random().toString(),
-            username: "Kitty",
-            TL: "Spanish",
-            NL: "Danish",
-            image:
-              "https://th-thumbnailer.cdn-si-edu.com/bZAar59Bdm95b057iESytYmmAjI=/1400x1050/filters:focal(594x274:595x275)/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/95/db/95db799b-fddf-4fde-91f3-77024442b92d/egypt_kitty_social.jpg",
-            interest: "Knitting",
-          },
-          {
-            id: Math.random().toString(),
-            username: "Kat",
-            TL: "Spanish",
-            NL: "Danish",
-            image:
-              "https://i.pinimg.com/originals/ed/08/bf/ed08bf6bff9e2e870d96b976c23829c8.jpg",
-
-            interest: "Knitting",
-          },
-        ],
-      },
-    ]);
-  }
-
-  function settingAlert() {
-    alert("Settings Button was pressed!");
-  }
-
-  return (
-    <div className="home-page background">
-      <div className="home-box purple-box">
-        <div className="userBox white-box">
-          <div className="userImage">
-            <img
-              className="circle"
-              src={userPic ? userPic.get("catPNG")._url : errorKitten}
-              alt="the users profile pic"
-            />
-          </div>
-          <div className="userInfo">
-            <div className="userInfoDetail">Username</div>
-            <div className="userInfoPlaceholder">
-              {currentUser !== null
-                ? currentUser.get("username")
-                : "not working"}
+    function renderContent() {
+      return (
+        <>
+          <div className="user-box">
+            <div className="user-image">
+              <img
+                className="circle"
+                src={getCurrentUser() ? userPicture : errorKitten}
+                alt="the users profile pic"
+              />
             </div>
-            <div className="userInfoDetail">Email</div>
-            <div className="userInfoPlaceholder">
-              {currentUser !== null ? currentUser.get("email") : "not working"}
+            <div className="user-info">
+              <div className="user-info-detail">Username</div>
+              <div className="user-info-placeholder">
+                {getCurrentUser() !== null
+                  ? getCurrentUser().get("username")
+                  : "not working"}
+              </div>
+              <div className="user-info-detail">Target Language</div>
+              <div className="user-info-placeholder">
+                {targetLanguages && renderLanguages(targetLanguages)}
+              </div>
+              <div className="user-info-detail">Native Language</div>
+              <div className="user-info-placeholder">
+                {nativeLanguages && renderLanguages(nativeLanguages)}
+              </div>
             </div>
-            <div className="userInfoDetail">Target Language</div>
-            <div className="userInfoPlaceholder">
-              {currentUser !== null
-                ? currentUser.get("targetLanguage")
-                : "not working"}
-            </div>
-            <div className="userInfoDetail">Native Language</div>
-            <div className="userInfoPlaceholder">
-              {currentUser !== null
-                ? currentUser.get("nativeLanguage")
-                : "not working"}
+            <div className="user-buttons">
+              <Button text="Delete profile" click={handleDeleteUser} />
+              <Button text="Log out" click={handleLogOut} />
             </div>
           </div>
-          <div className="user-buttons">
-            <Button text="Settings" click={settingAlert} />
-            <Button text="Log out" click={logOut} />
+          <div className="chat-overview">
+            <div className="chat">
+              {chatList.length !== 0 ? (
+                <ChatList chatList={chatList} deleteChat={handleDeleteChat} />
+              ) : (
+                <div className="no-chat">
+                  <p>You currently have no active chats.</p>
+                  <p>
+                    Press 'New Chat' to match with a language learner who wants
+                    to learn your native language, and speaks your target
+                    language.
+                  </p>
+                  <p>
+                    Pres 'New Group Chat' to chat with other learners who share
+                    your target language.
+                  </p>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-        <div className="chatOverview">
-          <div className="chat">
-            <ChatList chatList={chatList} currentUser={currentUser}/>
-          </div>
-          <div className="newChats">
-            <div className="newChat">
+          <div className="new-chats">
+            <div className="new-chat">
               <Button text="New Chat" click={addChat} />
             </div>
-            <div className="newGroupChat">
+            <div className="new-group-chat">
               <Button text="New Group Chat" click={addGroupChat} />
             </div>
           </div>
-        </div>
+        </>
+      );
+    }
+
+    return (
+      <div className="home-page background">
+        {loading ? (
+          <div className="loading-overlay">
+            <p className="loading-text">Loading... We are finding another language learner for you to chat with.</p>
+          </div>
+        ) : (
+          <></>
+        )}
+        <div className="home-box purple-box">{chatList && renderContent()}</div>
       </div>
-    </div>
-  );
+    );
+  }
 }

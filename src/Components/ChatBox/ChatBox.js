@@ -1,92 +1,84 @@
 import Message from "../Message/Message";
-import React, { useEffect, useState } from "react";
-import { useParseQuery } from "@parse/react";
-import Parse from "parse";
+import Button from "../Button/Button";
+import "../Button/Button.css";
 import "./ChatBox.css";
+import LiveMessagesAPI from "../../API/LiveMessagesAPI";
+import { getCurrentUser } from "../../API/API";
+import { useEffect, useRef } from "react";
 
-export default function ChatBox({ currentUser, otherUser }) {
-  const [messageInput, setMessageInput] = useState("");
+export default function ChatBox({ chat }) {
+  const { messageInput, handle, status, messages, count, error } =
+    LiveMessagesAPI(chat);
+  const newMessage = useRef(null);
 
-  const parseQuery = new Parse.Query("Message");
-  parseQuery.containedIn("sender", [currentUser.id, otherUser.id]);
-  parseQuery.containedIn("receiver", [currentUser.id, otherUser.id]);
-
-  parseQuery.ascending("createdAt");
-  parseQuery.includeAll();
-
-  // Declare hook and variables to hold hook responses
-  const { isLive, isLoading, isSyncing, results, count, error, reload } =
-    useParseQuery(parseQuery, {
-      enableLocalDatastore: true, // Enables cache in local datastore (default: true)
-      enableLiveQuery: true, // Enables live query for real-time update (default: true)
-    });
-
-  // Message sender handler
-  const sendMessage = async () => {
-    try {
-      const messageText = messageInput;
-
-      if (messageText !== "") {
-        let Message = new Parse.Object("Message");
-        console.log("Message");
-        Message.set("text", messageText);
-        Message.set("sender", currentUser);
-        Message.set("receiver", otherUser);
-        Message.save();
-        console.log("is live: " + isLive);
-        console.log("results: ", results);
-        setMessageInput("");
-      }
-    } catch (error) {
-      alert(error);
+  useEffect(() => {
+    if (newMessage) {
+      newMessage.current.addEventListener("DOMNodeInserted", (event) => {
+        const { currentTarget: target } = event;
+        target.scroll({ top: target.scrollHeight, behavior: "smooth" });
+      });
     }
-  };
+  }, [messages]);
+
+  function onEnterPress(e) {
+    if (e.keyCode === 13 && e.shiftKey === false) {
+      e.preventDefault();
+      handle.send();
+    }
+  }
 
   return (
     <div className="chat-box">
-      {results && (
-        <div className="message-list">
-          {results
-            .sort((a, b) => a.get("createdAt") > b.get("createdAt"))
-            .map((result) => (
-              <div
-                key={result.id}
-                className={
-                  result.get("sender").id === currentUser.id
-                    ? "message_sent"
-                    : "message_received"
-                }
-              >
-                <Message message={result} currentUser={currentUser} />
-              </div>
-            ))}
-        </div>
-      )}
-      <div className="new_message">
-        <h2 className="new_message_title">New message</h2>
-        <input
-          className="form_input"
-          value={messageInput}
-          onChange={(event) => setMessageInput(event.target.value)}
-          placeholder={"Your message..."}
-          size="large"
-        />
-        <button
-          type="primary"
-          className="form_button"
-          color={"#208AEC"}
-          size={"large"}
-          onClick={sendMessage}
-        >
-          Send message
-        </button>
+      <div className="threat" ref={newMessage}>
+        {messages && (
+          <div className="message-list">
+            {messages
+              .sort((a, b) => a.get("createdAt") > b.get("createdAt"))
+              .map((message) => (
+                <div
+                  key={message.id}
+                  className={
+                    message.get("sender").id === getCurrentUser().id
+                      ? "message_sent"
+                      : "message_received"
+                  }
+                >
+                  <Message message={message} />
+                </div>
+              ))}
+          </div>
+        )}
       </div>
-      <div>
-        {isLoading && <p>{"Loading…"}</p>}
-        {isSyncing && <p>{"Syncing…"}</p>}
-        {isLive ? <p>{"Status: Live"}</p> : <p>{"Status: Offline"}</p>}
-        {error && <p>{error.message}</p>}
-        {count && <p>{`Count: ${count}`}</p>}
+
+      <div className="sending-messages">
+        <form className="input-form" action="/form/submit" method="GET">
+          <textarea
+            className="input-area"
+            type="submit"
+            cols="60"
+            rows="5"
+            value={messageInput}
+            onChange={handle.change}
+            onKeyDown={onEnterPress}
+            placeholder={"Your message..."}
+          ></textarea>
+        </form>
+
+        <Button className="send-btn" text="Send" click={handle.send} />
+
+        <img
+          key="iconCat"
+          className="cat-icon"
+          src="../Icons/welcome-cat.png"
+          alt="welcome-cat-icon"
+        />
+        <div className="server-info">
+          {status.isLoading && <p>{"Loading…"}</p>}
+          {status.isSyncing && <p>{"Syncing…"}</p>}
+          {status.isLive ? <p>{"Status: Live"}</p> : <p>{"Status: Offline"}</p>}
+          {error && <p>{error.message}</p>}
+          {count && <p>{`Count: ${count}`}</p>}
+        </div>
       </div>
     </div>
   );
