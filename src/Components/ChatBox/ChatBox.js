@@ -4,10 +4,21 @@ import "../Button/Button.css";
 import "./ChatBox.css";
 import LiveMessagesAPI from "../../API/LiveMessagesAPI";
 import { getCurrentUser } from "../../API/API";
+import { useEffect, useRef } from "react";
 
 export default function ChatBox({ chat }) {
   const { messageInput, handle, status, messages, count, error } =
     LiveMessagesAPI(chat);
+  const newMessage = useRef(null);
+
+  useEffect(() => {
+    if (newMessage) {
+      newMessage.current.addEventListener("DOMNodeInserted", (event) => {
+        const { currentTarget: target } = event;
+        target.scroll({ top: target.scrollHeight, behavior: "smooth" });
+      });
+    }
+  }, [messages]);
 
   function onEnterPress(e) {
     if (e.keyCode === 13 && e.shiftKey === false) {
@@ -18,7 +29,7 @@ export default function ChatBox({ chat }) {
 
   return (
     <div className="chat-box">
-      <div className="threat">
+      <div className="threat" ref={newMessage}>
         {messages && (
           <div className="message-list">
             {messages
