@@ -45,7 +45,7 @@ export async function logIn(username, password) {
 
 export async function logOut() {
   try {
-    await Parse.User.logOut();
+    return await Parse.User.logOut();
   } catch (error) {
     console.log(`Error logging out! ${error}`);
   }
@@ -109,9 +109,10 @@ export async function deleteUser(user) {
 }
 
 export async function createChat() {
-  const otherUser = await getNonMatchedUsers();
-  if (otherUser.length > 0) {
-    const users = [getCurrentUser(), otherUser[0]];
+  const nonMatchChat = await nonMatchedChatUsers();
+  const otherUsers = await matchLanguages(nonMatchChat);
+  if (otherUsers.length > 0) {
+    const users = [getCurrentUser(), otherUsers[0]];
     const [lan1, lan2] = await findCommonLanguages(users);
     try {
       const chat = new Parse.Object("Chat");
@@ -247,10 +248,7 @@ export function getCurrentUser() {
   return Parse.User.current();
 }
 
-async function getNonMatchedUsers() {
-  const currentUser = getCurrentUser();
-  const targetLanguages = await getRelationObjects(currentUser, "targetLangs");
-  const nativeLanguages = await getRelationObjects(currentUser, "nativeLangs");
+async function nonMatchedChatUsers() {
   const chats = await getChats();
   const userNames = new Set();
   for (let chat of chats) {
@@ -259,16 +257,53 @@ async function getNonMatchedUsers() {
       userNames.add(user.get("username"));
     }
   }
+  userNames.add(getCurrentUser().get("username"))
   const userNamesArray = [...userNames];
   try {
     const usersQuery = new Parse.Query("User");
     usersQuery.notContainedIn("username", userNamesArray);
-    for (let key in targetLanguages) {
-      usersQuery.equalTo("nativeLangs", targetLanguages[key]);
+    return await usersQuery.find();
+  } catch (error) {
+    console.log(
+      `Error when trying to get all non matched users: ${error.message}`
+    );
+  }
+}
+
+function createArray(object, attribute) {
+  var array = [];
+  for (let key in object) {
+    array.push(object[key].get(attribute));
+  }
+  return array;
+}
+
+async function matchLanguages(users) {
+  const currentUser = getCurrentUser();
+  const targetLanguages = await getRelationObjects(currentUser, "targetLangs");
+  const nativeLanguages = await getRelationObjects(currentUser, "nativeLangs");
+  const currentTargetLanguages = createArray(targetLanguages, "name");
+  const currentNativeLanguages = createArray(nativeLanguages, "name");
+  var includeUsers = [];
+  for (let key in users) {
+    const nativeLanguages = await getRelationObjects(users[key], "nativeLangs");
+    const userNativeLanguages = createArray(nativeLanguages, "name");
+    const targetLanguages = await getRelationObjects(users[key], "targetLangs");
+    const userTargetLanguages = createArray(targetLanguages, "name");
+    const existsTarget = currentTargetLanguages.some(
+      (language) => userNativeLanguages.indexOf(language) >= 0
+    );
+    const existsNative = currentNativeLanguages.some(
+      (language) => userTargetLanguages.indexOf(language) >= 0
+    );
+    if (existsTarget || existsNative) {
+      let username = users[key].get("username");
+      includeUsers.push(username);
     }
-    for (let key in nativeLanguages) {
-      usersQuery.equalTo("targetLangs", nativeLanguages[key]);
-    }
+  }
+  try {
+    const usersQuery = new Parse.Query("User");
+    usersQuery.containedIn("username", includeUsers);
     return await usersQuery.find();
   } catch (error) {
     console.log(
