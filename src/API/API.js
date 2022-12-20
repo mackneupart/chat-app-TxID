@@ -109,8 +109,8 @@ export async function deleteUser(user) {
 }
 
 export async function createChat() {
-  const nonMatchChat = await nonMatchedChatUsers();
-  const otherUsers = await matchLanguages(nonMatchChat);
+  const availableUsers = await nonMatchedUsers();
+  const otherUsers = await matchLanguages(availableUsers);
   if (otherUsers.length > 0) {
     const users = [getCurrentUser(), otherUsers[0]];
     const [lan1, lan2] = await findCommonLanguages(users);
@@ -248,7 +248,7 @@ export function getCurrentUser() {
   return Parse.User.current();
 }
 
-async function nonMatchedChatUsers() {
+async function nonMatchedUsers() {
   const chats = await getChats();
   const userNames = new Set();
   for (let chat of chats) {
@@ -280,21 +280,21 @@ function createArray(object, attribute) {
 
 async function matchLanguages(users) {
   const currentUser = getCurrentUser();
-  const targetLanguages = await getRelationObjects(currentUser, "targetLangs");
-  const nativeLanguages = await getRelationObjects(currentUser, "nativeLangs");
-  const currentTargetLanguages = createArray(targetLanguages, "name");
-  const currentNativeLanguages = createArray(nativeLanguages, "name");
+  const currentTarget = await getRelationObjects(currentUser, "targetLangs");
+  const currentNative = await getRelationObjects(currentUser, "nativeLangs");
+  const currentTargetLanguages = createArray(currentTarget, "name");
+  const currentNativeLanguages = createArray(currentNative, "name");
   var includeUsers = [];
   for (let key in users) {
-    const nativeLanguages = await getRelationObjects(users[key], "nativeLangs");
-    const userNativeLanguages = createArray(nativeLanguages, "name");
-    const targetLanguages = await getRelationObjects(users[key], "targetLangs");
-    const userTargetLanguages = createArray(targetLanguages, "name");
+    const otherNative = await getRelationObjects(users[key], "nativeLangs");
+    const otherNativeLanguages = createArray(otherNative, "name");
+    const otherTarget = await getRelationObjects(users[key], "targetLangs");
+    const otherTargetLanguages = createArray(otherTarget, "name");
     const existsTarget = currentTargetLanguages.some(
-      (language) => userNativeLanguages.indexOf(language) >= 0
+      (language) => otherNativeLanguages.indexOf(language) >= 0
     );
     const existsNative = currentNativeLanguages.some(
-      (language) => userTargetLanguages.indexOf(language) >= 0
+      (language) => otherTargetLanguages.indexOf(language) >= 0
     );
     if (existsTarget || existsNative) {
       let username = users[key].get("username");
