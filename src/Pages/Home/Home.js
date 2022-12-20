@@ -22,6 +22,7 @@ export default function Home() {
   const [userPicture, setUserPicture] = useState();
   const [targetLanguages, setTargetLanguages] = useState({});
   const [nativeLanguages, setNativeLanguages] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (getCurrentUser() === null) {
@@ -109,7 +110,9 @@ export default function Home() {
 
     async function addChat() {
       try {
+        setLoading(true);
         const chat = await createChat();
+        setLoading(false);
         if (chat) {
           navigate("/Chat", {
             state: { chat: chat },
@@ -214,6 +217,13 @@ export default function Home() {
 
     return (
       <div className="home-page background">
+        {loading ? (
+          <div className="loading-overlay">
+            <p className="loading-text">Loading... We are finding another language learner for you to chat with.</p>
+          </div>
+        ) : (
+          <></>
+        )}
         <div className="home-box purple-box">{chatList && renderContent()}</div>
       </div>
     );
