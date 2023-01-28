@@ -14,24 +14,10 @@ export async function createUser(
     User.set("password", password);
     User.set("email", email);
     User.set("profilePicture", profilePicture);
-    const nativeLangsRelation = User.relation("nativeLangs");
-    nativeLangsRelation.add(await getLanguagesFromIDs(nativeLangs));
-    const targetLangsRelation = User.relation("targetLangs");
-    targetLangsRelation.add(await getLanguagesFromIDs(targetLangs));
     await User.signUp();
     return true;
   } catch (error) {
     alert(`Error when trying to create a new user! ${error}`);
-  }
-}
-
-export async function getLanguagesFromIDs(ids) {
-  const languageQuery = new Parse.Query("Language");
-  try {
-    languageQuery.containedIn("objectId", ids);
-    return await languageQuery.find();
-  } catch (error) {
-    console.log(`Error while getting language from ID: ${error.message}`);
   }
 }
 
@@ -257,7 +243,7 @@ async function nonMatchedUsers() {
       userNames.add(user.get("username"));
     }
   }
-  userNames.add(getCurrentUser().get("username"))
+  userNames.add(getCurrentUser().get("username"));
   const userNamesArray = [...userNames];
   try {
     const usersQuery = new Parse.Query("User");

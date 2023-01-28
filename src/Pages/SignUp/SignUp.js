@@ -12,8 +12,7 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [nativeLangs, setNativeLangs] = useState([]);
-  const [targetLangs, setTargetLangs] = useState([]);
+
   const [catIcons, setCatIcons] = useState(null);
   const [userPic, setUserPic] = useState(null);
 
@@ -57,31 +56,13 @@ export default function SignUp() {
 
   async function handleSubmit() {
     if (checkPassword()) {
-      if (isNotEmpty(nativeLangs) && isNotEmpty(targetLangs)) {
-        const newUser = await createUser(
-          username,
-          password,
-          email,
-          nativeLangs,
-          targetLangs,
-          userPic
-        );
-        if (newUser) {
-          navigate("/home");
-        }
-      } else {
-        alert("You need at least one native and target language.");
+      const newUser = await createUser(username, password, email, userPic);
+      if (newUser) {
+        navigate("/home");
       }
     } else {
       alert("Your password does not match");
     }
-  }
-
-  function isNotEmpty(variable) {
-    if (variable === null || variable === "" || variable.length === 0) {
-      return false;
-    }
-    return true;
   }
 
   function checkPassword() {
@@ -93,8 +74,9 @@ export default function SignUp() {
   }
 
   return (
-    <div className="sign-up-page">
-      <div className="purple-box profile-box">
+    <div>
+      <div className="purple-box">
+        <h1>SIGN UP FORM</h1>
         <img
           className="selected-pic"
           id="ProfilePicture"
@@ -105,72 +87,37 @@ export default function SignUp() {
         <div className="picture-box">
           <div className="picture-selection">{makeProfileSelection()}</div>
         </div>
-      </div>
-      <div className="profile-info-box">
-        <div className="user-inputs">
-          <div className="profile-info-labels">
-            <div>
-              <label>Username:</label>
-            </div>
-            <div>
-              <label>E-mail :</label>
-            </div>
-            <div>
-              <label>Password: </label>
-            </div>
-            <div>
-              <label>Repeat password: </label>
-            </div>
-            <div>
-              <label>What is your native language</label>
-            </div>
-            <div>
-              <label>What languages do you want to learn?</label>
-            </div>
-          </div>
-
-          <div className="profile-info-inputs">
-            <input
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-              placeholder="Username"
-              size="large"
-              className="form_input"
-            />
-            <input
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              placeholder="email"
-              size="large"
-              className="form_input"
-            />
-            <input
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              placeholder="password"
-              size="large"
-              type="password"
-            />
-            <input
-              value={repeatPassword}
-              onChange={(event) => setRepeatPassword(event.target.value)}
-              placeholder="repeat password"
-              size="large"
-              type="password"
-            />
-            <LanguageDropdown
-              className="dropdown"
-              setLanguages={setNativeLangs}
-            />
-            <LanguageDropdown
-              className="dropdown"
-              setLanguages={setTargetLangs}
-            />
-          </div>
+        <div className="profile-info-box">
+          <input
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
+            placeholder="Username"
+            size="large"
+            className="form_input"
+          />
+          <input
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            placeholder="email"
+            size="large"
+            className="form_input"
+          />
+          <input
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            placeholder="password"
+            size="large"
+            type="password"
+          />
+          <input
+            value={repeatPassword}
+            onChange={(event) => setRepeatPassword(event.target.value)}
+            placeholder="repeat password"
+            size="large"
+            type="password"
+          />
         </div>
-        <div className="submit-button">
-          <Button text="Sign Up" click={handleSubmit} />
-        </div>
+        <Button text="Sign Up" click={handleSubmit} />
       </div>
     </div>
   );
