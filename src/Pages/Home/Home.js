@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css";
-import "../../DesignSystem/grid.css";
 import ChatList from "../../Components/ChatList/ChatList";
 import Button from "../../Components/Button/Button";
 import { useNavigate } from "react-router-dom";
@@ -48,7 +47,7 @@ export default function Home() {
         await getCurrentUser().get("profilePicture").fetch();
         const picture = getCurrentUser()
           .get("profilePicture")
-          .get("catPNG")._url;
+          .get("profilePicture")._url;
         setUserPicture(picture);
         const resultTarget = await getChosenLanguages(
           getCurrentUser(),
@@ -219,7 +218,10 @@ export default function Home() {
       <div className="home-page background">
         {loading ? (
           <div className="loading-overlay">
-            <p className="loading-text">Loading... We are finding another language learner for you to chat with.</p>
+            <p className="loading-text">
+              Loading... We are finding another language learner for you to chat
+              with.
+            </p>
           </div>
         ) : (
           <></>

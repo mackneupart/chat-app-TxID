@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../DesignSystem/grid.css";
 import "./PasswordReset.css";
 import Button from "../../Components/Button/Button";
 import { passwordReset } from "../../API/API";

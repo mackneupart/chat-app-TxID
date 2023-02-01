@@ -1,46 +1,17 @@
-.sign-in-page {
-  height: 100vh;
-  /*styling concerning its children*/
-  display: grid;
-  grid-template-columns: 30% 40% 30%;
-  grid-template-rows: 5% 90% 5%;
+
+
+
+.sign-in-box{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
-.sign-in-box {
-  /*styling concerning its children*/
-  /*
-    figuring out grid
-        top             20%
-        logo            10%
-        headerText      15%
-        Inputs          10%
-            username
-            password
-        Forgot           5%
-        logIn           10%
-        signUp          10%
-        bottom          20%
-    */
-  grid-template-rows: 20% 10% 15% 10% 5% 8% 6% 26%;
-  align-items: center;
-  justify-items: center;
-  row-gap: 2%;
-}
-
-.header-logo {
-  grid-row-start: 2;
-  width: calc(0.3 * 20vw);
-  height: auto;
-  margin-bottom: 10%;
-}
 .header-welcome {
-  grid-row-start: 3;
-  font-size: calc(0.4 * 15vw);
-  color: white;
+  font-size: 100px;
   text-shadow: 2px 2px black;
   margin-block: 0;
   padding: 0;
-  margin-bottom: 10%;
 }
 
 .inputs {

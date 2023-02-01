@@ -1,13 +1,6 @@
 import Parse from "parse";
 
-export async function createUser(
-  username,
-  password,
-  email,
-  nativeLangs,
-  targetLangs,
-  profilePicture
-) {
+export async function createUser(username, password, email, profilePicture) {
   try {
     const User = new Parse.User();
     User.set("username", username);
@@ -326,9 +319,9 @@ export async function getLanguages() {
   }
 }
 
-export async function getCatIcons() {
+export async function getProfileIcons() {
   try {
-    const queryIcons = new Parse.Query("CatIcons");
+    const queryIcons = new Parse.Query("ProfileIcon");
     return await queryIcons.find();
   } catch (error) {
     console.log(`Error when trying to get cat icons! ${error}`);

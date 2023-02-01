@@ -24,7 +24,7 @@ export default function Chat() {
     var images = [];
     for (var user of users) {
       if (user.id !== getCurrentUser().id) {
-        images.push(user.get("profilePicture").get("catPNG")._url);
+        images.push(user.get("profilePicture").get("profilePicture")._url);
         otherUsers.push(user);
       }
     }
