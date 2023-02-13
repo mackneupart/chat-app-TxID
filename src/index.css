@@ -6,3 +6,20 @@ body, html {
   padding: 0;
 }
 
+.background{
+  background-color: rgb(99, 99, 99);
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+button{
+
+  margin-top: 20px;
+  width: 80px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgb(77, 18, 186);
+  color: aliceblue;
+font-weight: bold;  
+}

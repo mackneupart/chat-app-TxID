@@ -28,8 +28,12 @@ export default function SignIn() {
     navigate("passwordReset");
   };
 
+  const goToSignup = () => {
+    navigate("signup");
+  };
+
   return (
-    <div>
+    <div className="background">
       <div className="sign-in-page">
         <img
           className="header-logo"
@@ -37,6 +41,7 @@ export default function SignIn() {
           alt="cat mascot"
         />
         <h1 className="header-welcome">WELCOME</h1>
+        <h6 className="header-under">TO CHIT CHAT</h6>
 
         <div className="sign-in-box">
           <form className="inputs">
@@ -66,10 +71,13 @@ export default function SignIn() {
           <div className="forgot-pass" onClick={goToPasswordRequest}>
             Forgot password?
           </div>
-          <button onClick={handleLogIn}>Log in</button>
-          <Link to="signUp">
-            <button>Sign Up</button>
-          </Link>
+          <button className="login-btn" onClick={handleLogIn}>
+            LOGIN
+          </button>
+
+          <button className="signup-btn" onClick={goToSignup}>
+            SIGN UP
+          </button>
         </div>
       </div>
     </div>

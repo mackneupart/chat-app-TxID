@@ -87,22 +87,15 @@ export async function deleteUser(user) {
   }
 }
 
-export async function createChat() {
-  const availableUsers = await nonMatchedUsers();
-  const otherUsers = await matchLanguages(availableUsers);
-  if (otherUsers.length > 0) {
-    const users = [getCurrentUser(), otherUsers[0]];
-    const [lan1, lan2] = await findCommonLanguages(users);
-    try {
-      const chat = new Parse.Object("Chat");
-      chat.set("language1", lan1[0]);
-      chat.set("language2", lan2[0]);
-      let usersRelation = chat.relation("users");
-      usersRelation.add(users);
-      return await chat.save();
-    } catch (error) {
-      console.log(`Error when trying to create a new chat! ${error}`);
-    }
+export async function createChat(user) {
+  const users = [getCurrentUser(), user];
+  try {
+    const chat = new Parse.Object("Chat");
+    let usersRelation = chat.relation("users");
+    usersRelation.add(users);
+    return await chat.save();
+  } catch (error) {
+    console.log(`Error when trying to create a new chat! ${error}`);
   }
   return false;
 }
@@ -113,10 +106,8 @@ export async function createGroupChat() {
     const user1 = otherUsers[0];
     const user2 = otherUsers[1];
     const users = [getCurrentUser(), user1, user2];
-    const lan1 = await matchTargetLanguage(users);
     try {
       const chat = new Parse.Object("Chat");
-      chat.set("language1", lan1[0][0]);
       let usersRelation = chat.relation("users");
       usersRelation.add(users);
       return await chat.save();
@@ -127,67 +118,6 @@ export async function createGroupChat() {
   return false;
 }
 
-//this function should be split out into several functions along with the other very similar functions
-async function findCommonLanguages(users) {
-  var numberOfUsers = 0;
-  for (var user in users) {
-    numberOfUsers = numberOfUsers + 1;
-  }
-  var currentTarget = [];
-  var currentNative = [];
-  const targetC = await getChosenLanguages(users[0], "targetLangs");
-  for (let key in targetC) {
-    currentTarget.push(targetC[key].get("name"));
-  }
-  const nativeC = await getChosenLanguages(users[0], "nativeLangs");
-  for (let key in nativeC) {
-    currentNative.push(nativeC[key].get("name"));
-  }
-  var matchedTarget = [];
-  var matchedNative = [];
-  var i = numberOfUsers - 1;
-  while (i > 0) {
-    let otherTarget = [];
-    let otherNative = [];
-    var targetO = await getChosenLanguages(users[i], "targetLangs");
-    for (let key in targetO) {
-      otherTarget.push(targetO[key].get("name"));
-    }
-    var nativeO = await getChosenLanguages(users[i], "nativeLangs");
-    for (let key in nativeO) {
-      otherNative.push(nativeO[key].get("name"));
-    }
-    matchedTarget.push(currentTarget.filter((e) => otherNative.includes(e)));
-    matchedNative.push(currentNative.filter((e) => otherTarget.includes(e)));
-    i = i - 1;
-  }
-  return [matchedTarget[0], matchedNative[0]];
-}
-
-async function matchTargetLanguage(users) {
-  var numberOfUsers = 0;
-  for (var user in users) {
-    numberOfUsers = numberOfUsers + 1;
-  }
-  var currentTarget = [];
-  const targetC = await getChosenLanguages(users[0], "targetLangs");
-  for (let key in targetC) {
-    currentTarget.push(targetC[key].get("name"));
-  }
-  var matchedTarget = [];
-  var i = numberOfUsers - 1;
-  while (i > 0) {
-    let otherTarget = [];
-    var targetO = await getChosenLanguages(users[i], "targetLangs");
-    for (let key in targetO) {
-      otherTarget.push(targetO[key].get("name"));
-    }
-    matchedTarget.push(currentTarget.filter((e) => otherTarget.includes(e)));
-    i = i - 1;
-  }
-  return [matchedTarget[0]];
-}
-
 export async function getChats() {
   try {
     const chatQuery = new Parse.Query("Chat");
@@ -196,6 +126,19 @@ export async function getChats() {
     return await chatQuery.find();
   } catch (error) {
     console.log(`Error when trying to read chats! ${error}`);
+  }
+}
+
+export async function listUsers() {
+  try {
+    const usersQuery = new Parse.Query("User");
+    usersQuery.notEqualTo("username", "mack");
+    const result = await usersQuery.find();
+
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.log(`error when listing users ${error}`);
   }
 }
 
