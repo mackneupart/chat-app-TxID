@@ -145,7 +145,6 @@ export default function Home() {
     <div className="background">
       <nav className="navbar">
         <h1 className="header">
-          {" "}
           <img
             className="header-logo"
             src="./Icons/welcome-cat.png"
