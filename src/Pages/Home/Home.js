@@ -135,15 +135,6 @@ export default function Home() {
     }
   }
 
-  // if (users) {
-  //   var otherUsers = [];
-  //   var images = [];
-  //   for (var user of users) {
-  //     images.push(user.get("profilePicture").get("profilePicture")._url);
-  //     otherUsers.push(user);
-  //   }
-  // }
-
   return (
     <>
       <MyNavbar />
@@ -163,7 +154,6 @@ export default function Home() {
                 : "not working"}
             </div>
             <div className="user-buttons">
-              <Button click={handleDeleteUser} text="Delete" />
               <Button click={handleLogOut} text="Logout" />
             </div>
           </div>
@@ -172,14 +162,14 @@ export default function Home() {
             <h4>Users:</h4>
             <div className="list-of-users">
               {users.map((user) => (
-                <div>
-                  <p
-                    className="users"
+                <ul className="list-group">
+                  <li
+                    className="list-group-item"
                     onClick={() => addChat(user.get("username"))}
                   >
-                    {user.get("username")}
-                  </p>
-                </div>
+                    <p className="users">{user.get("username")}</p>
+                  </li>
+                </ul>
               ))}
             </div>
           </div>

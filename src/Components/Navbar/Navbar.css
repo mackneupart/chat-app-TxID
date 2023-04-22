@@ -20,3 +20,10 @@ background-color: grey;
     color: green;
     font-size: 12px;
 }
+
+.dropdown-item{
+    font-size: 8px;
+}
+.dropdown-item:hover{
+cursor: pointer;
+}
