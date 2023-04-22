@@ -49,18 +49,6 @@ export default function ChatListItem({ chat, deleteChat }) {
         </div>
 
         <div className="chat-list-item-box" onClick={handleClick}>
-          <div className="chat-list-item-img-box">
-            {images.map((image, index) => {
-              return (
-                <img
-                  key={index}
-                  className="chat-list-item-img"
-                  src={image}
-                  alt="Other users profile icon"
-                />
-              );
-            })}
-          </div>
           <div className="chat-list-item-info">
             {otherUsers.map((otherUser) => {
               return (

@@ -7,6 +7,7 @@ import PasswordReset from "./Pages/PasswordRequest.js/PasswordReset";
 import Chat from "./Pages/Chat/Chat";
 import Parse from "parse";
 import { initializeParse } from "@parse/react";
+import Faq from "./Pages/FAQ/Faq";
 
 const ParseAppID = process.env.REACT_APP_PARSE_APPLICATION_ID;
 const ParseHostURL = process.env.REACT_APP_PARSE_HOST_URL;
@@ -29,9 +30,8 @@ export default function App() {
           path="passwordReset"
           element={<PasswordReset page="PasswordReset" />}
         />
+        <Route path="/faq" element={<Faq page="Faq" />} />
       </Routes>
     </BrowserRouter>
   );
 }
-
-

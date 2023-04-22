@@ -4,14 +4,16 @@
 }
 
 .delete-chat-button {
-  display: flex;
-  margin-left: auto;
   border-radius: 5px;
   border: solid black 1px;
+  font-size: 10px;
+  width: fit-content;
 }
 .delete-chat {
-  margin-top: 5%;
+  margin-top: 2%;
 }
 .delete-chat-button:hover {
   cursor: pointer;
 }
+
+

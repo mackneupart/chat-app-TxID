@@ -1,9 +1,16 @@
 .button-default {
-  background-color: var(--blue-500);
-  height: 42px;
-  width: 122px;
-  border-radius: 10px;
-  cursor: pointer;
-  color: white;
-}
-
+  background-color: limegreen;
+  font-size: 12px;
+    height: auto;
+    border-radius: 10px;
+    cursor: pointer;
+    color: black;
+    margin: 0 auto;
+    padding: 10px;
+    width: auto;
+    max-width: 200px;
+    display: inline-block;
+    white-space: normal;
+    text-align: center;
+    margin-top: 5px;
+  }

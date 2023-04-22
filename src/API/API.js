@@ -87,17 +87,22 @@ export async function deleteUser(user) {
   }
 }
 
-export async function createChat(user) {
-  const users = [getCurrentUser(), user];
+export async function createChat(otherUser) {
   try {
+    const usersQuery = new Parse.Query("User");
+    const otherUserObj = await usersQuery
+      .equalTo("username", otherUser)
+      .first();
+    const currentUser = getCurrentUser();
+    const users = [currentUser, otherUserObj];
     const chat = new Parse.Object("Chat");
     let usersRelation = chat.relation("users");
     usersRelation.add(users);
     return await chat.save();
   } catch (error) {
     console.log(`Error when trying to create a new chat! ${error}`);
+    throw new Error("Chat creation failed.");
   }
-  return false;
 }
 
 export async function createGroupChat() {
@@ -132,7 +137,7 @@ export async function getChats() {
 export async function listUsers() {
   try {
     const usersQuery = new Parse.Query("User");
-    usersQuery.notEqualTo("username", "mack");
+    usersQuery.notEqualTo("username", getCurrentUser().get("username"));
     const result = await usersQuery.find();
 
     console.log(result);
@@ -150,10 +155,6 @@ async function getRelationObjects(object, relationName) {
   }
 }
 
-export async function getChosenLanguages(user, languageType) {
-  return await getRelationObjects(user, languageType);
-}
-
 export async function getUsersInChat(chat) {
   const users = await getRelationObjects(chat, "users");
   try {
@@ -168,70 +169,6 @@ export async function getUsersInChat(chat) {
 
 export function getCurrentUser() {
   return Parse.User.current();
-}
-
-async function nonMatchedUsers() {
-  const chats = await getChats();
-  const userNames = new Set();
-  for (let chat of chats) {
-    const users = await getUsersInChat(chat);
-    for (let user of users) {
-      userNames.add(user.get("username"));
-    }
-  }
-  userNames.add(getCurrentUser().get("username"));
-  const userNamesArray = [...userNames];
-  try {
-    const usersQuery = new Parse.Query("User");
-    usersQuery.notContainedIn("username", userNamesArray);
-    return await usersQuery.find();
-  } catch (error) {
-    console.log(
-      `Error when trying to get all non matched users: ${error.message}`
-    );
-  }
-}
-
-function createArray(object, attribute) {
-  var array = [];
-  for (let key in object) {
-    array.push(object[key].get(attribute));
-  }
-  return array;
-}
-
-async function matchLanguages(users) {
-  const currentUser = getCurrentUser();
-  const currentTarget = await getRelationObjects(currentUser, "targetLangs");
-  const currentNative = await getRelationObjects(currentUser, "nativeLangs");
-  const currentTargetLanguages = createArray(currentTarget, "name");
-  const currentNativeLanguages = createArray(currentNative, "name");
-  var includeUsers = [];
-  for (let key in users) {
-    const otherNative = await getRelationObjects(users[key], "nativeLangs");
-    const otherNativeLanguages = createArray(otherNative, "name");
-    const otherTarget = await getRelationObjects(users[key], "targetLangs");
-    const otherTargetLanguages = createArray(otherTarget, "name");
-    const existsTarget = currentTargetLanguages.some(
-      (language) => otherNativeLanguages.indexOf(language) >= 0
-    );
-    const existsNative = currentNativeLanguages.some(
-      (language) => otherTargetLanguages.indexOf(language) >= 0
-    );
-    if (existsTarget || existsNative) {
-      let username = users[key].get("username");
-      includeUsers.push(username);
-    }
-  }
-  try {
-    const usersQuery = new Parse.Query("User");
-    usersQuery.containedIn("username", includeUsers);
-    return await usersQuery.find();
-  } catch (error) {
-    console.log(
-      `Error when trying to get all non matched users: ${error.message}`
-    );
-  }
 }
 
 async function getUsersForGroup() {

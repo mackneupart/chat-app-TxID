@@ -14,12 +14,15 @@ import {
   createGroupChat,
   listUsers,
 } from "../../API/API";
+import MyNavbar from "../../Components/Navbar/MyNavBar";
+import Footer from "../../Components/Footer/Footer";
 
 export default function Home() {
   const navigate = useNavigate();
   const [chatList, setChatList] = useState([]);
   const [userPicture, setUserPicture] = useState();
   const [users, setUsers] = useState([]);
+  // const [user, setUser] = useState("");
 
   useEffect(() => {
     if (getCurrentUser() === null) {
@@ -102,9 +105,9 @@ export default function Home() {
     }
   }
 
-  async function addChat() {
+  async function addChat(user) {
     try {
-      const chat = await createChat();
+      const chat = await createChat(user);
       if (chat) {
         navigate("/Chat", {
           state: { chat: chat },
@@ -142,78 +145,61 @@ export default function Home() {
   // }
 
   return (
-    <div className="background">
-      <nav className="navbar">
-        <h1 className="header">
-          <img
-            className="header-logo"
-            src="./Icons/welcome-cat.png"
-            alt="cat mascot"
-          />
-          CHIT CHAT
-        </h1>
-        {/* <img className="burger-bar" src="./Icons/bar.png" alt="menu" /> */}
-      </nav>
-      <div className="user-box">
-        <div className="user-info">
-          <img
-            className="profile-img"
-            src={getCurrentUser() ? userPicture : errorKitten}
-            alt="the users profile pic"
-          />
+    <>
+      <MyNavbar />
+      <div className="container-fluid content-items">
+        <div className="row">
+          <div className="col-12 col-md-4 user-info">
+            <img
+              className="profile-img"
+              src={getCurrentUser() ? userPicture : errorKitten}
+              alt="the users profile pic"
+            />
 
-          <div className="user-info-detail">Username: </div>
-          <div className="user-info-placeholder">
-            {getCurrentUser() !== null
-              ? getCurrentUser().get("username")
-              : "not working"}
-          </div>
-          <div className="user-buttons">
-            <button onClick={handleDeleteUser}>Delete</button>
-            <button onClick={handleLogOut}>Log out</button>
-          </div>
-        </div>
-        <div className="container-users">
-          <h4>Users:</h4>
-          <div className="list-of-users">
-            {users.map((user) => (
-              <div>
-                <p>{user.get("username")}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-        {/* <div className="list-of-images">
-          {images.length > 0 &&
-            images.map((image, index) => (
-              <div>
-                <img key={index} src={image} />
-              </div>
-            ))}
-        </div> */}
-      </div>
-
-      <div className="chat-overview">
-        <div className="chat">
-          {chatList.length !== 0 ? (
-            <ChatList chatList={chatList} deleteChat={handleDeleteChat} />
-          ) : (
-            <div className="no-chat">
-              <p>You currently have no active chats.</p>
-              <p>Press 'New Chat' to start a new conversation.</p>
-              <p>Pres 'New Group Chat' to do nothing</p>
+            <div className="user-info-detail">Username: </div>
+            <div className="user-info-placeholder">
+              {getCurrentUser() !== null
+                ? getCurrentUser().get("username")
+                : "not working"}
             </div>
-          )}
+            <div className="user-buttons">
+              <Button click={handleDeleteUser} text="Delete" />
+              <Button click={handleLogOut} text="Logout" />
+            </div>
+          </div>
+
+          <div className="col-12 col-md-4 list-heading">
+            <h4>Users:</h4>
+            <div className="list-of-users">
+              {users.map((user) => (
+                <div>
+                  <p
+                    className="users"
+                    onClick={() => addChat(user.get("username"))}
+                  >
+                    {user.get("username")}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="col-12 col-md-4">
+            <div className="chat-overview">
+              <div className="chat">
+                {chatList.length !== 0 ? (
+                  <ChatList chatList={chatList} deleteChat={handleDeleteChat} />
+                ) : (
+                  <div className="no-chat">
+                    <p>You currently have no active chats.</p>
+                    <p>Click on a username to start a chat.</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="new-chats">
-        <div className="new-chat">
-          <Button text="New Chat" click={addChat} />
-        </div>
-        <div className="new-group-chat">
-          <Button text="New Group Chat" click={addGroupChat} />
-        </div>
-      </div>
-    </div>
+      <Footer />
+    </>
   );
 }

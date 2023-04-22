@@ -37,9 +37,9 @@
 }
 
 .input-field {
-  border-radius: 2px;
-  width: calc(0.4 * 50vw);
-  height: inherit;
+  border-radius: 10px;
+  width: 200px;
+  height: 40px;
   margin-left: auto;
 }
 
@@ -59,16 +59,3 @@
   cursor: pointer;
 }
 
-.login-btn {
-  margin-top: 20px;
-width: 80px;
-margin-left: auto;
-margin-right: auto;
-}
-
-.signup-btn {
-  margin-top: 20px;
-width: 80px;
-margin-left: auto;
-margin-right: auto;
-}

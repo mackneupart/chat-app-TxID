@@ -71,13 +71,9 @@ export default function SignIn() {
           <div className="forgot-pass" onClick={goToPasswordRequest}>
             Forgot password?
           </div>
-          <button className="login-btn" onClick={handleLogIn}>
-            LOGIN
-          </button>
 
-          <button className="signup-btn" onClick={goToSignup}>
-            SIGN UP
-          </button>
+          <Button className="login-btn" text="LOGIN" click={handleLogIn} />
+          <Button className="signup-btn" text="SIGNUP" click={goToSignup} />
         </div>
       </div>
     </div>

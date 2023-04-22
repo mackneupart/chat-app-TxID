@@ -1,0 +1,22 @@
+.navbar-brand{
+color: limegreen!important;
+font-size: 40px;
+}
+.navbar-brand:hover{
+    cursor: pointer;
+}
+.nav-link:hover{
+    cursor: pointer;
+}
+
+.navbar{
+    background-color: lightgray;
+}
+.navbar-toggler{
+background-color: grey;
+}
+
+.nav-link{
+    color: green;
+    font-size: 12px;
+}
