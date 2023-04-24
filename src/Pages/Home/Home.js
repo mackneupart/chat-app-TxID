@@ -138,8 +138,8 @@ export default function Home() {
   return (
     <>
       <MyNavbar />
-      <div className="container-fluid content-items">
-        <div className="row">
+      <div className="container-fluid content-items d-flex flex-column">
+        <div className="row flex-grow-1">
           <div className="col-12 col-md-4 user-info">
             <img
               className="profile-img"
@@ -173,7 +173,9 @@ export default function Home() {
               ))}
             </div>
           </div>
-          <div className="col-12 col-md-4">
+          <div className="col-12 col-md-4 list-heading">
+            <h4>Current chats: </h4>
+
             <div className="chat-overview">
               <div className="chat">
                 {chatList.length !== 0 ? (
@@ -189,7 +191,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <Footer />
+      <Footer className="footer" />
     </>
   );
 }

@@ -1,5 +1,4 @@
 .chat-list-item-box:hover {
-  transform: scale(1.02);
   cursor: pointer;
 }
 
@@ -11,9 +10,15 @@
 }
 .delete-chat {
   margin-top: 2%;
+  width: fit-content;
 }
 .delete-chat-button:hover {
   cursor: pointer;
 }
 
+
+.chat-list-item-info-name{
+  width: 250px;
+  height: 100% !important;
+}
 

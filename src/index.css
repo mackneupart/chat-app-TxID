@@ -4,6 +4,10 @@ body, html {
   height: 100%;
   margin: 0;
   padding: 0;
+  background-color: grey;
+  overflow-x: hidden;
+
+  
 }
 
 .background{
@@ -19,7 +23,7 @@ button{
   width: 80px;
   margin-left: auto;
   margin-right: auto;
-  background-color: rgb(77, 18, 186);
+  background-color: rgb(89, 0, 255);
   color: aliceblue;
 font-weight: bold;  
 }
@@ -35,3 +39,4 @@ font-weight: bold;
   background-color: limegreen;
   border-radius: 10px;
 }
+

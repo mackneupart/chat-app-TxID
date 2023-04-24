@@ -1,0 +1,9 @@
+.footer-custom{
+    background-color: lightslategray;
+    height: 35px;
+    padding-top: 10px;
+}
+
+.footer-text{
+    font-size: 12px;
+}

@@ -127,9 +127,7 @@ export default function SignUp() {
             />
           </div>
         </div>
-        <button className="sign-up-btn" onClick={handleSubmit}>
-          Sign up
-        </button>
+        <Button className="sign-up" text="Sign up" click={handleSubmit} />
       </div>
     </div>
   );

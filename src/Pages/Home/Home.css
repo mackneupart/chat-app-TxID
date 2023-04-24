@@ -8,7 +8,8 @@
 
 }
 .user-info{
-  margin-top: 2%;
+  margin-top: 15px;
+  padding-left: 100px;
 }
 .user-info-placeholder{
   color: aliceblue;
@@ -19,37 +20,45 @@
 
 .list-of-users{
   overflow-y: scroll;
-  background-color: grey;
+  background-color: lightslategray;
   border: solid black 2px;
   padding: 10px;
   max-height: 450px;
   width:300px;
-  margin-top: 10%;
 }
 
-.list-group-item{
-  margin-top: 15px;
+#log-out-btn:hover{
+transform: scale(1.2);
 }
+
+
 .list-group-item:hover{
 background-color: limegreen;
 cursor: pointer;
 }
 .chat-overview{
-  margin-top: 28%;
-  background-color: antiquewhite;
+  background-color: lightslategray;
+  border: black solid 2px;
   overflow-y: scroll;
-  max-height: 150px;
+  height: 350px;
+  padding: 20px;
+  max-width:400px;
 
 
 }
 .list-heading{
-  margin-top: 2%;
+  margin-top: 15px;
 }
 .users:hover{
   cursor: pointer;
 }
 
+.footer{
+margin-top: auto;
+}
+
 .content-items{
-  background-color: rgb(99, 99, 99);
-  height: 100%;
+  height: 100vh;
+  max-height: calc(100vh - 122px);
+
 }

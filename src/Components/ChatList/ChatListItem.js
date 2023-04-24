@@ -37,7 +37,7 @@ export default function ChatListItem({ chat, deleteChat }) {
     }
 
     return (
-      <div>
+      <div className="chat-list">
         <div className="delete-chat">
           {location.pathname === "/home" ? (
             <button className="delete-chat-button" onClick={handleDeleteChat}>
@@ -47,17 +47,20 @@ export default function ChatListItem({ chat, deleteChat }) {
             ""
           )}
         </div>
-
-        <div className="chat-list-item-box" onClick={handleClick}>
-          <div className="chat-list-item-info">
+        <div className="chat-list-item-box">
+          <ul className="chat-list-item-info list-group">
             {otherUsers.map((otherUser) => {
               return (
-                <div key={otherUser.id} className="chat-list-item-info-name">
+                <li
+                  key={otherUser.id}
+                  onClick={handleClick}
+                  className="chat-list-item-info-name list-group-item"
+                >
                   {otherUser.get("username")}
-                </div>
+                </li>
               );
             })}
-          </div>
+          </ul>
         </div>
       </div>
     );

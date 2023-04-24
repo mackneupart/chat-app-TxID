@@ -8,7 +8,9 @@
   margin-left: 20%;
   background-color: black;
   height: 100%;
+  padding: 40px;
 }
+
 
 .selected-pic{
   width: 78px;
@@ -19,6 +21,16 @@
   display: flex;
   justify-content: space-between;
 }
+.picture-selection > img:hover{
+  cursor:pointer;
+  transform: scale(1.2);
+}
+
+.picture-box{
+  background: rgb(89, 0, 255);
+  padding: 20px;
+
+}
 
 .input-container{
   display: flex;
@@ -28,8 +40,9 @@
 
 .profile-input{
   font-size: 12px;
+  margin-top: 20px;
 }
 
-.sign-up-btn{
-  margin-top: 22px;
+.sign-up > button-default{
+  margin-top: 242px;
 }
