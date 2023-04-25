@@ -11,10 +11,6 @@
   box-shadow: 6px 4px var(--light-grey-900);
 }
 
-.search {
-  padding: 0;
-  margin: 2%;
-}
 
 .chat-list-scroll {
   grid-row-start: 2;

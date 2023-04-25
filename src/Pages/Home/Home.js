@@ -48,10 +48,7 @@ export default function Home() {
   async function getUsers() {
     try {
       const result = await listUsers();
-      for (let i = 0; i < result.length; i++) {
-        users[i] = result[i];
-      }
-      setUsers(users);
+      setUsers(result);
     } catch (error) {
       console.log(`Error when trying to get all users: ${error}`);
     }
@@ -72,23 +69,6 @@ export default function Home() {
   async function handleLogOut() {
     if (await logOut()) {
       navigate("/");
-    }
-  }
-
-  async function handleDeleteUser() {
-    const prompt =
-      "Are you sure you want to delete your account? Press OK to delete.";
-    if (window.confirm(prompt)) {
-      try {
-        await deleteUser(getCurrentUser());
-        navigate("/");
-        alert(
-          "Your user was succesfully deleted. You're welcome back anytime!"
-        );
-      } catch (error) {
-        alert(`Your user wasn't deleted properly. Please try again. ${error}`);
-        console.log(`Error when trying to delte user! ${error}`);
-      }
     }
   }
 
@@ -117,21 +97,6 @@ export default function Home() {
       }
     } catch (error) {
       console.log(`Error when adding a new chat: ${error}`);
-    }
-  }
-
-  async function addGroupChat() {
-    try {
-      const chat = await createGroupChat();
-      if (chat) {
-        navigate("/Chat", {
-          state: { chat: chat },
-        });
-      } else {
-        alert(`You have matched with all available users :D `);
-      }
-    } catch (error) {
-      console.log(`Error when adding a new group chat: ${error}`);
     }
   }
 
@@ -165,8 +130,7 @@ export default function Home() {
                 <ul className="list-group">
                   <li
                     className="list-group-item"
-                    onClick={() => addChat(user.get("username"))}
-                  >
+                    onClick={() => addChat(user.get("username"))}>
                     <p className="users">{user.get("username")}</p>
                   </li>
                 </ul>

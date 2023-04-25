@@ -18,10 +18,8 @@ export default function ChatListItem({ chat, deleteChat }) {
 
   if (users) {
     var otherUsers = [];
-    var images = [];
     for (var user of users) {
       if (user.id !== getCurrentUser().id) {
-        images.push(user.get("profilePicture").get("profilePicture")._url);
         otherUsers.push(user);
       }
     }
@@ -54,8 +52,7 @@ export default function ChatListItem({ chat, deleteChat }) {
                 <li
                   key={otherUser.id}
                   onClick={handleClick}
-                  className="chat-list-item-info-name list-group-item"
-                >
+                  className="chat-list-item-info-name list-group-item">
                   {otherUser.get("username")}
                 </li>
               );

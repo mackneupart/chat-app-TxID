@@ -105,24 +105,6 @@ export async function createChat(otherUser) {
   }
 }
 
-export async function createGroupChat() {
-  const otherUsers = await getUsersForGroup();
-  if (otherUsers.length > 1) {
-    const user1 = otherUsers[0];
-    const user2 = otherUsers[1];
-    const users = [getCurrentUser(), user1, user2];
-    try {
-      const chat = new Parse.Object("Chat");
-      let usersRelation = chat.relation("users");
-      usersRelation.add(users);
-      return await chat.save();
-    } catch (error) {
-      console.log(`Error when trying to create a new chat! ${error}`);
-    }
-  }
-  return false;
-}
-
 export async function getChats() {
   try {
     const chatQuery = new Parse.Query("Chat");
@@ -139,8 +121,6 @@ export async function listUsers() {
     const usersQuery = new Parse.Query("User");
     usersQuery.notEqualTo("username", getCurrentUser().get("username"));
     const result = await usersQuery.find();
-
-    console.log(result);
     return result;
   } catch (error) {
     console.log(`error when listing users ${error}`);
@@ -156,6 +136,11 @@ async function getRelationObjects(object, relationName) {
 }
 
 export async function getUsersInChat(chat) {
+  if (!chat || !chat.relation) {
+    console.log(`Invalid chat object: ${chat}`);
+    return [];
+  }
+
   const users = await getRelationObjects(chat, "users");
   try {
     for (let user of users) {
@@ -169,34 +154,6 @@ export async function getUsersInChat(chat) {
 
 export function getCurrentUser() {
   return Parse.User.current();
-}
-
-async function getUsersForGroup() {
-  const currentUser = getCurrentUser();
-  const targetLanguages = await getRelationObjects(currentUser, "targetLangs");
-  try {
-    const usersQuery = new Parse.Query("User");
-    usersQuery.notEqualTo("username", currentUser.get("username"));
-    for (let key in targetLanguages) {
-      usersQuery.equalTo("targetLangs", targetLanguages[key]);
-    }
-    return await usersQuery.find();
-  } catch (error) {
-    console.log(
-      `Error when trying to get new users for a group chat: ${error.message}`
-    );
-  }
-}
-
-export async function getLanguages() {
-  try {
-    const languageQuery = new Parse.Query("Language");
-    languageQuery.ascending("name");
-    languageQuery.includeAll();
-    return await languageQuery.find();
-  } catch (error) {
-    console.log(`Error while getting language options: ${error.message}`);
-  }
 }
 
 export async function getProfileIcons() {
@@ -226,6 +183,15 @@ async function passwordResetHelper(email) {
     console.log(`Error when trying to reset password! ${error}`);
     return false;
   }
+}
+export async function refreshSessionToken() {
+  const currentUser = Parse.User.current();
+  const sessionToken = currentUser.getSessionToken();
+  const response = await Parse.Cloud.run("refreshSessionToken", {
+    sessionToken,
+  });
+  currentUser._sessionToken = response.sessionToken;
+  localStorage.setItem("Parse/sessionToken", response.sessionToken);
 }
 
 export async function passwordReset(email) {

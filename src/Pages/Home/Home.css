@@ -60,5 +60,6 @@ margin-top: auto;
 .content-items{
   height: 100vh;
   max-height: calc(100vh - 122px);
+  padding-top: 50px;
 
 }

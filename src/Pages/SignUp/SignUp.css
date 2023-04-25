@@ -6,7 +6,7 @@
   align-items: center;
   margin-right: 20%;
   margin-left: 20%;
-  background-color: black;
+  background: url("../../../public/Icons/space.jpg");
   height: 100%;
   padding: 40px;
 }
@@ -27,7 +27,7 @@
 }
 
 .picture-box{
-  background: rgb(89, 0, 255);
+  background: rgb(19, 1, 67);
   padding: 20px;
 
 }

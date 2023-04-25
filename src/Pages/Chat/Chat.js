@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import ChatBox from "../../Components/ChatBox/ChatBox";
 import ChatSidebar from "../../Components/ChatSidebar/ChatSidebar";
+import Button from "../../Components/Button/Button";
+import Footer from "../../Components/Footer/Footer";
 import { getCurrentUser, getUsersInChat } from "../../API/API";
 import "./Chat.css";
 
@@ -33,15 +35,17 @@ export default function Chat() {
       navigate("/home");
     }
 
+    const goBackHandler = () => {
+      navigate("/home");
+    };
+
     return (
       <div className="chat-page">
-        <img
-          key={chat.id}
-          className="home-icon"
-          src="./Icons/home.png"
-          alt="Home icon"
-          onClick={goHome}
-        />
+        <Button className="go-back" text="back" click={goBackHandler} />
+
+        <div className="chat-sidebar">
+          <ChatSidebar classnamee="chat-sdbar" chat={chat} />
+        </div>
         <div className="chat-partner">
           {images.map((image, index) => {
             return (
@@ -60,9 +64,6 @@ export default function Chat() {
               </header>
             );
           })}
-        </div>
-        <div className="chat-sidebar">
-          <ChatSidebar chat={chat} />
         </div>
         <ChatBox chat={chat} />
       </div>
